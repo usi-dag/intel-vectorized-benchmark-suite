@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="tower (4d537ed2-9581-4e8b-b9a6-c679f1a94257)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/intel-vectorized-benchmark-suite" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
