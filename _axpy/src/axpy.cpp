@@ -11,7 +11,9 @@
 #include "axpy.h"
 #include <iostream>
 
+#ifdef USE_VECTOR_INTRINSIC
 #include "../../common/vector_defines.h"
+
 
 void axpy_intrinsics(double a, double *dx, double *dy, int n) {
   int i;
@@ -38,6 +40,7 @@ void axpy_intrinsics(double a, double *dx, double *dy, int n) {
 
 //FENCE();
 }
+#endif
 
 // Ref version
 void axpy_ref(double a, double *dx, double *dy, int n) {
@@ -49,12 +52,7 @@ void axpy_ref(double a, double *dx, double *dy, int n) {
 
 void init_vector(double *pv, long n, double value)
 {
-
-    std::cout << n << std::endl;
     for (int i=0; i<n; i++) {
-        std::cout << i << std::endl;
         pv[i] = value;
     }
-    std::cout << "hi\n\n" << std::endl;
-
 }

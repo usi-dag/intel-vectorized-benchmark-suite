@@ -5,6 +5,7 @@
 #include <immintrin.h>
 #include <x86intrin.h>
 #include <string.h>
+#include <vector>
 
 
 #define _MM_ALIGN64 __attribute__((aligned (64)))
@@ -236,6 +237,8 @@ inline float _mm256_reduce_lane_add_ps(_MMR_f32 vec) {
     for (int i = 0; i < SPECIES_32; ++i) {
         result += val[i];
     }
+
+    return result;
 }
 
 // #define _MM_REDSUM_f64_MASK __builtin_epi_vfredsum_1xf64_mask
@@ -254,7 +257,11 @@ inline float _mm256_reduce_lane_add_ps(_MMR_f32 vec) {
 
 //#define _MM_MACC_f32  		_mm256_fmadd_ps // first param c in riscv is last in intel intrinsic (c, a, b) -> (a, b, c)
 
-#define _MM_MADD_f64  		_mm256_fmadd_pd // __builtin_epi_vfmadd_1xf64
+#define _MM_MADD_f64  	fma_f64// _mm256_fmadd_pd // __builtin_epi_vfmadd_1xf64
+inline _MMR_f64 fma_f64(_MMR_f64 a, _MMR_f64 b, _MMR_f64 c) {
+    return _MM_ADD_f64(_MM_MUL_f64(a, b), c);
+}
+
 #define _MM_MADD_f32  		_mm256_fmadd_ps
 
 //---------------------------------------------------------------------------
@@ -342,8 +349,8 @@ inline float _mm256_reduce_lane_add_ps(_MMR_f32 vec) {
 // #define _MM_VMFIRST_i32 	__builtin_epi_vmfirst_2xi1
 
 inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
-    int val[dimension];
-    memcpy(val, &mask, dimension);
+    std::vector<int> val(mask, dimension);
+//    memcpy(val, &mask, dimension);
     for (int i = 0; i < dimension; i++) {
         if (val[i] != 0) {
             return i;
@@ -357,8 +364,8 @@ inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
 
 inline int trueCount(_MMR_MASK_i64 a, int dimension) {
     int res = 0;
-    int val[dimension];
-    memcpy(val, &a, dimension);
+    std::vector<int> val(a, dimension);
+//    memcpy(val, &a, dimension);
     for (int i = 0; i < dimension; i++) {
         if (val[i] != 0) res++;
     }

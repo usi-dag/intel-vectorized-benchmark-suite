@@ -5,7 +5,10 @@
 #ifndef INTEL_VECTORIZED_BENCHMARK_SUITE_AXPY_H
 #define INTEL_VECTORIZED_BENCHMARK_SUITE_AXPY_H
 
+#ifdef USE_VECTOR_INTRINSIC
 void axpy_intrinsics(double a, double *dx, double *dy, int n);
+#endif
+
 
 void axpy_ref(double a, double *dx, double *dy, int n);
 
