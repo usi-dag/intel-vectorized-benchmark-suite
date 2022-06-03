@@ -1,15 +1,14 @@
+//
+// Created by mini on 02.05.22.
+// FROM THE WORK OF
 /*************************************************************************
 * Vectorized Axpy Kernel
 * Author: Jesus Labarta
 * Barcelona Supercomputing Center
 *************************************************************************/
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <assert.h>
 #include "axpy.h"
-#include <iostream>
+
 
 #ifdef USE_VECTOR_INTRINSIC
 #include "../../common/vector_defines.h"
