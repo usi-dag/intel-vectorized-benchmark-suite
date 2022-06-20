@@ -5,7 +5,9 @@
 #ifndef INTEL_VECTORIZED_BENCHMARK_SUITE_MEMORY_MANAGER_H
 #define INTEL_VECTORIZED_BENCHMARK_SUITE_MEMORY_MANAGER_H
 
-#ifdef MEMORY_PROFILER
+#include <memory>
+#include <benchmark/benchmark.h>
+
 class CustomMemoryManager: public benchmark::MemoryManager {
 public:
 
@@ -26,9 +28,10 @@ public:
 
 std::unique_ptr<CustomMemoryManager> mm(new CustomMemoryManager());
 
+#ifdef MEMORY_PROFILER
 void *custom_malloc(size_t size) {
     void *p = malloc(size);
-    std::cout << "Size: " << size << std::endl;
+//    std::cout << "Size: " << size << std::endl;
     mm.get()->num_allocs += 1;
     mm.get()->max_bytes_used += size;
     return p;

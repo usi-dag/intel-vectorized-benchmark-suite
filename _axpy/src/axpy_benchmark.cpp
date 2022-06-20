@@ -1,14 +1,7 @@
-/*************************************************************************
-* Axpy Kernel
-* Author: Jesus Labarta
-* Barcelona Supercomputing Center
-*************************************************************************/
-
-
 #include <iostream>
 #include <memory>
 #include <benchmark/benchmark.h>
-
+#include "../../common/memory_manager.h"
 //#ifdef __cplusplus
 //extern "C"
 //{
@@ -17,7 +10,7 @@
 // C header here
 #include "axpy.h"
 #include "../../common/vector_defines.h"
-#include "../../common/memory_manager.h"
+
 
 //#ifdef __cplusplus
 //}
@@ -39,32 +32,18 @@ static void DoSetup(const benchmark::State& state) {
 
 
 
-static void BM_serial(benchmark::State& state) {
+static void BM_axpy(benchmark::State& state) {
     for (auto _ : state)
-        axpy_ref(a, dx, dy, n);
-}
-// Register the function as a benchmark
-
-BENCHMARK(BM_serial)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10);// ->ComputeStatistics(); //->RegisterMemoryManager(benchmark::MemoryManager);
-
-// Define another benchmark
-static void BM_vector(benchmark::State& state) {
-
-    for (auto _ : state)
+#ifdef USE_VECTOR_INTRINSIC
         axpy_intrinsics(a, dx, dy, n);
+#else
+        axpy_ref(a, dx, dy, n);
+#endif
 }
-BENCHMARK(BM_vector)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10);
 
 
+BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10);
 
-//static void BM_memory(benchmark::State& state) {
-//    for (auto _ : state)
-//        for (int i =0; i < 10; i++) {
-//            benchmark::DoNotOptimize((int *) malloc(10 * sizeof(int *)));
-//        }
-//}
-//
-//BENCHMARK(BM_memory)->Unit(benchmark::kMillisecond)->Iterations(18);
 
 //BENCHMARK_MAIN();
 int main(int argc, char** argv)

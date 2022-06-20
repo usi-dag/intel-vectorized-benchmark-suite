@@ -7,6 +7,8 @@
 #include <string.h>
 #include <vector>
 
+using namespace std;
+
 
 #define _MM_ALIGN64 __attribute__((aligned (64)))
 
@@ -219,25 +221,26 @@ inline _MMR_f32 _mm256_abs_ps(_MMR_f32 vec) {
 // TODO vectorize https://stackoverflow.com/questions/49941645/get-sum-of-values-stored-in-m256d-with-sse-avx
 inline double _mm256_reduce_lane_add_pd(_MMR_f64 vec) {
     double result = 0;
-    double val[SPECIES_64];
-    memcpy(val, &vec, sizeof(val));
+    double * val = new double[SPECIES_64];
+    memcpy(val, &vec, SPECIES_64);
 
     for (int i = 0; i < SPECIES_64; ++i) {
         result += val[i];
     }
 
+    delete[] val;
     return result;
 }
 #define _MM_REDSUM_f32  	_mm256_reduce_lane_add_ps // _mm256_reduce_add_ps // __builtin_epi_vfredsum_2xf32
 inline float _mm256_reduce_lane_add_ps(_MMR_f32 vec) {
     float result = 0;
-    float val[SPECIES_32];
-    memcpy(val, &vec, sizeof(val));
+    float * val = new float[SPECIES_32];
+    memcpy(val, &vec, SPECIES_32);
 
     for (int i = 0; i < SPECIES_32; ++i) {
         result += val[i];
     }
-
+    delete[] val;
     return result;
 }
 
@@ -262,7 +265,10 @@ inline _MMR_f64 fma_f64(_MMR_f64 a, _MMR_f64 b, _MMR_f64 c) {
     return _MM_ADD_f64(_MM_MUL_f64(a, b), c);
 }
 
-#define _MM_MADD_f32  		_mm256_fmadd_ps
+#define _MM_MADD_f32  		fma_f32 // _mm256_fmadd_ps
+inline _MMR_f32 fma_f32(_MMR_f32 a, _MMR_f32 b, _MMR_f32 c) {
+    return _MM_ADD_f32(_MM_MUL_f32(a, b), c);
+}
 
 //---------------------------------------------------------------------------
 // CONVERSION INTRINSICS
@@ -349,13 +355,17 @@ inline _MMR_f64 fma_f64(_MMR_f64 a, _MMR_f64 b, _MMR_f64 c) {
 // #define _MM_VMFIRST_i32 	__builtin_epi_vmfirst_2xi1
 
 inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
-    std::vector<int> val(mask, dimension);
-//    memcpy(val, &mask, dimension);
+//    std::vector<int> val(mask, dimension);
+    int * val = new int[dimension];
+    memcpy(val, &mask, dimension);
     for (int i = 0; i < dimension; i++) {
         if (val[i] != 0) {
+            delete [] val;
             return i;
         }
     }
+
+    delete [] val;
 
     return -1;
 }
@@ -364,12 +374,14 @@ inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
 
 inline int trueCount(_MMR_MASK_i64 a, int dimension) {
     int res = 0;
-    std::vector<int> val(a, dimension);
-//    memcpy(val, &a, dimension);
+//    std::vector<int> val(a, dimension);
+    int * val = new int[dimension];
+    memcpy(val, &a, dimension);
     for (int i = 0; i < dimension; i++) {
         if (val[i] != 0) res++;
     }
 
+    delete [] val;
     return res;
 }
 // define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1
@@ -415,7 +427,17 @@ inline _MMR_MASK_i64 _mm256_eq_epi32_mask(_MMR_i64 a, _MMR_i64 b) {
 // Fp
 #define _MM_VFEQ_f64        _mm256_mask_eq_pd_mask
 inline _MMR_MASK_i64 _mm256_eq_pd_mask(_MMR_f64 a, _MMR_f64 b) {
-    return _mm256_cmp_pd_mask(a, b, _CMP_EQ_OQ);
+//    int dimension = 4;
+//    std::vector<int> array_a(a, dimension);
+//    std::vector<int> array_b(b, dimension);
+//    bool array_res[dimension];
+//    for (int i = 0; i < dimension; i++) {
+//        array_res[i] = array_a.at(i) == array_b.at(i);
+//    }
+
+
+    // TODO how to create a mask?????
+    return _mm256_cmp_pd_mask(a, b, _CMP_EQ_OQ); // todo works only with AVX512
 }
 
 #define _MM_VFEQ_f32        _mm256_mask_eq_ps_mask
@@ -483,22 +505,24 @@ inline _MMR_MASK_i64 _mm256_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
 
 inline int _mm256_reduce_lane_add_epi32(_MMR_i32 vec) {
     int result = 0;
-    int val[SPECIES_32];
-    memcpy(val, &vec, sizeof(val));
+    int * val = new int[SPECIES_32];
+
+    memcpy(val, &vec, SPECIES_32);
 
     for (int i = 0; i < SPECIES_32; ++i) {
         result += val[i];
     }
 
+    delete [] val;
     return result;
 }
 
 inline int _mm256_mask_reduce_lane_add_epi32(_MMR_i32 vec, _MMR_MASK_i32 mask) {
     int result = 0;
-    int val[SPECIES_32];
-    int mask_val[SPECIES_32];
-    memcpy(val, &vec, sizeof(val));
-    memcpy(mask_val, &mask, sizeof(mask_val));
+    int * val = new int[SPECIES_32];
+    int * mask_val = new int[SPECIES_32];
+    memcpy(val, &vec, SPECIES_32);
+    memcpy(mask_val, &mask, SPECIES_32);
 
     for (int i = 0; i < SPECIES_32; ++i) {
         if (mask_val[i] != 0) {
@@ -506,6 +530,8 @@ inline int _mm256_mask_reduce_lane_add_epi32(_MMR_i32 vec, _MMR_MASK_i32 mask) {
         }
     }
 
+    delete [] val;
+    delete [] mask_val;
     return result;
 }
 

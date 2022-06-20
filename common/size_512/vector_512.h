@@ -308,14 +308,16 @@ inline _MMR_f32  _mm512_neg_ps(_MMR_f32 a) {
 inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
     _MMR_f64 m = _MM_SET_f64(0.0);
     m = _MM_ADD_f64_MASK(m, mask, m, _MM_SET_f64(1));
-    double val[dimension];
-    _MM_STORE_f64(&val[0], m);
+    double * val = new double[dimension];
+    _MM_STORE_f64(val, m);
     for (int i = 0; i < dimension; i++) {
         if (val[i] != 0) {
+            delete [] val;
             return i;
         }
     }
 
+    delete [] val;
     return -1;
 }
 
@@ -325,13 +327,15 @@ inline int trueCount(_MMR_MASK_i64 mask, int dimension) {
     _MMR_f64 m = _MM_SET_f64(0.0);
     m = _MM_ADD_f64_MASK(m, mask, m, _MM_SET_f64(1));
     int res = 0;
-    double val[dimension];
-    _MM_STORE_f64(&val[0], m);
+    double * val = new double[dimension];
+    _MM_STORE_f64(val, m);
 
     for (int i = 0; i < dimension; i++) {
          if (val[i] != 0) res++;
     }
 
+    delete [] val;
+    delete [] val;
     return res;
 }
 // define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1

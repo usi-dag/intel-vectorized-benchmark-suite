@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 static unsigned long get_inst_count()
 {
     unsigned long instr;
@@ -15,3 +19,7 @@ static unsigned long get_cycles_count()
 //                : [cycles]"=r"(cycles));
     return cycles;
 }
+
+#ifdef __cplusplus
+}
+#endif

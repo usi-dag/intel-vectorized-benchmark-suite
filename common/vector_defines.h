@@ -11,9 +11,4 @@
 #include "./size_512/vector_512.h"
 #endif
 
-
-
-
-
-
 #endif // VECTOR_DEFINITION
