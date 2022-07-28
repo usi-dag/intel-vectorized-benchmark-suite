@@ -6,35 +6,8 @@
 #include <x86intrin.h>
 #include <string.h>
 
+#include "../vector_species.h"
 
-#define _MM_ALIGN64 __attribute__((aligned (64)))
-
-#define MUSTINLINE __attribute__((always_inline))
-
-
-#define SPECIES_32 4 // species for int, float (32 bit type)
-
-#define SPECIES_64 2 // species for double, long (64 bit type)
-
-
-//---------------------------------------------------------------------------
-// UTILITY FUNCTION
-inline int loop_bound(int species_size, int length) {
-    return floor(abs(length)/species_size) * species_size;
-}
-
-//---------------------------------------------------------------------------
-// DATA TYPES
-
-//#define _MMR_f64        	__epi_1xf64
-#define _MMR_f64        	__m128d
-#define _MMR_f32        	__m128
-
-// #define _MMR_2xf64			__epi_2xf64
-// #define _MMR_4xf64			__epi_4xf32
-
-#define _MMR_i64        	__m128i
-#define _MMR_i32        	__m128i
 
 
 //---------------------------------------------------------------------------
@@ -328,8 +301,7 @@ inline float _mm_reduce_lane_add_ps(_MMR_f32 vec) {
 //---------------------------------------------------------------------------
 // MASK DEFINITIONS
 
-#define _MMR_MASK_i64   	__mmask8
-#define _MMR_MASK_i32   	__mmask8
+
 
 // #define _MM_CAST_i1_i64  	__builtin_epi_cast_1xi1_1xi64
 // #define _MM_CAST_i1_i32  	__builtin_epi_cast_2xi1_2xi32

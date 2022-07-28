@@ -7,37 +7,10 @@
 #include <string.h>
 #include <vector>
 
+#include "../vector_species.h"
+
+
 using namespace std;
-
-
-#define _MM_ALIGN64 __attribute__((aligned (64)))
-
-#define MUSTINLINE __attribute__((always_inline))
-
-
-#define SPECIES_32 8 // species for int, float (32 bit type)
-
-#define SPECIES_64 4 // species for double, long (64 bit type)
-
-
-//---------------------------------------------------------------------------
-// UTILITY FUNCTION
-inline int loop_bound(int species_size, int length) {
-    return floor(abs(length)/species_size) * species_size;
-}
-
-//---------------------------------------------------------------------------
-// DATA TYPES
-
-//#define _MMR_f64        	__epi_1xf64
-#define _MMR_f64        	__m256d
-#define _MMR_f32        	__m256
-
-// #define _MMR_2xf64			__epi_2xf64
-// #define _MMR_4xf64			__epi_4xf32
-
-#define _MMR_i64        	__m256i
-#define _MMR_i32        	__m256i
 
 
 //---------------------------------------------------------------------------
@@ -71,7 +44,12 @@ inline int loop_bound(int species_size, int length) {
 #define _MM_SUB_i64			  _mm256_sub_epi64 // __builtin_epi_vsub_1xi64
 #define _MM_SUB_i32			  _mm256_sub_epi32
 
-#define _MM_ADD_i64_MASK  _mm256_mask_add_epi64 // __builtin_epi_vadd_1xi64_mask
+#ifdef __AVX512F__
+#define _MM_ADD_i64_MASK _mm256_mask_add_epi64
+#else
+#define _MM_ADD_i64_MASK  mask_add_epi64
+#endif
+
 // #define _MM_ADD_i32_MASK  __builtin_epi_vadd_2xi32_mask
 
 // #define _MM_MUL_i64       _mm512_mullo_epi64 // __builtin_epi_vmul_1xi64 // TODO no mul for epi64
@@ -97,7 +75,11 @@ inline int loop_bound(int species_size, int length) {
 #define _MM_SLL_i64     	_mm256_sllv_epi64 // __builtin_epi_vsll_1xi64
 #define _MM_SLL_i32     	_mm256_sllv_epi32
 
+#ifdef __AVX512F__
 #define _MM_SRL_i64     	_mm256_srav_epi64 // __builtin_epi_vsrl_1xi64
+#else
+#define _MM_SRL_i64     	srav_epi64 // __builtin_epi_vsrl_1xi64
+#endif
 // #define _MM_SRL_i32     	__builtin_epi_vsrl_2xi32
 
 #define _MM_AND_i64     	_mm256_and_si256 //__builtin_epi_vand_1xi64
@@ -113,14 +95,18 @@ inline int loop_bound(int species_size, int length) {
 // #define _MM_NOT_i32(x)     	_MM_XOR_i32((x),(x), gvl)
 
 // #define _MM_REDSUM_i64   	__builtin_epi_vredsum_1xi64
-#define _MM_REDSUM_i32   	_mm256_reduce_lane_add_epi32 // mm512_reduce_add_epi32
+#define _MM_REDSUM_i32   	reduce_lane_add_epi32 // mm512_reduce_add_epi32
 
-#define _MM_MASK_REDSUM_i32 _mm256_mask_reduce_lane_add_epi32
+#define _MM_MASK_REDSUM_i32 mask_reduce_lane_add_epi32
 
 // #define _MM_REDSUM_i16      __builtin_epi_vredsum_4xi16
 // #define _MM_REDSUM_i8      __builtin_epi_vredsum_8xi8
 
+#ifdef __AVX512F__
 #define _MM_MERGE_i64  		_mm256_mask_blend_epi64 // __builtin_epi_vmerge_1xi64
+#else
+#define _MM_MERGE_i64  		mask_blend_epi64 // __builtin_epi_vmerge_1xi64
+#endif
 // #define _MM_MERGE_i32  		__builtin_epi_vmerge_2xi32
 
 #define _MM_ABS_i32 _mm256_abs_epi32
@@ -134,8 +120,11 @@ inline int loop_bound(int species_size, int length) {
 #define _MM_LOAD_f64    	_mm256_loadu_pd
 #define _MM_LOAD_f32    	_mm256_loadu_ps
 
+#ifdef __AVX512F__
 #define __MM_MASK_LOAD_f32 _mm256_mask_load_ps
-
+#else
+#define __MM_MASK_LOAD_f32 mask_load_ps
+#endif
 // #define _MM_LOAD_INDEX_f64 __builtin_epi_vload_indexed_1xf64
 // #define _MM_LOAD_INDEX_f32 __builtin_epi_vload_indexed_2xf32
 
@@ -163,10 +152,19 @@ inline int loop_bound(int species_size, int length) {
 #define _MM_SUB_f64     	_mm256_sub_pd // __builtin_epi_vfsub_1xf64
 #define _MM_SUB_f32     	_mm256_sub_ps
 
-#define _MM_SUB_f64_MASK	_mm256_mask_sub_pd // __builtin_epi_vfsub_1xf64_mask
+#ifdef __AVX512F__
+#define _MM_SUB_f64_MASK	_mm256_mask_sub_pd
 #define _MM_SUB_f32_MASK	_mm256_mask_sub_ps
+#else
+#define _MM_SUB_f64_MASK	mask_sub_pd
+#define _MM_SUB_f32_MASK	mask_sub_ps
+#endif
 
+#ifdef __AVX512F__
 #define _MM_ADD_f64_MASK  _mm256_mask_add_pd
+#else
+#define _MM_ADD_f64_MASK  mask_add_pd
+#endif
 // #define _MM_ADD_f32_MASK  __builtin_epi_vfadd_2xf32_mask
 
 #define _MM_DIV_f64     	_mm256_div_pd // __builtin_epi_vfdiv_1xf64
@@ -198,11 +196,12 @@ inline int loop_bound(int species_size, int length) {
 #define _MM_VFSGNJN_f32     _mm256_neg_ps //_mm512_fnmadd_ps
 
 inline _MMR_f64  _mm256_neg_pd(_MMR_f64 a) {
-    return _mm256_fnmadd_pd(a, _MM_SET_f64(1.0), _MM_SET_f64(0.0));
+    return _MM_MUL_f64(a, _MM_SET_f64(-1.0));
 }
 
 inline _MMR_f32  _mm256_neg_ps(_MMR_f32 a) {
-    return _mm256_fnmadd_ps(a, _MM_SET_f32(1), _MM_SET_f32(0));
+    return _MM_MUL_f32(a, _MM_SET_f32(-1.0));
+//    return _mm256_fnmadd_ps(a, _MM_SET_f32(1), _MM_SET_f32(0));
 }
 
 #define _MM_VFSGNJX_f64    _mm256_abs_pd // __builtin_epi_vfsgnjx_1xf64 // TODO no abs for 256 vectors
@@ -338,10 +337,7 @@ inline _MMR_f32 fma_f32(_MMR_f32 a, _MMR_f32 b, _MMR_f32 c) {
 // #define _MM_VSLIDEDOWN_f32_MASK    __builtin_epi_vslidedown_2xf32_mask
 // #define _MM_VSLIDEDOWN_f64_MASK    __builtin_epi_vslidedown_1xf64_mask
 //---------------------------------------------------------------------------
-// MASK DEFINITIONS
-
-#define _MMR_MASK_i64   	__mmask8
-#define _MMR_MASK_i32   	__mmask8
+// MASK
 
 // #define _MM_CAST_i1_i64  	__builtin_epi_cast_1xi1_1xi64
 // #define _MM_CAST_i1_i32  	__builtin_epi_cast_2xi1_2xi32
@@ -503,36 +499,7 @@ inline _MMR_MASK_i64 _mm256_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
 
 //---------------------------------------------------------------------------
 
-inline int _mm256_reduce_lane_add_epi32(_MMR_i32 vec) {
-    int result = 0;
-    int * val = new int[SPECIES_32];
 
-    memcpy(val, &vec, SPECIES_32);
 
-    for (int i = 0; i < SPECIES_32; ++i) {
-        result += val[i];
-    }
-
-    delete [] val;
-    return result;
-}
-
-inline int _mm256_mask_reduce_lane_add_epi32(_MMR_i32 vec, _MMR_MASK_i32 mask) {
-    int result = 0;
-    int * val = new int[SPECIES_32];
-    int * mask_val = new int[SPECIES_32];
-    memcpy(val, &vec, SPECIES_32);
-    memcpy(mask_val, &mask, SPECIES_32);
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        if (mask_val[i] != 0) {
-            result += val[i];
-        }
-    }
-
-    delete [] val;
-    delete [] mask_val;
-    return result;
-}
 
 #endif // VECTOR_256
