@@ -11,10 +11,10 @@
 #include "../vector_species.h"
 
 inline _MMR_i64 mask_add_epi64(_MMR_i64 src, _MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
-    int * a_ = new int[SPECIES_64];
-    int * b_ = new int[SPECIES_64];
-    int * src_ = new int[SPECIES_64];
-    bool * k_ = new bool[SPECIES_64];
+    int a_[SPECIES_64];
+    int b_[SPECIES_64];
+    int src_[SPECIES_64];
+    bool k_[SPECIES_64];
 
     memcpy(a_, &a, SPECIES_64);
     memcpy(b_, &b, SPECIES_64);
@@ -25,26 +25,22 @@ inline _MMR_i64 mask_add_epi64(_MMR_i64 src, _MMR_MASK_i64 k, _MMR_i64 a, _MMR_i
         if (k_[i]) src_[i] = a_[i] + b_[i];
     }
 
-    _MMR_i64 * dst = (_MMR_i64 *) malloc(SPECIES_64 * sizeof(_MMR_i64 *));
+    _MMR_i64 dst[SPECIES_64];
     memcpy(dst, src_, SPECIES_64);
-    delete [] a_;
-    delete [] b_;
-    delete [] src_;
-    delete [] k_;
 
-    return *dst;
+    return dst;
 }
 
 inline _MMR_i64 srav_epi64(_MMR_i64 a, _MMR_i64 count) {
-    int * a_ = new int[SPECIES_64];
-    int * count_ = new int[SPECIES_64];
-    int * dst_ = new int[SPECIES_64];
+    int a_[SPECIES_64];
+    int count_[SPECIES_64];
+    int dst_[SPECIES_64];
 
 
     memcpy(a_, &a, SPECIES_64);
     memcpy(count_, &count, SPECIES_64);
 
-    _MMR_i64 * dst = (_MMR_i64 *) malloc(SPECIES_64 * sizeof(_MMR_i64 *));
+    _MMR_i64 dst[SPECIES_64];
 
 
     for (int i = 0; i < SPECIES_64; i++) {
@@ -56,31 +52,27 @@ inline _MMR_i64 srav_epi64(_MMR_i64 a, _MMR_i64 count) {
     }
 
     memcpy(dst, dst_, SPECIES_64);
-    delete [] a_;
-    delete [] count_;
-    delete [] dst_;
 
-    return *dst;
+    return dst;
 }
 
 inline int reduce_lane_add_epi32(_MMR_i32 a) {
-    int * a_ = new int[SPECIES_32];
+    int a_[SPECIES_32];
 
     memcpy(a_, &a, SPECIES_32);
 
+    int result = 0;
     for (int i = 0; i < SPECIES_32; ++i) {
         result += a_[i];
     }
-
-    delete [] a_;
 
     return result;
 }
 
 inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
     int result = 0;
-    int * a_ = new int[SPECIES_32];
-    bool * k_ = new bool[SPECIES_32];
+    int a_[SPECIES_32];
+    bool k_[SPECIES_32];
     memcpy(a_, &a, SPECIES_32);
     memcpy(k_, &k, SPECIES_32);
 
@@ -90,18 +82,16 @@ inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
         }
     }
 
-    delete [] a_;
-    delete [] k_;
     return result;
 }
 
 inline _MMR_i64 mask_blend_epi64 (_MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
-    int * a_ = new int[SPECIES_64];
-    int * b_ = new int[SPECIES_64];
-    bool * k_ = new bool[SPECIES_64];
-    memcpy(a_, &a, SPECIES_32);
-    memcpy(b_, &a, SPECIES_32);
-    memcpy(k_, &k, SPECIES_32);
+    int  a_[SPECIES_64];
+    int  b_[SPECIES_64];
+    bool k_[SPECIES_64];
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &a, SPECIES_64);
+    memcpy(k_, &k, SPECIES_64);
 
     for (int i = 0; i < SPECIES_64; ++i) {
         if (k_[i]) {
@@ -109,24 +99,20 @@ inline _MMR_i64 mask_blend_epi64 (_MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
         }
     }
 
-    _MMR_i64 * dst = (_MMR_i64 *) malloc(SPECIES_64 * sizeof(_MMR_i64 *));
+    _MMR_i64 dst[SPECIES_64];
     memcpy(dst, a_, SPECIES_64);
 
-    delete [] a_;
-    delete [] b_;
-    delete [] k_;
-
-    return *dst;
+    return dst;
 }
 
 inline _MMR_f32 mask_load_ps(_MMR_f32 src, _MMR_i32 k, void const * mem_addr) {
-    int * src_ = new int[SPECIES_32];
-    bool * k_ = new bool[SPECIES_32];
-    int * dst_ = new int[SPECIES_32];
+    float  src_[SPECIES_32];
+    bool k_[SPECIES_32];
+    float  dst_[SPECIES_32];
     memcpy(src_, &src, SPECIES_32);
     memcpy(k_, &k, SPECIES_32);
 
-    for (int i = 0; i < SPECIES_64; ++i) {
+    for (int i = 0; i < SPECIES_32; ++i) {
         if (k_[i]) {
             dst_[i] = *mem_addr[i];
         } else {
@@ -135,22 +121,18 @@ inline _MMR_f32 mask_load_ps(_MMR_f32 src, _MMR_i32 k, void const * mem_addr) {
     }
 
 
-    _MMR_f32 * dst = (_MMR_f32 *) malloc(SPECIES_32 * sizeof(_MMR_f32 *));
+    _MMR_f32 dst[SPECIES_32];
     memcpy(dst, dst_, SPECIES_32);
 
-    delete [] src_;
-    delete [] k_;
-    delete [] dst_;
-
-    return * dst;
+    return dst;
 }
 
 
 inline _MMR_f64 mask_sub_pd(_MMR_f64 src, _MMR_MASK_i64 k, _MMR_f64 a,_MMR_f64 b) {
-    double * a_ = new double[SPECIES_64];
-    double * b_ = new double[SPECIES_64];
-    double * src_ = new double[SPECIES_64];
-    bool * k_ = new bool[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+    double src_[SPECIES_64];
+    bool k_[SPECIES_64];
 
     memcpy(a_, &a, SPECIES_64);
     memcpy(b_, &b, SPECIES_64);
@@ -165,22 +147,18 @@ inline _MMR_f64 mask_sub_pd(_MMR_f64 src, _MMR_MASK_i64 k, _MMR_f64 a,_MMR_f64 b
         }
     }
 
-    _MMR_f64 * dst = (_MMR_f64 *) malloc(SPECIES_64 * sizeof(_MMR_f64 *));
+    _MMR_f64 dst[SPECIES_64];
     memcpy(dst, a_, SPECIES_64);
 
-    delete [] a_;
-    delete [] b_;
-    delete [] src_;
-    delete k_;
 
-    return *dst;
+    return dst;
 }
 
 inline _MMR_f32 mask_sub_ps(_MMR_f32 src, _MMR_MASK_i32 k, _MMR_f32 a,_MMR_f32 b) {
-    double * a_ = new double[SPECIES_32];
-    double * b_ = new double[SPECIES_32];
-    double * src_ = new double[SPECIES_32];
-    bool * k_ = new bool[SPECIES_32];
+    float a_[SPECIES_32];
+    float b_[SPECIES_32];
+    float src_[SPECIES_32];
+    bool k_[SPECIES_32];
 
     memcpy(a_, &a, SPECIES_32);
     memcpy(b_, &b, SPECIES_32);
@@ -195,22 +173,18 @@ inline _MMR_f32 mask_sub_ps(_MMR_f32 src, _MMR_MASK_i32 k, _MMR_f32 a,_MMR_f32 b
         }
     }
 
-    _MMR_f32 * dst = (_MMR_f32 *) malloc(SPECIES_32 * sizeof(_MMR_f32 *));
+    _MMR_f32 dst[SPECIES_32];
     memcpy(dst, a_, SPECIES_32);
 
-    delete [] a_;
-    delete [] b_;
-    delete [] src_;
-    delete k_;
 
-    return *dst;
+    return dst;
 }
 
 inline _MMR_f64 mask_add_pd(_MMR_f64 src, _MMR_MASK_i64 k, _MMR_f64 a,_MMR_f64 b) {
-    double * a_ = new double[SPECIES_64];
-    double * b_ = new double[SPECIES_64];
-    double * src_ = new double[SPECIES_64];
-    bool * k_ = new bool[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+    double src_[SPECIES_64];
+    bool   k_[SPECIES_64];
 
     memcpy(a_, &a, SPECIES_64);
     memcpy(b_, &b, SPECIES_64);
@@ -225,17 +199,331 @@ inline _MMR_f64 mask_add_pd(_MMR_f64 src, _MMR_MASK_i64 k, _MMR_f64 a,_MMR_f64 b
         }
     }
 
-    _MMR_f64 * dst = (_MMR_f64 *) malloc(SPECIES_64 * sizeof(_MMR_f64 *));
+    _MMR_f64 dst[SPECIES_64];
     memcpy(dst, a_, SPECIES_64);
 
-    delete [] a_;
-    delete [] b_;
-    delete [] src_;
-    delete k_;
 
-    return *dst;
+    return dst;
+}
+
+inline _MMR_f64 mask_blend_pd(_MMR_MASK_f64 k, _MMR_f64 a, _MMR_f64 b) {
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+    bool   k_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+    memcpy(k_, &k, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        if (k_[i]) {
+            a_[i] = b_[i]
+        }
+    }
+
+    _MMR_f64 dst[SPECIES_64];
+    memcpy(dst, a_, SPECIES_64)
+
+    return dst;
+}
+
+inline _MMR_f32 mask_blend_ps(_MMR_MASK_f32 k, _MMR_f32 a, _MMR_f32 b) {
+    float a_[SPECIES_32];
+    float b_[SPECIES_32];
+    bool   k_[SPECIES_32];
+
+    memcpy(a_, &a, SPECIES_32);
+    memcpy(b_, &b, SPECIES_32);
+    memcpy(k_, &k, SPECIES_32);
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        if (k_[i]) {
+            a_[i] = b_[i]
+        }
+    }
+
+    _MMR_f32 dst[SPECIES_32];
+    memcpy(dst, a_, SPECIES_32)
+
+    return dst;
 }
 
 
+// TODO vectorize https://stackoverflow.com/questions/49941645/get-sum-of-values-stored-in-m256d-with-sse-avx
+inline double reduce_pd(_MMR_f64 a) {
+    double result = 0;
+    double a_[SPECIES_64];
+    memcpy(a_, &a, SPECIES_64);
 
+    for (int i = 0; i < SPECIES_64; ++i) {
+        result += a_[i];
+    }
+
+    return result;
+}
+
+inline float reduce_ps(_MMR_f32 a) {
+    float result = 0;
+    float a_[SPECIES_32];
+    memcpy(a_, &a, SPECIES_32);
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        result += val[i];
+    }
+    return result;
+}
+
+inline int first_true_int64(_MMR_MASK_i64 k) {
+    int k_[SPECIES_64];
+    memcpy(k_, &k, SPECIES_64);
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k_[i] != 0) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+inline int true_count_int64(_MMR_MASK_i64 k) {
+    int res = 0;
+    int k_[SPECIES_64];
+    memcpy(k_, &k, SPECIES_64);
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k_[i] != 0) res++;
+    }
+
+    return res;
+}
+
+inline _MMR_MASK_i64 kor(_kor_mask8 a, _kor_mask8 b) {
+    bool a_[SPECIES_64];
+    bool b_[SPECIES_64];
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        a_[i] = a_[i] || b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, a_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i64 kxor(_kor_mask8 a, _kor_mask8 b) {
+    bool a_[SPECIES_64];
+    bool b_[SPECIES_64];
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        a_[i] = a_[i] ^ b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, a_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i64 knot(_kor_mask8 a) {
+    bool a_[SPECIES_64];
+    memcpy(a_, &a, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        a_[i] = !a_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, a_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i64 lt_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
+    bool k_[SPECIES_64];
+    int a_[SPECIES_64];
+    int b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] < b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i64 eq_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
+    bool k_[SPECIES_64];
+    int a_[SPECIES_64];
+    int b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] == b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i32 eq_epi32_mask(_MMR_i32 a, _MMR_i32 b) {
+    bool k_[SPECIES_32];
+    int a_[SPECIES_32];
+    int b_[SPECIES_32];
+
+    memcpy(a_, &a, SPECIES_32);
+    memcpy(b_, &b, SPECIES_32);
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        k_[i] = a_[i] == b_[i];
+    }
+
+    _MMR_MASK_i32 dst[SPECIES_32];
+    memcpy(dst, k_, SPECIES_32);
+
+    return dst;
+}
+
+
+inline _MMR_MASK_i64 eq_pd_mask(_MMR_f64 a, _MMR_f64 b) {
+    bool k_[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] == b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
+
+
+inline _MMR_MASK_i32 eq_ps_mask(_MMR_f32 a, _MMR_f32 b) {
+    bool k_[SPECIES_32];
+    float a_[SPECIES_32];
+    float b_[SPECIES_32];
+
+    memcpy(a_, &a, SPECIES_32);
+    memcpy(b_, &b, SPECIES_32);
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        k_[i] = a_[i] == b_[i];
+    }
+
+    _MMR_MASK_i32 dst[SPECIES_32];
+    memcpy(dst, k_, SPECIES_32);
+
+    return dst;
+}
+
+
+inline _MMR_MASK_i64 gt_pd_mask(_MMR_f64 a, _MMR_f64 b) {
+    bool k_[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] > b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i64 ge_pd_mask(_MMR_f64 a, _MMR_f64 b) {
+    bool k_[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] >= b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
+
+inline _MMR_MASK_i64 lt_pd_mask(_MMR_f64 a, _MMR_f64 b) {
+    bool k_[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] < b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
+
+
+inline _MMR_MASK_i32 lt_ps_mask(_MMR_f32 a, _MMR_f32 b) {
+    bool k_[SPECIES_32];
+    float a_[SPECIES_32];
+    float b_[SPECIES_32];
+
+    memcpy(a_, &a, SPECIES_32);
+    memcpy(b_, &b, SPECIES_32);
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        k_[i] = a_[i] < b_[i];
+    }
+
+    _MMR_MASK_i32 dst[SPECIES_32];
+    memcpy(dst, k_, SPECIES_32);
+
+    return dst;
+}
+
+
+inline _MMR_MASK_i64 le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
+    bool k_[SPECIES_64];
+    double a_[SPECIES_64];
+    double b_[SPECIES_64];
+
+    memcpy(a_, &a, SPECIES_64);
+    memcpy(b_, &b, SPECIES_64);
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        k_[i] = a_[i] <= b_[i];
+    }
+
+    _MMR_MASK_i64 dst[SPECIES_64];
+    memcpy(dst, k_, SPECIES_64);
+
+    return dst;
+}
 #endif //INTEL_VECTORIZED_BENCHMARK_SUITE_SERIAL_H

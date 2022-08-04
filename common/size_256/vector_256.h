@@ -212,36 +212,25 @@ inline _MMR_f64 _mm256_abs_pd(_MMR_f64 vec) {
 inline _MMR_f32 _mm256_abs_ps(_MMR_f32 vec) {
     return _MM_MAX_f32(_MM_SUB_f32(_mm256_setzero_ps(), vec), vec);
 }
-
-#define _MM_MERGE_f64  		_mm256_mask_blend_pd // __builtin_epi_vfmerge_1xf64
+#ifdef __AVX512F__
+#define _MM_MERGE_f64  		_mm256_mask_blend_pd
 #define _MM_MERGE_f32 		_mm256_mask_blend_ps
+#else
+#define _MM_MERGE_f64  		mask_blend_pd
+#define _MM_MERGE_f32 		mask_blend_ps
+#endif
+#ifdef __AVX512F__
+#define _MM_REDSUM_f64  	 _mm256_reduce_pd
+#else
+#define _MM_REDSUM_f64  	reduce_pd // _mm256_reduce_add_pd // __builtin_epi_vfredsum_1xf64
+#endif
 
-#define _MM_REDSUM_f64  	_mm256_reduce_lane_add_pd // _mm256_reduce_add_pd // __builtin_epi_vfredsum_1xf64
-// TODO vectorize https://stackoverflow.com/questions/49941645/get-sum-of-values-stored-in-m256d-with-sse-avx
-inline double _mm256_reduce_lane_add_pd(_MMR_f64 vec) {
-    double result = 0;
-    double * val = new double[SPECIES_64];
-    memcpy(val, &vec, SPECIES_64);
+#ifdef __AVX512F__
+#define _MM_REDSUM_f32  	 _mm256_reduce_ps
+#else
+#define _MM_REDSUM_f32  	reduce_ps // _mm256_reduce_add_ps // __builtin_epi_vfredsum_2xf32
+#endif
 
-    for (int i = 0; i < SPECIES_64; ++i) {
-        result += val[i];
-    }
-
-    delete[] val;
-    return result;
-}
-#define _MM_REDSUM_f32  	_mm256_reduce_lane_add_ps // _mm256_reduce_add_ps // __builtin_epi_vfredsum_2xf32
-inline float _mm256_reduce_lane_add_ps(_MMR_f32 vec) {
-    float result = 0;
-    float * val = new float[SPECIES_32];
-    memcpy(val, &vec, SPECIES_32);
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        result += val[i];
-    }
-    delete[] val;
-    return result;
-}
 
 // #define _MM_REDSUM_f64_MASK __builtin_epi_vfredsum_1xf64_mask
 // #define _MM_REDSUM_f32_MASK __builtin_epi_vfredsum_2xf32_mask
@@ -347,39 +336,13 @@ inline _MMR_f32 fma_f32(_MMR_f32 a, _MMR_f32 b, _MMR_f32 c) {
 
 // OPERATIONS WITH MASKS
 
-#define _MM_VMFIRST_i64 	firstTrue // __builtin_epi_vmfirst_1xi1
+#define _MM_VMFIRST_i64 	first_true_int64 // __builtin_epi_vmfirst_1xi1
 // #define _MM_VMFIRST_i32 	__builtin_epi_vmfirst_2xi1
 
-inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
-//    std::vector<int> val(mask, dimension);
-    int * val = new int[dimension];
-    memcpy(val, &mask, dimension);
-    for (int i = 0; i < dimension; i++) {
-        if (val[i] != 0) {
-            delete [] val;
-            return i;
-        }
-    }
 
-    delete [] val;
+#define _MM_VMPOPC_i64 		true_count_int64 // __builtin_epi_vmpopc_1xi1
 
-    return -1;
-}
 
-#define _MM_VMPOPC_i64 		trueCount // __builtin_epi_vmpopc_1xi1
-
-inline int trueCount(_MMR_MASK_i64 a, int dimension) {
-    int res = 0;
-//    std::vector<int> val(a, dimension);
-    int * val = new int[dimension];
-    memcpy(val, &a, dimension);
-    for (int i = 0; i < dimension; i++) {
-        if (val[i] != 0) res++;
-    }
-
-    delete [] val;
-    return res;
-}
 // define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1
 
 // #define _MM_VMAND_i64 		__builtin_epi_vmand_1xi1
@@ -388,93 +351,130 @@ inline int trueCount(_MMR_MASK_i64 a, int dimension) {
 // #define _MM_VMNOR_i64 		__builtin_epi_vmnor_1xi1
 // #define _MM_VMNOR_i32 		__builtin_epi_vmnor_2xi1
 
-
+#ifdef __AVX512F__
 #define _MM_VMOR_i64 		_kor_mask8 // _kor_mask8
+#else
+#define _MM_VMOR_i64 		kor // _kor_mask8
+#endif
 // #define _MM_VMOR_i32 		__builtin_epi_vmor_2xi1
 
+#ifdef __AVX512F__
 #define _MM_VMXOR_i64 		_kxor_mask8 // _kxor_mask8
+#else
+#define _MM_VMXOR_i64 		kxor // _kxor_mask8
+#endif
 // #define _MM_VMXOR_i32 		__builtin_epi_vmxor_2xi1
 
-
+#ifdef __AVX512F__
 #define _MM_VMNOT_i64 _knot_mask8
-
+#else
+#define _MM_VMNOT_i64 knot
+#endif
 // OPERATIONS TO CREATE A MASK
 
 // Int
 
+#ifdef __AVX512F__
 #define _MM_VMSLT_i64     _mm256_lt_epi64_mask // __builtin_epi_vmslt_1xi64
 inline _MMR_MASK_i64 _mm256_lt_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
     return _mm256_cmp_epi64_mask(a, b, _CMP_LT_OQ);
 }
+#else
+#define _MM_VMSLT_i64     lt_epi64_mask
+#endif
 
 // #define _MM_VMSLT_i32     __builtin_epi_vmslt_2xi32
 
+#ifdef __AVX512F__
 #define _MM_VMSEQ_i64		_mm256_eq_epi64_mask // __builtin_epi_vmseq_1xi64
 inline _MMR_MASK_i64 _mm256_eq_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
     return _mm256_cmp_epi64_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VMSEQ_i64		eq_epi64_mask
+#endif
 
+#ifdef __AVX512F__
 #define _MM_VMSEQ_i32		_mm256_eq_epi32_mask // _mm512_cmp_epi32_mask
 inline _MMR_MASK_i64 _mm256_eq_epi32_mask(_MMR_i64 a, _MMR_i64 b) {
     return _mm256_cmp_epi32_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VMSEQ_i32		eq_epi32_mask
+#endif
 
 
-// Fp
-#define _MM_VFEQ_f64        _mm256_mask_eq_pd_mask
+#ifdef __AVX512F__
+#define _MM_VFEQ_f64        _mm256_eq_pd_mask
 inline _MMR_MASK_i64 _mm256_eq_pd_mask(_MMR_f64 a, _MMR_f64 b) {
-//    int dimension = 4;
-//    std::vector<int> array_a(a, dimension);
-//    std::vector<int> array_b(b, dimension);
-//    bool array_res[dimension];
-//    for (int i = 0; i < dimension; i++) {
-//        array_res[i] = array_a.at(i) == array_b.at(i);
-//    }
-
-
-    // TODO how to create a mask?????
     return _mm256_cmp_pd_mask(a, b, _CMP_EQ_OQ); // todo works only with AVX512
 }
+#else
+#define _MM_VFEQ_f64        eq_pd_mask
+#endif
 
-#define _MM_VFEQ_f32        _mm256_mask_eq_ps_mask
+#ifdef __AVX512F__
+#define _MM_VFEQ_f32        _mm256_eq_ps_mask
 inline _MMR_MASK_i32 _mm256_eq_ps_mask(_MMR_f32 a, _MMR_f32 b) {
     return _mm256_cmp_ps_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VFEQ_f32        eq_ps_mask
+#endif
 
-
+#ifdef __AVX512F__
 #define _MM_VFGT_f64        _mm256_gt_pd_mask // __builtin_epi_vmfgt_1xf64
 inline _MMR_MASK_i64 _mm256_gt_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm256_cmp_pd_mask(a, b, _CMP_GT_OS);
 }
+#else
+#define _MM_VFGT_f64        gt_pd_mask
+#endif
 
 // #define _MM_VFGT_f32        __builtin_epi_vmfgt_2xf32
 
+#ifdef __AVX512F__
 #define _MM_VFGE_f64        _mm256_ge_pd_mask
 inline _MMR_MASK_i64 _mm256_ge_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm256_cmp_pd_mask(a, b, _CMP_GE_OS);
 }
+#else
+#define _MM_VFGE_f64        ge_pd_mask
+#endif
 
 // #define _MM_VFGE_f32        __builtin_epi_vmfge_2xf32
 
+#ifdef __AVX512F__
 #define _MM_VFLT_f64        _mm256_lt_pd_mask // __builtin_epi_vmflt_1xf64
 inline _MMR_MASK_i32 _mm256_lt_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm256_cmp_pd_mask(a, b, _CMP_LT_OS);
 }
+#else
+#define _MM_VFLT_f64        lt_pd_mask
+#endif
 
+#ifdef __AVX512F__
 #define _MM_VFLT_f32        _mm256_lt_ps_mask // __mmask16 k1, __m512 a, __m512 b, const int imm8
 inline _MMR_MASK_i32 _mm256_lt_ps_mask(_MMR_f32 a, _MMR_f32 b) {
     return _mm256_cmp_ps_mask(a, b, _CMP_LT_OS);
 }
+#else
+#define _MM_VFLT_f32        lt_ps_mask
+#endif
 
+#ifdef __AVX512F__
 #define _MM_VFLE_f64   _mm256_le_pd_mask    //  __builtin_epi_vmfle_1xf64
 inline _MMR_MASK_i64 _mm256_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm256_cmp_pd_mask(a, b, _CMP_LE_OS);
 }
+#else
+#define _MM_VFLE_f64   le_pd_mask
+#endif
 
 // #define _MM_VFLE_f32        __builtin_epi_vmfle_2xf32
 
 //---------------------------------------------------------------------------
-// ADVANCE RISC-V MATH LIBRARY
+// ADVANCE MATH LIBRARY
 
 #ifndef _MM_LOG
 #define _MM_LOG
