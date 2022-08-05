@@ -893,14 +893,14 @@ void particleFilter_vector(int * I, int IszX, int IszY, int Nfr, double * seed,d
                 xCDF = _MM_SET_f64(CDF[j]);
                 xComp = _MM_VFGE_f64(xCDF,xU);
                 xComp = _MM_VMXOR_i64(xComp,xMask);
-                valid = _MM_VMFIRST_i64(xComp, SPECIES_64);
+                valid = _MM_VMFIRST_i64(xComp);
                 if(valid != -1)
                 {
                     _MMR_f64 xJ = _MM_ADD_f64_MASK(xJ, xComp, _MM_SET_f64(0), _MM_SET_f64(j));
                     xArray = _MM_ADD_f64_MASK(xArray, _MM_VMNOT_i64(xComp), xJ, _MM_SET_f64(j));
                     // _MM_MERGE_i64(xArray,_MM_SET_i64(j,gvl),xComp,gvl);
                     xMask = _MM_VMOR_i64(xComp,xMask);
-                    vector_complete = _MM_VMPOPC_i64(xMask, SPECIES_64);
+                    vector_complete = _MM_VMPOPC_i64(xMask);
                     printf("complete: %ld\n", vector_complete);
                 }
                 if(vector_complete == SPECIES_64){ break; }
