@@ -65,8 +65,8 @@
 // #define _MM_MAX_i64         __builtin_epi_vmax_1xi64
 // #define _MM_MAX_i32         __builtin_epi_vmax_2xi32
 
-#define _MM_SLL_i64     	_mm512_sllv_epi64 // __builtin_epi_vsll_1xi64
-#define _MM_SLL_i32     	_mm512_sllv_epi32
+#define _MM_SLL_i64     	_mm512_slli_epi64 // __builtin_epi_vsll_1xi64
+#define _MM_SLL_i32     	_mm512_slli_epi32
 
 #define _MM_SRL_i64     	_mm512_srav_epi64 // __builtin_epi_vsrl_1xi64
 // #define _MM_SRL_i32     	__builtin_epi_vsrl_2xi32

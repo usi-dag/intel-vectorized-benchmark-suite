@@ -73,7 +73,7 @@ _MMR_i64  tmp3;
 
         imm0  = _MM_VFCVT_X_F_i64(fx);
         imm0  = _MM_ADD_i64(imm0, _MM_SET_i64(1023));
-        imm0  = _MM_SLL_i64(imm0, _MM_SET_i64(52));
+        imm0  = _MM_SLL_i64(imm0, 52);
 
         tmp4 = (_MMR_f64)imm0;
         y     = _MM_MUL_f64(y, tmp4);

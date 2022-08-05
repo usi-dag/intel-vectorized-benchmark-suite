@@ -5,9 +5,11 @@
 #include <immintrin.h>
 #include <x86intrin.h>
 #include <string.h>
+#include <vector>
 
 #include "../vector_species.h"
 
+using namespace std;
 
 
 //---------------------------------------------------------------------------
@@ -41,10 +43,15 @@
 #define _MM_SUB_i64			  _mm_sub_epi64 // __builtin_epi_vsub_1xi64
 #define _MM_SUB_i32			  _mm_sub_epi32
 
-#define _MM_ADD_i64_MASK  _mm_mask_add_epi64 // __builtin_epi_vadd_1xi64_mask
+#ifdef __AVX512F__
+#define _MM_ADD_i64_MASK _mm_mask_add_epi64
+#else
+#define _MM_ADD_i64_MASK  mask_add_epi64
+#endif
+
 // #define _MM_ADD_i32_MASK  __builtin_epi_vadd_2xi32_mask
 
-// #define _MM_MUL_i64       _mm512_mullo_epi64 // __builtin_epi_vmul_1xi64 // TODO no mul for epi64
+// #define _MM_MUL_i64       _mm512_mullo_epi64 // __builtin_epi_vmul_1xi64
 // #define _MM_MUL_i32       __builtin_epi_vmul_2xi32
 // #define _MM_MUL_i16       __builtin_epi_vmul_4xi16
 // #define _MM_MUL_i8       __builtin_epi_vmul_8xi8
@@ -63,11 +70,16 @@
 
 // #define _MM_MAX_i64         __builtin_epi_vmax_1xi64
 // #define _MM_MAX_i32         __builtin_epi_vmax_2xi32
-// TODO possible change from v to i (if in all cases passing a vector with all equal values)
-#define _MM_SLL_i64     	_mm_sllv_epi64 // __builtin_epi_vsll_1xi64
-#define _MM_SLL_i32     	_mm_sllv_epi32
 
+#define _MM_SLL_i64     	_mm_slli_epi64 // __builtin_epi_vsll_1xi64
+#define _MM_SLL_i32     	_mm_slli_epi32
+
+
+#ifdef __AVX512F__
 #define _MM_SRL_i64     	_mm_srav_epi64 // __builtin_epi_vsrl_1xi64
+#else
+#define _MM_SRL_i64     	srav_epi64 // __builtin_epi_vsrl_1xi64
+#endif
 // #define _MM_SRL_i32     	__builtin_epi_vsrl_2xi32
 
 #define _MM_AND_i64     	_mm_and_si128 //__builtin_epi_vand_1xi64
@@ -83,14 +95,18 @@
 // #define _MM_NOT_i32(x)     	_MM_XOR_i32((x),(x), gvl)
 
 // #define _MM_REDSUM_i64   	__builtin_epi_vredsum_1xi64
-#define _MM_REDSUM_i32   	_mm_reduce_lane_add_epi32 // mm512_reduce_add_epi32
+#define _MM_REDSUM_i32   	reduce_lane_add_epi32 // mm512_reduce_add_epi32
 
-#define _MM_MASK_REDSUM_i32 _mm_mask_reduce_lane_add_epi32
+#define _MM_MASK_REDSUM_i32 mask_reduce_lane_add_epi32
 
 // #define _MM_REDSUM_i16      __builtin_epi_vredsum_4xi16
 // #define _MM_REDSUM_i8      __builtin_epi_vredsum_8xi8
 
+#ifdef __AVX512F__
 #define _MM_MERGE_i64  		_mm_mask_blend_epi64 // __builtin_epi_vmerge_1xi64
+#else
+#define _MM_MERGE_i64  		mask_blend_epi64 // __builtin_epi_vmerge_1xi64
+#endif
 // #define _MM_MERGE_i32  		__builtin_epi_vmerge_2xi32
 
 #define _MM_ABS_i32 _mm_abs_epi32
@@ -104,8 +120,11 @@
 #define _MM_LOAD_f64    	_mm_loadu_pd
 #define _MM_LOAD_f32    	_mm_loadu_ps
 
+#ifdef __AVX512F__
 #define __MM_MASK_LOAD_f32 _mm_mask_load_ps
-
+#else
+#define __MM_MASK_LOAD_f32 mask_load_ps
+#endif
 // #define _MM_LOAD_INDEX_f64 __builtin_epi_vload_indexed_1xf64
 // #define _MM_LOAD_INDEX_f32 __builtin_epi_vload_indexed_2xf32
 
@@ -133,10 +152,19 @@
 #define _MM_SUB_f64     	_mm_sub_pd // __builtin_epi_vfsub_1xf64
 #define _MM_SUB_f32     	_mm_sub_ps
 
-#define _MM_SUB_f64_MASK	_mm_mask_sub_pd // __builtin_epi_vfsub_1xf64_mask
+#ifdef __AVX512F__
+#define _MM_SUB_f64_MASK	_mm_mask_sub_pd
 #define _MM_SUB_f32_MASK	_mm_mask_sub_ps
+#else
+#define _MM_SUB_f64_MASK	mask_sub_pd
+#define _MM_SUB_f32_MASK	mask_sub_ps
+#endif
 
+#ifdef __AVX512F__
 #define _MM_ADD_f64_MASK  _mm_mask_add_pd
+#else
+#define _MM_ADD_f64_MASK  mask_add_pd
+#endif
 // #define _MM_ADD_f32_MASK  __builtin_epi_vfadd_2xf32_mask
 
 #define _MM_DIV_f64     	_mm_div_pd // __builtin_epi_vfdiv_1xf64
@@ -168,49 +196,41 @@
 #define _MM_VFSGNJN_f32     _mm_neg_ps //_mm512_fnmadd_ps
 
 inline _MMR_f64  _mm_neg_pd(_MMR_f64 a) {
-    return _mm_fnmadd_pd(a, _MM_SET_f64(1.0), _MM_SET_f64(0.0));
+    return _MM_MUL_f64(a, _MM_SET_f64(-1.0));
 }
 
 inline _MMR_f32  _mm_neg_ps(_MMR_f32 a) {
-    return _mm_fnmadd_ps(a, _MM_SET_f32(1), _MM_SET_f32(0));
+    return _MM_MUL_f32(a, _MM_SET_f32(-1.0));
+//    return _mm256_fnmadd_ps(a, _MM_SET_f32(1), _MM_SET_f32(0));
 }
 
-#define _MM_VFSGNJX_f64    _mm_abs_pd // __builtin_epi_vfsgnjx_1xf64 // TODO no abs for 256 vectors
+#define _MM_VFSGNJX_f64    _mm_abs_pd // __builtin_epi_vfsgnjx_1xf64
 inline _MMR_f64 _mm_abs_pd(_MMR_f64 vec) {
-    return _MM_MAX_f64(_MM_SUB_f64(_mm_setzero_pd(), vec), vec);
+    return _MM_MAX_f64(_MM_SUB_f64(_mm256_setzero_pd(), vec), vec);
 }
 #define _MM_VFSGNJX_f32 	_mm_abs_ps
 inline _MMR_f32 _mm_abs_ps(_MMR_f32 vec) {
-    return _MM_MAX_f32(_MM_SUB_f32(_mm_setzero_ps(), vec), vec);
+    return _MM_MAX_f32(_MM_SUB_f32(_mm256_setzero_ps(), vec), vec);
 }
-
-#define _MM_MERGE_f64  		_mm_mask_blend_pd // __builtin_epi_vfmerge_1xf64
+#ifdef __AVX512F__
+#define _MM_MERGE_f64  		_mm_mask_blend_pd
 #define _MM_MERGE_f32 		_mm_mask_blend_ps
+#else
+#define _MM_MERGE_f64  		mask_blend_pd
+#define _MM_MERGE_f32 		mask_blend_ps
+#endif
+#ifdef __AVX512F__
+#define _MM_REDSUM_f64  	 _mm_reduce_pd
+#else
+#define _MM_REDSUM_f64  	reduce_pd // _mm256_reduce_add_pd // __builtin_epi_vfredsum_1xf64
+#endif
 
-#define _MM_REDSUM_f64  	_mm_reduce_lane_add_pd // _mm256_reduce_add_pd // __builtin_epi_vfredsum_1xf64
-// TODO how to vectorize the reduction
-// https://stackoverflow.com/questions/6996764/fastest-way-to-do-horizontal-sse-vector-sum-or-other-reduction
-inline double _mm_reduce_lane_add_pd(_MMR_f64 vec) {
-    double result = 0;
-    double val[SPECIES_64];
-    memcpy(val, &vec, sizeof(val));
+#ifdef __AVX512F__
+#define _MM_REDSUM_f32  	 _mm_reduce_ps
+#else
+#define _MM_REDSUM_f32  	reduce_ps // _mm256_reduce_add_ps // __builtin_epi_vfredsum_2xf32
+#endif
 
-    for (int i = 0; i < SPECIES_64; ++i) {
-        result += val[i];
-    }
-
-    return result;
-}
-#define _MM_REDSUM_f32  	_mm_reduce_lane_add_ps // _mm256_reduce_add_ps // __builtin_epi_vfredsum_2xf32
-inline float _mm_reduce_lane_add_ps(_MMR_f32 vec) {
-    float result = 0;
-    float val[SPECIES_32];
-    memcpy(val, &vec, sizeof(val));
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        result += val[i];
-    }
-}
 
 // #define _MM_REDSUM_f64_MASK __builtin_epi_vfredsum_1xf64_mask
 // #define _MM_REDSUM_f32_MASK __builtin_epi_vfredsum_2xf32_mask
@@ -220,7 +240,7 @@ inline float _mm_reduce_lane_add_ps(_MMR_f32 vec) {
 
 //  this function is equal to __MM_MADD but parameters in different order
 //  in future change order to be equal to fmadd
-// TODO change in source code to MADD
+
 //#define _MM_MACC_f64      _mm256_fmadd_pd // __builtin_epi_vfmacc_1xf64 // AVX function composition
 //inline _MMR_f64 madd(_MMR_f64 c, _MMR_f64 a, _MMR_f64 b) {
 //    return _MM_ADD_f64(c, _MM_MUL_f64(a, b));
@@ -228,8 +248,15 @@ inline float _mm_reduce_lane_add_ps(_MMR_f32 vec) {
 
 //#define _MM_MACC_f32  		_mm256_fmadd_ps // first param c in riscv is last in intel intrinsic (c, a, b) -> (a, b, c)
 
-#define _MM_MADD_f64  		_mm_fmadd_pd // __builtin_epi_vfmadd_1xf64
-#define _MM_MADD_f32  		_mm_fmadd_ps
+#define _MM_MADD_f64  	fma_f64// _mm256_fmadd_pd // __builtin_epi_vfmadd_1xf64
+inline _MMR_f64 fma_f64(_MMR_f64 a, _MMR_f64 b, _MMR_f64 c) {
+    return _MM_ADD_f64(_MM_MUL_f64(a, b), c);
+}
+
+#define _MM_MADD_f32  		fma_f32 // _mm256_fmadd_ps
+inline _MMR_f32 fma_f32(_MMR_f32 a, _MMR_f32 b, _MMR_f32 c) {
+    return _MM_ADD_f32(_MM_MUL_f32(a, b), c);
+}
 
 //---------------------------------------------------------------------------
 // CONVERSION INTRINSICS
@@ -299,9 +326,7 @@ inline float _mm_reduce_lane_add_ps(_MMR_f32 vec) {
 // #define _MM_VSLIDEDOWN_f32_MASK    __builtin_epi_vslidedown_2xf32_mask
 // #define _MM_VSLIDEDOWN_f64_MASK    __builtin_epi_vslidedown_1xf64_mask
 //---------------------------------------------------------------------------
-// MASK DEFINITIONS
-
-
+// MASK
 
 // #define _MM_CAST_i1_i64  	__builtin_epi_cast_1xi1_1xi64
 // #define _MM_CAST_i1_i32  	__builtin_epi_cast_2xi1_2xi32
@@ -311,33 +336,13 @@ inline float _mm_reduce_lane_add_ps(_MMR_f32 vec) {
 
 // OPERATIONS WITH MASKS
 
-#define _MM_VMFIRST_i64 	firstTrue // __builtin_epi_vmfirst_1xi1
+#define _MM_VMFIRST_i64 	first_true_int64 // __builtin_epi_vmfirst_1xi1
 // #define _MM_VMFIRST_i32 	__builtin_epi_vmfirst_2xi1
 
-inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
-    int val[dimension];
-    memcpy(val, &mask, dimension);
-    for (int i = 0; i < dimension; i++) {
-        if (val[i] != 0) {
-            return i;
-        }
-    }
 
-    return -1;
-}
+#define _MM_VMPOPC_i64 		true_count_int64 // __builtin_epi_vmpopc_1xi1
 
-#define _MM_VMPOPC_i64 		trueCount // __builtin_epi_vmpopc_1xi1
 
-inline int trueCount(_MMR_MASK_i64 a, int dimension) {
-    int res = 0;
-    int val[dimension];
-    memcpy(val, &a, dimension);
-    for (int i = 0; i < dimension; i++) {
-        if (val[i] != 0) res++;
-    }
-
-    return res;
-}
 // define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1
 
 // #define _MM_VMAND_i64 		__builtin_epi_vmand_1xi1
@@ -346,83 +351,130 @@ inline int trueCount(_MMR_MASK_i64 a, int dimension) {
 // #define _MM_VMNOR_i64 		__builtin_epi_vmnor_1xi1
 // #define _MM_VMNOR_i32 		__builtin_epi_vmnor_2xi1
 
-
+#ifdef __AVX512F__
 #define _MM_VMOR_i64 		_kor_mask8 // _kor_mask8
+#else
+#define _MM_VMOR_i64 		kor // _kor_mask8
+#endif
 // #define _MM_VMOR_i32 		__builtin_epi_vmor_2xi1
 
+#ifdef __AVX512F__
 #define _MM_VMXOR_i64 		_kxor_mask8 // _kxor_mask8
+#else
+#define _MM_VMXOR_i64 		kxor // _kxor_mask8
+#endif
 // #define _MM_VMXOR_i32 		__builtin_epi_vmxor_2xi1
 
-
+#ifdef __AVX512F__
 #define _MM_VMNOT_i64 _knot_mask8
-
+#else
+#define _MM_VMNOT_i64 knot
+#endif
 // OPERATIONS TO CREATE A MASK
 
 // Int
 
+#ifdef __AVX512F__
 #define _MM_VMSLT_i64     _mm_lt_epi64_mask // __builtin_epi_vmslt_1xi64
 inline _MMR_MASK_i64 _mm_lt_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
     return _mm_cmp_epi64_mask(a, b, _CMP_LT_OQ);
 }
+#else
+#define _MM_VMSLT_i64     lt_epi64_mask
+#endif
 
 // #define _MM_VMSLT_i32     __builtin_epi_vmslt_2xi32
 
+#ifdef __AVX512F__
 #define _MM_VMSEQ_i64		_mm_eq_epi64_mask // __builtin_epi_vmseq_1xi64
 inline _MMR_MASK_i64 _mm_eq_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
     return _mm_cmp_epi64_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VMSEQ_i64		eq_epi64_mask
+#endif
 
+#ifdef __AVX512F__
 #define _MM_VMSEQ_i32		_mm_eq_epi32_mask // _mm512_cmp_epi32_mask
 inline _MMR_MASK_i64 _mm_eq_epi32_mask(_MMR_i64 a, _MMR_i64 b) {
     return _mm_cmp_epi32_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VMSEQ_i32		eq_epi32_mask
+#endif
 
 
-// Fp
-#define _MM_VFEQ_f64        _mm_mask_eq_pd_mask
+#ifdef __AVX512F__
+#define _MM_VFEQ_f64        _mm_eq_pd_mask
 inline _MMR_MASK_i64 _mm_eq_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm_cmp_pd_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VFEQ_f64        eq_pd_mask
+#endif
 
-#define _MM_VFEQ_f32        _mm_mask_eq_ps_mask
+#ifdef __AVX512F__
+#define _MM_VFEQ_f32        _mm_eq_ps_mask
 inline _MMR_MASK_i32 _mm_eq_ps_mask(_MMR_f32 a, _MMR_f32 b) {
     return _mm_cmp_ps_mask(a, b, _CMP_EQ_OQ);
 }
+#else
+#define _MM_VFEQ_f32        eq_ps_mask
+#endif
 
-
+#ifdef __AVX512F__
 #define _MM_VFGT_f64        _mm_gt_pd_mask // __builtin_epi_vmfgt_1xf64
 inline _MMR_MASK_i64 _mm_gt_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm_cmp_pd_mask(a, b, _CMP_GT_OS);
 }
+#else
+#define _MM_VFGT_f64        gt_pd_mask
+#endif
 
 // #define _MM_VFGT_f32        __builtin_epi_vmfgt_2xf32
 
+#ifdef __AVX512F__
 #define _MM_VFGE_f64        _mm_ge_pd_mask
 inline _MMR_MASK_i64 _mm_ge_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm_cmp_pd_mask(a, b, _CMP_GE_OS);
 }
+#else
+#define _MM_VFGE_f64        ge_pd_mask
+#endif
 
 // #define _MM_VFGE_f32        __builtin_epi_vmfge_2xf32
 
+#ifdef __AVX512F__
 #define _MM_VFLT_f64        _mm_lt_pd_mask // __builtin_epi_vmflt_1xf64
 inline _MMR_MASK_i32 _mm_lt_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm_cmp_pd_mask(a, b, _CMP_LT_OS);
 }
+#else
+#define _MM_VFLT_f64        lt_pd_mask
+#endif
 
+#ifdef __AVX512F__
 #define _MM_VFLT_f32        _mm_lt_ps_mask // __mmask16 k1, __m512 a, __m512 b, const int imm8
 inline _MMR_MASK_i32 _mm_lt_ps_mask(_MMR_f32 a, _MMR_f32 b) {
     return _mm_cmp_ps_mask(a, b, _CMP_LT_OS);
 }
+#else
+#define _MM_VFLT_f32        lt_ps_mask
+#endif
 
+#ifdef __AVX512F__
 #define _MM_VFLE_f64   _mm_le_pd_mask    //  __builtin_epi_vmfle_1xf64
 inline _MMR_MASK_i64 _mm_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return _mm_cmp_pd_mask(a, b, _CMP_LE_OS);
 }
+#else
+#define _MM_VFLE_f64   le_pd_mask
+#endif
 
 // #define _MM_VFLE_f32        __builtin_epi_vmfle_2xf32
 
 //---------------------------------------------------------------------------
-// ADVANCE RISC-V MATH LIBRARY
+// ADVANCE MATH LIBRARY
 
 #ifndef _MM_LOG
 #define _MM_LOG
@@ -435,7 +487,7 @@ inline _MMR_MASK_i64 _mm_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
 #define _MM_EXP
 #include "__exp.h"
 #define _MM_EXP_f64 __exp_64_scalar // __exp_1xf64
-#define _MM_EXP_f32 __exp_32_scalar // __exp_2xf32		// _mm512_exp_ps only for intel compiler // TODO bug in vector version
+#define _MM_EXP_f32 __exp_32_scalar // __exp_2xf32		// _mm512_exp_ps only for intel compiler
 #endif
 
 #ifndef _MM_COS
@@ -447,32 +499,5 @@ inline _MMR_MASK_i64 _mm_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
 
 //---------------------------------------------------------------------------
 
-inline int _mm_reduce_lane_add_epi32(_MMR_i32 vec) {
-    int result = 0;
-    int val[SPECIES_32];
-    memcpy(val, &vec, sizeof(val));
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        result += val[i];
-    }
-
-    return result;
-}
-
-inline int _mm_mask_reduce_lane_add_epi32(_MMR_i32 vec, _MMR_MASK_i32 mask) {
-    int result = 0;
-    int val[SPECIES_32];
-    int mask_val[SPECIES_32];
-    memcpy(val, &vec, sizeof(val));
-    memcpy(mask_val, &mask, sizeof(mask_val));
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        if (mask_val[i] != 0) {
-            result += val[i];
-        }
-    }
-
-    return result;
-}
 
 #endif // VECTOR_128
