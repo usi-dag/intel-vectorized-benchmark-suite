@@ -191,7 +191,7 @@ inline _MMR_f32 __exp_2xf32(_MMR_f32 x) {
 
     imm0  = _MM_VFCVT_X_F_i32(fx);
     imm0  = _MM_ADD_i32(imm0, _MM_SET_i32(0x7f));
-    imm0  = _MM_SLL_i32(imm0, _MM_SET_i32(23));
+    imm0  = _MM_SLL_i32(imm0, 23);
 
     tmp4 = (_MMR_f32)imm0;
     y     = _MM_MUL_f32(y, tmp4);

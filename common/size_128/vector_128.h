@@ -8,6 +8,8 @@
 #include <vector>
 
 #include "../vector_species.h"
+#include "../serial/serial.h"
+
 
 using namespace std;
 
@@ -206,11 +208,11 @@ inline _MMR_f32  _mm_neg_ps(_MMR_f32 a) {
 
 #define _MM_VFSGNJX_f64    _mm_abs_pd // __builtin_epi_vfsgnjx_1xf64
 inline _MMR_f64 _mm_abs_pd(_MMR_f64 vec) {
-    return _MM_MAX_f64(_MM_SUB_f64(_mm256_setzero_pd(), vec), vec);
+    return _MM_MAX_f64(_MM_SUB_f64(_mm_setzero_pd(), vec), vec);
 }
 #define _MM_VFSGNJX_f32 	_mm_abs_ps
 inline _MMR_f32 _mm_abs_ps(_MMR_f32 vec) {
-    return _MM_MAX_f32(_MM_SUB_f32(_mm256_setzero_ps(), vec), vec);
+    return _MM_MAX_f32(_MM_SUB_f32(_mm_setzero_ps(), vec), vec);
 }
 #ifdef __AVX512F__
 #define _MM_MERGE_f64  		_mm_mask_blend_pd

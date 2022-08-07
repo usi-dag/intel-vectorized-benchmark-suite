@@ -7,6 +7,8 @@
 #include <string.h>
 
 #include "../vector_species.h"
+#include "../serial/serial.h"
+
 
 
 
@@ -169,11 +171,11 @@
 #define _MM_VFSGNJN_f32     _mm512_neg_ps //_mm512_fnmadd_ps
 
 inline _MMR_f64  _mm512_neg_pd(_MMR_f64 a) {
-    return _mm512_fnmadd_pd(a, _MM_SET_f64(1.0), _MM_SET_f64(0.0));
+    return _MM_MUL_f64(a, _MM_SET_f64(-1.0));
 }
 
 inline _MMR_f32  _mm512_neg_ps(_MMR_f32 a) {
-    return _mm512_fnmadd_ps(a, _MM_SET_f32(1), _MM_SET_f32(0));
+    return _MM_MUL_f32(a, _MM_SET_f32(-1.0));
 }
 
 #define _MM_VFSGNJX_f64    _mm512_abs_pd // __builtin_epi_vfsgnjx_1xf64
@@ -275,42 +277,12 @@ inline _MMR_f32  _mm512_neg_ps(_MMR_f32 a) {
 
 // OPERATIONS WITH MASKS
 
-#define _MM_VMFIRST_i64 	firstTrue // __builtin_epi_vmfirst_1xi1
+#define _MM_VMFIRST_i64 	first_true_int64 // __builtin_epi_vmfirst_1xi1
 // #define _MM_VMFIRST_i32 	__builtin_epi_vmfirst_2xi1
 
-inline int firstTrue(_MMR_MASK_i64 mask, int dimension) {
-    _MMR_f64 m = _MM_SET_f64(0.0);
-    m = _MM_ADD_f64_MASK(m, mask, m, _MM_SET_f64(1));
-    double * val = new double[dimension];
-    _MM_STORE_f64(val, m);
-    for (int i = 0; i < dimension; i++) {
-        if (val[i] != 0) {
-            delete [] val;
-            return i;
-        }
-    }
 
-    delete [] val;
-    return -1;
-}
+#define _MM_VMPOPC_i64 		true_count_int64 // __builtin_epi_vmpopc_1xi1
 
-#define _MM_VMPOPC_i64 		trueCount // __builtin_epi_vmpopc_1xi1
-
-inline int trueCount(_MMR_MASK_i64 mask, int dimension) {
-    _MMR_f64 m = _MM_SET_f64(0.0);
-    m = _MM_ADD_f64_MASK(m, mask, m, _MM_SET_f64(1));
-    int res = 0;
-    double * val = new double[dimension];
-    _MM_STORE_f64(val, m);
-
-    for (int i = 0; i < dimension; i++) {
-         if (val[i] != 0) res++;
-    }
-
-    delete [] val;
-    delete [] val;
-    return res;
-}
 // define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1
 
 // #define _MM_VMAND_i64 		__builtin_epi_vmand_1xi1
@@ -419,21 +391,5 @@ inline _MMR_MASK_i64 _mm512_le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
 
 //---------------------------------------------------------------------------
 
-inline void print_vector_64(_MMR_f64 vec) {
-
-    double val [SPECIES_64];
-    _MM_STORE_f64(&val[0], vec);
-
-    printf("vec: %f, %f, %f, %f, %f, %f, %f, %f\n", val[0], val[1], val[2], val[3], val[4], val[5], val[6], val[7]);
-}
-
-inline void print_vector_32(_MMR_i32 vec) {
-
-    int val [SPECIES_32];
-    _MM_STORE_i32(&val[0], vec);
-//    memcpy(val, &vec, SPECIES_32);
-
-    printf("vec: %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", val[0], val[1], val[2], val[3], val[4], val[5], val[6], val[7], val[8], val[9], val[10], val[11], val[12], val[13], val[14], val[15]);
-}
 
 #endif // VECTOR_512

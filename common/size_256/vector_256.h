@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../vector_species.h"
+#include "../serial/serial.h"
 
 
 using namespace std;
