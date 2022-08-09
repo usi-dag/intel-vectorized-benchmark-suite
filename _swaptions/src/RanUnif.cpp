@@ -18,11 +18,11 @@
 #include "HJM_type.h"
 
 
-FTYPE RanUnif(long *s);
+FTYPE RanUnif(double *s);
 
-void RanUnif_vector(long *s, int iFactors, int iN, int BLOCKSIZE, FTYPE **randZ);
+void RanUnif_vector(double *s, int iFactors, int iN, int BLOCKSIZE, FTYPE **randZ);
 
-FTYPE RanUnif(long *s) {
+FTYPE RanUnif(double *s) {
     // uniform random number generator
 
     long ix, k1;
@@ -40,7 +40,7 @@ FTYPE RanUnif(long *s) {
 
 #ifdef USE_VECTOR_INTRINSIC
 
-void RanUnif_vector( long *s , int iFactors , int iN ,int  BLOCKSIZE , FTYPE **randZ )
+void RanUnif_vector( double *s , int iFactors , int iN ,int  BLOCKSIZE , FTYPE **randZ )
 {
   // uniform random number generator
 //  unsigned long int gvl = __builtin_epi_vsetvl(BLOCKSIZE, __epi_e64, __epi_m1);

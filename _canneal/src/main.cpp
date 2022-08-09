@@ -268,7 +268,7 @@ Teardown(DoTeardown);
 
 
 
-//BENCHMARK_MAIN();
+BENCHMARK_MAIN();
 //int main(int argc, char** argv)
 //{
 //    ::benchmark::RegisterMemoryManager(mm.get());
@@ -279,127 +279,127 @@ Teardown(DoTeardown);
 
 
 
-int main (int argc, char * const argv[]) {
-
-//#ifdef USE_RISCV_VECTOR
-    struct timeval tv1, tv2;
-    struct timezone tz;
-    double elapsed1=0.0;
-    gettimeofday(&tv1, &tz);
+//int main (int argc, char * const argv[]) {
+//
+////#ifdef USE_RISCV_VECTOR
+//    struct timeval tv1, tv2;
+//    struct timezone tz;
+//    double elapsed1=0.0;
+//    gettimeofday(&tv1, &tz);
+////#endif
+//
+//#ifdef PARSEC_VERSION
+//#define __PARSEC_STRING(x) #x
+//#define __PARSEC_XSTRING(x) __PARSEC_STRING(x)
+//        cout << "PARSEC Benchmark Suite Version "__PARSEC_XSTRING(PARSEC_VERSION) << endl << flush;
+//#else
+//        cout << "PARSEC Benchmark Suite" << endl << flush;
+//#endif //PARSEC_VERSION
+//#ifdef ENABLE_PARSEC_HOOKS
+//	__parsec_bench_begin(__parsec_canneal);
 //#endif
-
-#ifdef PARSEC_VERSION
-#define __PARSEC_STRING(x) #x
-#define __PARSEC_XSTRING(x) __PARSEC_STRING(x)
-        cout << "PARSEC Benchmark Suite Version "__PARSEC_XSTRING(PARSEC_VERSION) << endl << flush;
-#else
-        cout << "PARSEC Benchmark Suite" << endl << flush;
-#endif //PARSEC_VERSION
-#ifdef ENABLE_PARSEC_HOOKS
-	__parsec_bench_begin(__parsec_canneal);
-#endif
-
-	srandom(3);
-
-	if(argc != 5 && argc != 6) {
-		cout << "Usage: " << argv[0] << " NTHREADS NSWAPS TEMP NETLIST [NSTEPS]" << endl;
-		exit(1);
-	}
-
-	//argument 1 is numthreads
-	int num_threads = atoi(argv[1]);
-	cout << "Threadcount: " << num_threads << endl;
-#ifndef ENABLE_THREADS
-	if (num_threads != 1){
-		cout << "NTHREADS must be 1 (serial version)" <<endl;
-		exit(1);
-	}
-#endif
-
-	//argument 2 is the num moves / temp
-	int swaps_per_temp = atoi(argv[2]);
-	cout << swaps_per_temp << " swaps per temperature step" << endl;
-
-	//argument 3 is the start temp
-	int start_temp =  atoi(argv[3]);
-	cout << "start temperature: " << start_temp << endl;
-
-	//argument 4 is the netlist filename
-	string filename(argv[4]);
-	cout << "netlist filename: " << filename << endl;
-
-	//argument 5 (optional) is the number of temperature steps before termination
-	int number_temp_steps = -1;
-        if(argc == 6) {
-		number_temp_steps = atoi(argv[5]);
-		cout << "number of temperature steps: " << number_temp_steps << endl;
-        }
-
-
-	//now that we've read in the commandline, run the program
-	netlist my_netlist(filename);
-
-
-	annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
-
-	//#ifdef USE_RISCV_VECTOR
-    gettimeofday(&tv2, &tz);
-    elapsed1 = (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
-    printf("\n\nInitialization took %8.8lf secs   \n", elapsed1 );
+//
+//	srandom(3);
+//
+//	if(argc != 5 && argc != 6) {
+//		cout << "Usage: " << argv[0] << " NTHREADS NSWAPS TEMP NETLIST [NSTEPS]" << endl;
+//		exit(1);
+//	}
+//
+//	//argument 1 is numthreads
+//	int num_threads = atoi(argv[1]);
+//	cout << "Threadcount: " << num_threads << endl;
+//#ifndef ENABLE_THREADS
+//	if (num_threads != 1){
+//		cout << "NTHREADS must be 1 (serial version)" <<endl;
+//		exit(1);
+//	}
 //#endif
-
-
-#ifdef ENABLE_PARSEC_HOOKS
-	__parsec_roi_begin();
-#endif
-
-    double total_time = 0.0;
-    int total_iterations = 10;
-
-    for (int i = 0; i < total_iterations; i++) {
-    //#ifdef USE_RISCV_VECTOR
-        struct timeval tv3, tv4;
-        double elapsed2=0.0;
-        gettimeofday(&tv3, &tz);
-    //#endif
-
-
-    #ifdef ENABLE_THREADS
-      std::vector<pthread_t> threads(num_threads);
-      void* thread_in = static_cast<void*>(&a_thread);
-      for(int i=0; i<num_threads; i++){
-        pthread_create(&threads[i], NULL, entry_pt,thread_in);
-      }
-      for (int i=0; i<num_threads; i++){
-        pthread_join(threads[i], NULL);
-      }
-    #else
-      a_thread.Run();
-    #endif
-
-
-    //#ifdef USE_RISCV_VECTOR
-        gettimeofday(&tv4, &tz);
-        elapsed2 = (double) (tv4.tv_sec-tv3.tv_sec) + (double) (tv4.tv_usec-tv3.tv_usec) * 1.e-6;
-        total_time += elapsed2;
-
-    }
-    printf("\n\nthread.Run() %8.8lf secs   \n", total_time / total_iterations );
+//
+//	//argument 2 is the num moves / temp
+//	int swaps_per_temp = atoi(argv[2]);
+//	cout << swaps_per_temp << " swaps per temperature step" << endl;
+//
+//	//argument 3 is the start temp
+//	int start_temp =  atoi(argv[3]);
+//	cout << "start temperature: " << start_temp << endl;
+//
+//	//argument 4 is the netlist filename
+//	string filename(argv[4]);
+//	cout << "netlist filename: " << filename << endl;
+//
+//	//argument 5 (optional) is the number of temperature steps before termination
+//	int number_temp_steps = -1;
+//        if(argc == 6) {
+//		number_temp_steps = atoi(argv[5]);
+//		cout << "number of temperature steps: " << number_temp_steps << endl;
+//        }
+//
+//
+//	//now that we've read in the commandline, run the program
+//	netlist my_netlist(filename);
+//
+//
+//	annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
+//
+//	//#ifdef USE_RISCV_VECTOR
+//    gettimeofday(&tv2, &tz);
+//    elapsed1 = (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
+//    printf("\n\nInitialization took %8.8lf secs   \n", elapsed1 );
+////#endif
+//
+//
+//#ifdef ENABLE_PARSEC_HOOKS
+//	__parsec_roi_begin();
 //#endif
-
-
-#ifdef ENABLE_PARSEC_HOOKS
-	__parsec_roi_end();
-#endif
-
-//	cout << "Final routing is: " << my_netlist.total_routing_cost() << endl;
-
-#ifdef ENABLE_PARSEC_HOOKS
-	__parsec_bench_end();
-#endif
-
-	return 0;
-}
+//
+//    double total_time = 0.0;
+//    int total_iterations = 10;
+//
+//    for (int i = 0; i < total_iterations; i++) {
+//    //#ifdef USE_RISCV_VECTOR
+//        struct timeval tv3, tv4;
+//        double elapsed2=0.0;
+//        gettimeofday(&tv3, &tz);
+//    //#endif
+//
+//
+//    #ifdef ENABLE_THREADS
+//      std::vector<pthread_t> threads(num_threads);
+//      void* thread_in = static_cast<void*>(&a_thread);
+//      for(int i=0; i<num_threads; i++){
+//        pthread_create(&threads[i], NULL, entry_pt,thread_in);
+//      }
+//      for (int i=0; i<num_threads; i++){
+//        pthread_join(threads[i], NULL);
+//      }
+//    #else
+//      a_thread.Run();
+//    #endif
+//
+//
+//    //#ifdef USE_RISCV_VECTOR
+//        gettimeofday(&tv4, &tz);
+//        elapsed2 = (double) (tv4.tv_sec-tv3.tv_sec) + (double) (tv4.tv_usec-tv3.tv_usec) * 1.e-6;
+//        total_time += elapsed2;
+//
+//    }
+//    printf("\n\nthread.Run() %8.8lf secs   \n", total_time / total_iterations );
+////#endif
+//
+//
+//#ifdef ENABLE_PARSEC_HOOKS
+//	__parsec_roi_end();
+//#endif
+//
+////	cout << "Final routing is: " << my_netlist.total_routing_cost() << endl;
+//
+//#ifdef ENABLE_PARSEC_HOOKS
+//	__parsec_bench_end();
+//#endif
+//
+//	return 0;
+//}
 
 void* entry_pt(void* data)
 {

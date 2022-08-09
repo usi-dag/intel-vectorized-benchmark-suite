@@ -17,6 +17,7 @@
 #include "HJM_Securities.h"
 #include "HJM.h"
 #include "HJM_type.h"
+#include <iostream>
 
 #include <time.h>
 #include <sys/time.h>
@@ -40,7 +41,7 @@ int HJM_Swaption_Blocking(FTYPE *pdSwaptionPrice, //Output vector that will stor
                           FTYPE *pdYield,
                           FTYPE **ppdFactors,
         //Simulation Parameters
-                          long *iRndSeed,
+                          FTYPE *iRndSeed,
                           long lTrials,
                           int BLOCKSIZE, int tid) {
     int iSuccess = 0;

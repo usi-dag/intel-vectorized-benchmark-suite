@@ -10,6 +10,8 @@
 #include <stdint.h>
 #include <string>
 #include <climits>
+#include <benchmark/benchmark.h>
+
 
 using namespace std;
 
@@ -40,7 +42,7 @@ string inputfilename;
 string outfilename;
 //#include "timer.h"
 
-void init(int argc, char **argv);
+//void init(int argc, char **argv);
 
 void run();
 
@@ -65,16 +67,16 @@ float elapsed_time(long long start_time, long long end_time) {
 
 /*************************************************************************/
 
-void init(int argc, char **argv) {
-    if (argc != 4) {
-        printf("Usage: pathfinder width num_of_steps input_file output_file\n");
-        exit(0);
-    }
+void init() {
+//    if (argc != 4) {
+//        printf("Usage: pathfinder width num_of_steps input_file output_file\n");
+//        exit(0);
+//    }
 
-    cols = atoi(argv[1]);
-    rows = atoi(argv[2]);
+    cols = 5000;//atoi(argv[1]);
+    rows = 5000;// atoi(argv[2]);
     //inputfilename = argv[3];
-    outfilename = argv[3];
+    outfilename = "./output.txt";// argv[3];
     //}else{
     //            printf("Usage: pathfiner width num_of_steps input_file output_file\n");
     //            exit(0);
@@ -124,10 +126,12 @@ void fatal(char *s) {
 
 static void DoSetup(const benchmark::State& state) {
     // TODO create new init to read file input
-    init(argc, argv);
+    init();
 }
 
 static void DoTeardown(const benchmark::State& state) {
+    delete [] wall;
+//    delete [] result;
 }
 
 
@@ -143,39 +147,41 @@ static void BM_pathfinder(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_pathfinder)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10);
+BENCHMARK(BM_pathfinder)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10)->
+
+Teardown(DoTeardown);
 
 
 //BENCHMARK_MAIN();
 int main(int argc, char** argv)
 {
-    ::benchmark::RegisterMemoryManager(mm.get());
+//    ::benchmark::RegisterMemoryManager(mm.get());
     ::benchmark::Initialize(&argc, argv);
     ::benchmark::RunSpecifiedBenchmarks();
-    ::benchmark::RegisterMemoryManager(nullptr);
+//    ::benchmark::RegisterMemoryManager(nullptr);
 }
-
-int main(int argc, char **argv) {
-
-// if(argc != 1 ) {
-//         cout << "Usage: " << argv[0] << " <input_file> " << endl;
-//         exit(1);
-//     }   
-    long long start_0 = get_time();
-    init(argc, argv);
-    long long end_0 = get_time();
-    printf("TIME TO INIT DATA: %f\n", elapsed_time(start_0, end_0));
-    //unsigned long long cycles;
-
-#ifndef USE_VECTOR_INTRINSIC
-    run();
-#else
-    run_vector();
-#endif
-
-    return EXIT_SUCCESS;
-}
-
+//
+//int main(int argc, char **argv) {
+//
+//// if(argc != 1 ) {
+////         cout << "Usage: " << argv[0] << " <input_file> " << endl;
+////         exit(1);
+////     }
+//    long long start_0 = get_time();
+//    init(argc, argv);
+//    long long end_0 = get_time();
+//    printf("TIME TO INIT DATA: %f\n", elapsed_time(start_0, end_0));
+//    //unsigned long long cycles;
+//
+//#ifndef USE_VECTOR_INTRINSIC
+//    run();
+//#else
+//    run_vector();
+//#endif
+//
+//    return EXIT_SUCCESS;
+//}
+//
 #ifndef USE_VECTOR_INTRINSIC
 
 void run() {
@@ -184,8 +190,8 @@ void run() {
 
     //src = (int *)malloc(sizeof(int)*cols);
 
-    printf("NUMBER OF RUNS: %d\n", NUM_RUNS);
-    long long start = get_time();
+//    printf("NUMBER OF RUNS: %d\n", NUM_RUNS);
+//    long long start = get_time();
 
     for (int j = 0; j < NUM_RUNS; j++) {
         src = new int[cols];
@@ -208,20 +214,18 @@ void run() {
                 dst[n] = wall[(t + 1) * cols + n] + min;
             }
         }
-        //delete src;
+        delete [] src;
     }
 
-    long long end = get_time();
-    printf("TIME TO FIND THE SMALLEST PATH: %f\n", elapsed_time(start, end));
+//    long long end = get_time();
+//    printf("TIME TO FIND THE SMALLEST PATH: %f\n", elapsed_time(start, end));
 
 #ifdef RESULT_PRINT
 
 //    output_printfile(dst, outfilename );
 
 #endif  // RESULT_PRINT
-    free(dst);
-    free(wall);
-    free(src);
+
 }
 
 #else // USE_VECTOR_INTRINSIC
@@ -229,10 +233,10 @@ void run() {
 void run_vector()
 {
     int *src,*dst, *temp;
-    dst = (int *)malloc(sizeof(int)*cols);
+//    dst = (int *)malloc(sizeof(int)*cols);
     src = (int *)malloc(sizeof(int)*cols);
-    long long start = get_time();
-    printf("NUMBER OF RUNS: %d\n",NUM_RUNS);
+//    long long start = get_time();
+//    printf("NUMBER OF RUNS: %d\n",NUM_RUNS);
 
 
 
@@ -249,10 +253,10 @@ void run_vector()
         _MMR_i32    xSrc_slideup;
         _MMR_i32    xSrc_slidedown;
         _MMR_i32    xSrc;
-        _MMR_i32    xNextrow; 
+        _MMR_i32    xNextrow;
 
 
-        for (int t = 0; t < rows-1; t++) 
+        for (int t = 0; t < rows-1; t++)
         {
             int n;
 
@@ -262,14 +266,14 @@ void run_vector()
 
             for(n = 0; n < limit; n = n + SPECIES_32)
             {
-                xNextrow = _MM_LOAD_i32(&src[n]);
+                xNextrow = _MM_LOAD_i32((_MMR_i32*)&src[n]);
                 xSrc = xNextrow;
-                xSrc_slideup = _MM_LOAD_i32(&src[n+1]);
+                xSrc_slideup = _MM_LOAD_i32((_MMR_i32*)&src[n+1]);
                 if (n > 0) {
-                    xSrc_slidedown = _MM_LOAD_i32(&src[n-1]);
+                    xSrc_slidedown = _MM_LOAD_i32((_MMR_i32*)&src[n-1]);
                 } else {
 
-                    xSrc_slidedown = _MM_LOAD_i32(&src[0]);
+                    xSrc_slidedown = _MM_LOAD_i32((_MMR_i32*)&src[0]);
 
 
 
@@ -277,17 +281,17 @@ void run_vector()
 //                    xSrc_slidedown = _MM_RSHIFT_i32(xSrc_slidedown, 1);
 //                    xSrc_slidedown[0] = INT_MAX;
                     int * tmp =  (int *)malloc(sizeof(int)*SPECIES_32 + 1);
-                    _MM_STORE_i32(&tmp[1], xSrc_slidedown);
+                    _MM_STORE_i32((_MMR_i32*)&tmp[1], xSrc_slidedown);
                     tmp[0] = INT_MAX;
-                    xSrc_slidedown = _MM_LOAD_i32(&tmp[0]);
+                    xSrc_slidedown = _MM_LOAD_i32((_MMR_i32*)&tmp[0]);
 
                 }
 
                 xSrc = _MM_MIN_i32(xSrc,xSrc_slideup);
                 xSrc = _MM_MIN_i32(xSrc,xSrc_slidedown);
-                xNextrow = _MM_LOAD_i32(&wall[(t+1)*cols + n]);
+                xNextrow = _MM_LOAD_i32((_MMR_i32*)&wall[(t+1)*cols + n]);
                 xNextrow = _MM_ADD_i32(xNextrow,xSrc);
-                _MM_STORE_i32(&dst[n],xNextrow);
+                _MM_STORE_i32((_MMR_i32*)&dst[n],xNextrow);
 //                FENCE();
             }
 
@@ -303,8 +307,8 @@ void run_vector()
 
 //        FENCE();
     }
-    long long end = get_time();
-    printf("TIME TO FIND THE SMALLEST PATH: %f\n", elapsed_time(start, end));
+//    long long end = get_time();
+//    printf("TIME TO FIND THE SMALLEST PATH: %f\n", elapsed_time(start, end));
 
 #ifdef RESULT_PRINT
 
@@ -312,8 +316,7 @@ void run_vector()
 
 #endif // RESULT_PRINT
 
-    free(wall);
-    free(dst);
+//    free(dst);
     free(src);
 }
 #endif // USE_VECTOR_INTRINSIC

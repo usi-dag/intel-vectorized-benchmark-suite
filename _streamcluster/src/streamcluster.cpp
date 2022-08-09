@@ -2116,7 +2116,7 @@ static void BM_streamcluster(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->Iterations(1)->Setup(DoSetup)->Teardown(DoTeardown);
+BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->Iterations(10)->Setup(DoSetup)->Teardown(DoTeardown);
 
 
 

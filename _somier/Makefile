@@ -1,8 +1,3 @@
-
-CC=${GCC}/bin/gcc
-OBJDUMP=${GCC}/bin/llvm-objdump
-SIZE?=VECTOR_SIZE_512
-
 CFLAGS += -march=native  -O3 -fno-tree-vectorize
 
 LDFLAGS = -lm -static

@@ -17,21 +17,22 @@
 //	LIBRARIES
 //======================================================================================================================================================150
 
-#include <stdio.h>					// (in path known to compiler)			needed by printf
-#include <stdlib.h>					// (in path known to compiler)			needed by malloc
-#include <stdbool.h>				// (in path known to compiler)			needed by true/false
+//#include <stdio.h>					// (in path known to compiler)			needed by printf
+//#include <stdlib.h>					// (in path known to compiler)			needed by malloc
+//#include <stdbool.h>				// (in path known to compiler)			needed by true/false
 #include <iostream>
+#include <cstring>
 
-#include <memory>
+//#include <memory>
 #include <benchmark/benchmark.h>
-//#include "../common/memory_manager.h"
+#include "../common/memory_manager.h"
 
 //======================================================================================================================================================150
 //	UTILITIES
 //======================================================================================================================================================150
 
-#include "./util/timer/timer.h"			// (in path specified here)
-#include "./util/num/num.h"				// (in path specified here)
+//#include "./util/timer/timer.h"			// (in path specified here)
+//#include "./util/num/num.h"				// (in path specified here)
 
 //#include "../common/riscv_util.h"
 //======================================================================================================================================================150
@@ -45,9 +46,9 @@
 //======================================================================================================================================================150
 
 #ifdef USE_VECTOR_INTRINSIC
-#include "./kernel/kernel_vector.h"				// (in library path specified here)
+#include "./kernel/kernel_vector.hpp"				// (in library path specified here)
 #else
-#include "./kernel/kernel_cpu.h"				// (in library path specified here)
+#include "./kernel/kernel_cpu.hpp"				// (in library path specified here)
 #endif
 
 
@@ -71,12 +72,17 @@ public:
 
     void read(unsigned int* dest, FOUR_VECTOR* rv, fp * qv , int limit) {
 
-        std::fscanf(file, "%u %u %u\n", &dest[0], &dest[1], &dest[2]);
+        int number_of_arguments = std::fscanf(file, "%u %u %u\n", &dest[0], &dest[1], &dest[2]);
+        if (number_of_arguments != 3) {
+            std::cerr << "error expected 3 values but found: " << number_of_arguments << " on line " << 1 << std::endl;
 
+        }
         for (int i = 0; i < limit; ++i) {
-            std::cout << i << " " << limit <<  std::endl;
-            std::fscanf(file, "%f %f %f %f %f\n", &rv[i].x, &rv[i].y, &rv[i].z, &rv[i].v, &qv[i]);
-            std::cout << rv[i].x << " " <<   qv[i] << std::endl;
+
+            int res = std::fscanf(file, "%f %f %f %f %f\n", &rv[i].x, &rv[i].y, &rv[i].z, &rv[i].v, &qv[i]);
+            if (res != 5) {
+                std::cerr << "error in reading data from file, expected 5 values but found: " << res << " on line " << i + 1 << std::endl;
+            }
         }
 
     }
@@ -95,17 +101,18 @@ private:
 };
 
 static void DoSetup(const benchmark::State& state) {
+    std::cout << "ENTER SETUP" << std::endl;
     int i, j, k, l, m, n;
 
 // system memory
 
 // TODO read args from file input/lavaMD_127776.input
-    par_str      par_cpu;
-    dim_str dim_cpu;
-    box_str*   box_cpu;
+//    par_str      par_cpu;
+//    dim_str dim_cpu;
+//    box_str*   box_cpu;
 //    FOUR_VECTOR* rv_cpu;
 //    fp* qv_cpu;
-    FOUR_VECTOR* fv_cpu;
+//    FOUR_VECTOR* fv_cpu;
     int nh;
 
     std::string name = "input/lavaMD_127776.input";
@@ -114,10 +121,11 @@ static void DoSetup(const benchmark::State& state) {
 
     unsigned int * arguments = new unsigned int[3];
 
-    FOUR_VECTOR* rv_cpu = (FOUR_VECTOR*)malloc(165888);
-    fp * qv_cpu = (fp*)malloc(165888);
+    rv_cpu = (FOUR_VECTOR*)malloc(sizeof(FOUR_VECTOR) * 127776);
 
-    fileStream.read(arguments, rv_cpu, qv_cpu, 165888);
+    qv_cpu = (fp*)malloc(sizeof(fp) * 127776);
+
+    fileStream.read(arguments, rv_cpu, qv_cpu, 127776);
 
 //    time1 = get_time();
 
@@ -152,6 +160,7 @@ static void DoSetup(const benchmark::State& state) {
 
 // total number of boxes
     dim_cpu.number_boxes = dim_cpu.boxes1d_arg * dim_cpu.boxes1d_arg * dim_cpu.boxes1d_arg;
+    std::cout << dim_cpu.number_boxes << std::endl;
 
 // how many particles space has in each direction
     dim_cpu.space_elem = dim_cpu.number_boxes * NUMBER_PAR_PER_BOX;
@@ -267,6 +276,8 @@ static void DoSetup(const benchmark::State& state) {
 }
 
 static void DoTeardown(const benchmark::State& state) {
+    std::cout << "ENTER TEARDOWN" << std::endl;
+
     free(rv_cpu);
     free(qv_cpu);
     free(fv_cpu);
@@ -277,8 +288,8 @@ static void DoTeardown(const benchmark::State& state) {
 
 static void BM_lavaMD(benchmark::State& state) {
     for (auto _ : state) {
-        kernel_cpu(	par_cpu,
-                     dim_cpu,
+        kernel_cpu(	&par_cpu,
+                     & dim_cpu,
                      box_cpu,
                      rv_cpu,
                      qv_cpu,
@@ -287,7 +298,9 @@ static void BM_lavaMD(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_lavaMD)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10);
+BENCHMARK(BM_lavaMD)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10)->
+
+Teardown(DoTeardown);
 
 
 
@@ -297,10 +310,10 @@ BENCHMARK_MAIN();
 //int main(int argc, char** argv)
 //{
 //
-//    ::benchmark::RegisterMemoryManager(mm.get());
+////    ::benchmark::RegisterMemoryManager(mm.get());
 //    ::benchmark::Initialize(&argc, argv);
 //    ::benchmark::RunSpecifiedBenchmarks();
-//    ::benchmark::RegisterMemoryManager(nullptr);
+////    ::benchmark::RegisterMemoryManager(nullptr);
 //}
 
 
@@ -320,7 +333,7 @@ BENCHMARK_MAIN();
 //	// timer
 //	long long time0;
 //
-//	time0 = get_time();
+////	time0 = get_time();
 //
 //	// timer
 //	long long time1;
@@ -343,7 +356,7 @@ BENCHMARK_MAIN();
 //	FOUR_VECTOR* fv_cpu;
 //	int nh;
 //
-//	time1 = get_time();
+////	time1 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	CHECK INPUT ARGUMENTS
@@ -355,83 +368,83 @@ BENCHMARK_MAIN();
 //	char *outputFile;
 //
 //	// go through arguments
-//	for(dim_cpu.cur_arg=1; dim_cpu.cur_arg<argc; dim_cpu.cur_arg++){
-//		// check if -cores
-//		if(strcmp(argv[dim_cpu.cur_arg], "-cores")==0){
-//			// check if value provided
-//			if(argc>=dim_cpu.cur_arg+1){
-//				// check if value is a number
-//				if(isInteger(argv[dim_cpu.cur_arg+1])==1){
-//					dim_cpu.cores_arg = atoi(argv[dim_cpu.cur_arg+1]);
-//					if(dim_cpu.cores_arg<0){
-//						printf("ERROR: Wrong value to -cores parameter, cannot be <=0\n");
-//						return 0;
-//					}
-//					dim_cpu.cur_arg = dim_cpu.cur_arg+1;
-//				}
-//				// value is not a number
-//				else{
-//					printf("ERROR: Value to -cores parameter in not a number\n");
-//					return 0;
-//				}
-//			}
-//			// value not provided
-//			else{
-//				printf("ERROR: Missing value to -cores parameter\n");
-//				return 0;
-//			}
-//		}
-//		// check if -boxes1d
-//		else if(strcmp(argv[dim_cpu.cur_arg], "-boxes1d")==0){
-//			// check if value provided
-//			if(argc>=dim_cpu.cur_arg+1){
-//				// check if value is a number
-//				if(isInteger(argv[dim_cpu.cur_arg+1])==1){
-//					dim_cpu.boxes1d_arg = atoi(argv[dim_cpu.cur_arg+1]);
-//					if(dim_cpu.boxes1d_arg<0){
-//						printf("ERROR: Wrong value to -boxes1d parameter, cannot be <=0\n");
-//						return 0;
-//					}
-//					dim_cpu.cur_arg = dim_cpu.cur_arg+1;
-//				}
-//				// value is not a number
-//				else{
-//					printf("ERROR: Value to -boxes1d parameter in not a number\n");
-//					return 0;
-//				}
-//			}
-//			// value not provided
-//			else{
-//				printf("ERROR: Missing value to -boxes1d parameter\n");
-//				return 0;
-//			}
-//		}
-//		// check if -outputFile
-//		else if(strcmp(argv[dim_cpu.cur_arg], "-outputFile")==0){
-//			// check if value provided
-//			if(argc>=dim_cpu.cur_arg+1){
-//			// check if value is a number
-//				outputFile = argv[dim_cpu.cur_arg+1];
-//				dim_cpu.cur_arg = dim_cpu.cur_arg+1;
-//			}
-//			// value is not a number
-//			else{
-//				printf("ERROR: Missing output file name\n");
-//				return 0;
-//			}
-//		}
-//		// unknown
-//		else{
-//			printf("ERROR: Unknown parameter\n");
-//			return 0;
-//		}
-//	}
+////	for(dim_cpu.cur_arg=1; dim_cpu.cur_arg<argc; dim_cpu.cur_arg++){
+////		// check if -cores
+////		if(strcmp(argv[dim_cpu.cur_arg], "-cores")==0){
+////			// check if value provided
+////			if(argc>=dim_cpu.cur_arg+1){
+////				// check if value is a number
+////				if(isInteger(argv[dim_cpu.cur_arg+1])==1){
+////					dim_cpu.cores_arg = atoi(argv[dim_cpu.cur_arg+1]);
+////					if(dim_cpu.cores_arg<0){
+////						printf("ERROR: Wrong value to -cores parameter, cannot be <=0\n");
+////						return 0;
+////					}
+////					dim_cpu.cur_arg = dim_cpu.cur_arg+1;
+////				}
+////				// value is not a number
+////				else{
+////					printf("ERROR: Value to -cores parameter in not a number\n");
+////					return 0;
+////				}
+////			}
+////			// value not provided
+////			else{
+////				printf("ERROR: Missing value to -cores parameter\n");
+////				return 0;
+////			}
+////		}
+////		// check if -boxes1d
+////		else if(strcmp(argv[dim_cpu.cur_arg], "-boxes1d")==0){
+////			// check if value provided
+////			if(argc>=dim_cpu.cur_arg+1){
+////				// check if value is a number
+////				if(isInteger(argv[dim_cpu.cur_arg+1])==1){
+////					dim_cpu.boxes1d_arg = atoi(argv[dim_cpu.cur_arg+1]);
+////					if(dim_cpu.boxes1d_arg<0){
+////						printf("ERROR: Wrong value to -boxes1d parameter, cannot be <=0\n");
+////						return 0;
+////					}
+////					dim_cpu.cur_arg = dim_cpu.cur_arg+1;
+////				}
+////				// value is not a number
+////				else{
+////					printf("ERROR: Value to -boxes1d parameter in not a number\n");
+////					return 0;
+////				}
+////			}
+////			// value not provided
+////			else{
+////				printf("ERROR: Missing value to -boxes1d parameter\n");
+////				return 0;
+////			}
+////		}
+////		// check if -outputFile
+////		else if(strcmp(argv[dim_cpu.cur_arg], "-outputFile")==0){
+////			// check if value provided
+////			if(argc>=dim_cpu.cur_arg+1){
+////			// check if value is a number
+////				outputFile = argv[dim_cpu.cur_arg+1];
+////				dim_cpu.cur_arg = dim_cpu.cur_arg+1;
+////			}
+////			// value is not a number
+////			else{
+////				printf("ERROR: Missing output file name\n");
+////				return 0;
+////			}
+////		}
+////		// unknown
+////		else{
+////			printf("ERROR: Unknown parameter\n");
+////			return 0;
+////		}
+////	}
 //
 //	// Print configuration
 //	printf("Configuration used: cores = %d, boxes1d = %d\n", dim_cpu.cores_arg, dim_cpu.boxes1d_arg);
 //	printf("outputfile = %s \n", outputFile);
 //
-//	time2 = get_time();
+////	time2 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	INPUTS
@@ -439,7 +452,7 @@ BENCHMARK_MAIN();
 //
 //	par_cpu.alpha = 0.5;
 //
-//	time3 = get_time();
+////	time3 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	DIMENSIONS
@@ -456,7 +469,7 @@ BENCHMARK_MAIN();
 //	// box array
 //	dim_cpu.box_mem = dim_cpu.number_boxes * sizeof(box_str);
 //
-//	time4 = get_time();
+////	time4 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	SYSTEM MEMORY
@@ -557,7 +570,7 @@ BENCHMARK_MAIN();
 //		fv_cpu[i].z = 0;								// set to 0, because kernels keeps adding to initial value
 //	}
 //
-//	time5 = get_time();
+////	time5 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	KERNEL
@@ -567,26 +580,26 @@ BENCHMARK_MAIN();
 //	//	CPU/MCPU
 //	//====================================================================================================100
 //
-//	// Start instruction and cycles count of the region of interest
-//    unsigned long cycles1, cycles2, instr2, instr1;
-//    instr1 = get_inst_count();
-//    cycles1 = get_cycles_count();
+////	// Start instruction and cycles count of the region of interest
+////    unsigned long cycles1, cycles2, instr2, instr1;
+////    instr1 = get_inst_count();
+////    cycles1 = get_cycles_count();
 //
-//	kernel_cpu(	par_cpu,
-//				dim_cpu,
+//	kernel_cpu(	&par_cpu,
+//				&dim_cpu,
 //				box_cpu,
 //				rv_cpu,
 //				qv_cpu,
 //				fv_cpu);
 //
-//	// End instruction and cycles count of the region of interest
-//    instr2 = get_inst_count();
-//    cycles2 = get_cycles_count();
-//    // Instruction and cycles count of the region of interest
-//    printf("-CSR   NUMBER OF EXEC CYCLES :%lu\n", cycles2 - cycles1);
-//    printf("-CSR   NUMBER OF INSTRUCTIONS EXECUTED :%lu\n", instr2 - instr1);
-//
-//	time6 = get_time();
+////	// End instruction and cycles count of the region of interest
+////    instr2 = get_inst_count();
+////    cycles2 = get_cycles_count();
+////    // Instruction and cycles count of the region of interest
+////    printf("-CSR   NUMBER OF EXEC CYCLES :%lu\n", cycles2 - cycles1);
+////    printf("-CSR   NUMBER OF INSTRUCTIONS EXECUTED :%lu\n", instr2 - instr1);
+////
+////	time6 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	SYSTEM MEMORY DEALLOCATION
@@ -621,7 +634,7 @@ BENCHMARK_MAIN();
 //	free(fv_cpu);
 //	free(box_cpu);
 //
-//	time7 = get_time();
+////	time7 = get_time();
 //
 //	//======================================================================================================================================================150
 //	//	DISPLAY TIMING

@@ -1,6 +1,6 @@
 #makefile
-SIZE?=VECTOR_SIZE_512
-INTEL_INTRINSIC?=mavx512f
+SIZE?=VECTOR_SIZE_256
+INTEL_INTRINSIC?=mavx2
 CXX=g++
 CXXFLAGS= -Wall -pedantic -std=c++11 -O3
 VECTORFLAGS= -D$(SIZE) -$(INTEL_INTRINSIC) -DUSE_VECTOR_INTRINSIC
@@ -12,21 +12,26 @@ start:
 	mkdir $(BIN); \
 	rm $(BIN)/*.*
 
-#serial:
-#	for entry in src/*.cpp ; do \
-#		$(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) -fno-tree-vectorize -c -o  $$entry.o  $$entry ; \
-#	done
-#	$(CXX)  $(CXXFLAGS) $(BENCHMARKFLAGS) -fno-tree-vectorize -o bin/swaptions_serial.exe src/*.cpp.o -lm;	\
-
 serial:
-	$(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) src/*.cpp -o $(BIN)/swaptions_serial.exe
+	$(CXX) $(CXXFLAGS) $(MEMORYFLAGS)  -fno-tree-vectorize src/*.cpp $(BENCHMARKFLAGS) -o $(BIN)/swaptions_serial.exe
 	rm src/*.o; \
 
-vector:
+autovec:
+	$(CXX) $(CXXFLAGS)  src/*.cpp $(BENCHMARKFLAGS) -o $(BIN)/swaptions_autovec.exe
+	rm src/*.o; \
+
+explictvec:
 	for entry in src/*.cpp ; do \
-	  $(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) $(MEMORYFLAGS) -c -o  $$entry.o  $$entry ; \
+	  $(CXX) $(CXXFLAGS) -fno-tree-vectorize  $(VECTORFLAGS) $(MEMORYFLAGS) -c $(BENCHMARKFLAGS) -o  $$entry.o  $$entry ; \
 	done
-	$(CXX)  $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) $(MEMORYFLAGS) -o bin/swaptions_vector.exe src/*.cpp.o -lm;	\
+	$(CXX)  $(CXXFLAGS)  $(VECTORFLAGS) $(MEMORYFLAGS) -o bin/swaptions_explicitvec.exe src/*.cpp.o $(BENCHMARKFLAGS) -lm;	\
+	rm src/*.o; \
+
+fullvec:
+	for entry in src/*.cpp ; do \
+	  $(CXX) $(CXXFLAGS) -fno-tree-vectorize  $(VECTORFLAGS) -c $(BENCHMARKFLAGS) -o  $$entry.o  $$entry ; \
+	done
+	$(CXX)  $(CXXFLAGS)  $(VECTORFLAGS) $(MEMORYFLAGS) -o bin/swaptions_fullvec.exe src/*.cpp.o $(BENCHMARKFLAGS) -lm;	\
 	rm src/*.o; \
 
 clean:

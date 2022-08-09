@@ -96,7 +96,7 @@ int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath,	//Matrix that stores genera
 				 FTYPE *pdForward,		//t=0 Forward curve
 				 FTYPE *pdTotalDrift,	//Vector containing total drift corrections for different maturities
 				 FTYPE **ppdFactors,	//Factor volatilities
-				 long *lRndSeed,			//Random number seed
+         FTYPE *lRndSeed,			//Random number seed
 				 int BLOCKSIZE)
 {	
 //This function computes and stores an HJM Path for given inputs

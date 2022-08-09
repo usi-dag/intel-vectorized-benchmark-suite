@@ -278,7 +278,7 @@ void BlkSchlsEqEuroNoDiv_vector (fptype * OptionPrice, fptype * sptprice,
 
     xOtype    = _MM_LOAD_f32(otype);
     xZero     = _MM_SET_f32(0.0);
-    xMask     = _MM_VMSEQ_f32(xZero,xOtype);
+    xMask     = _MM_VFEQ_f32(xZero,xOtype);
     // TODO version 256 and 128 create boolean array for serial and then recreate vector
     xfXd1   = _MM_MERGE_f32(xMask, _MM_SUB_f32(_MM_SET_f32(1.0),xfXd1),xfXd1);
     xStockPrice = _MM_LOAD_f32(sptprice);
@@ -660,10 +660,6 @@ static void DoSetup(const benchmark::State& state) {
     int rv;
 
 //#ifdef USE_VECTOR_INTRINSIC
-    struct timeval tv1_0, tv2_0;
-    struct timezone tz_0;
-    double elapsed0=0.0;
-    gettimeofday(&tv1_0, &tz_0);
 //#endif
 
 

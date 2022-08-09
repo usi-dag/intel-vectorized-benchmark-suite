@@ -11,9 +11,9 @@
 #include "../vector_species.h"
 
 inline _MMR_i64 mask_add_epi64(_MMR_i64 src, _MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
-    int a_[SPECIES_64];
-    int b_[SPECIES_64];
-    int src_[SPECIES_64];
+    int64_t a_[SPECIES_64];
+    int64_t b_[SPECIES_64];
+    int64_t src_[SPECIES_64];
     bool k_[SPECIES_64];
 
     memcpy(a_, &a, sizeof(a));
@@ -32,9 +32,9 @@ inline _MMR_i64 mask_add_epi64(_MMR_i64 src, _MMR_MASK_i64 k, _MMR_i64 a, _MMR_i
 }
 
 inline _MMR_i64 srav_epi64(_MMR_i64 a, _MMR_i64 count) {
-    int a_[SPECIES_64];
-    int count_[SPECIES_64];
-    int dst_[SPECIES_64];
+    int64_t a_[SPECIES_64];
+    int64_t count_[SPECIES_64];
+    int64_t dst_[SPECIES_64];
 
 
     memcpy(a_, &a, sizeof(a));
@@ -57,7 +57,7 @@ inline _MMR_i64 srav_epi64(_MMR_i64 a, _MMR_i64 count) {
 }
 
 inline int reduce_lane_add_epi32(_MMR_i32 a) {
-    int a_[SPECIES_32];
+    int32_t a_[SPECIES_32];
 
     memcpy(a_, &a, sizeof(a));
 
@@ -71,7 +71,7 @@ inline int reduce_lane_add_epi32(_MMR_i32 a) {
 
 inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
     int result = 0;
-    int a_[SPECIES_32];
+    int32_t a_[SPECIES_32];
     bool k_[SPECIES_32];
     memcpy(a_, &a, sizeof(a));
     memcpy(k_, &k, sizeof(k));
@@ -86,8 +86,8 @@ inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
 }
 
 inline _MMR_i64 mask_blend_epi64 (_MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
-    int  a_[SPECIES_64];
-    int  b_[SPECIES_64];
+    int64_t  a_[SPECIES_64];
+    int64_t  b_[SPECIES_64];
     bool k_[SPECIES_64];
     memcpy(a_, &a, sizeof(a));
     memcpy(b_, &b, sizeof(b));
@@ -346,8 +346,8 @@ inline _MMR_MASK_i64 knot(_MMR_MASK_i64 a) {
 
 inline _MMR_MASK_i64 lt_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
     bool k_[SPECIES_64];
-    int a_[SPECIES_64];
-    int b_[SPECIES_64];
+    int64_t a_[SPECIES_64];
+    int64_t b_[SPECIES_64];
 
     memcpy(a_, &a, sizeof(a));
     memcpy(b_, &b, sizeof(b));
@@ -364,8 +364,8 @@ inline _MMR_MASK_i64 lt_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
 
 inline _MMR_MASK_i64 eq_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
     bool k_[SPECIES_64];
-    int a_[SPECIES_64];
-    int b_[SPECIES_64];
+    int64_t a_[SPECIES_64];
+    int64_t b_[SPECIES_64];
 
     memcpy(a_, &a, sizeof(a));
     memcpy(b_, &b, sizeof(b));
@@ -382,8 +382,8 @@ inline _MMR_MASK_i64 eq_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
 
 inline _MMR_MASK_i32 eq_epi32_mask(_MMR_i32 a, _MMR_i32 b) {
     bool k_[SPECIES_32];
-    int a_[SPECIES_32];
-    int b_[SPECIES_32];
+    int32_t a_[SPECIES_32];
+    int32_t b_[SPECIES_32];
 
     memcpy(a_, &a, sizeof(a));
     memcpy(b_, &b, sizeof(b));

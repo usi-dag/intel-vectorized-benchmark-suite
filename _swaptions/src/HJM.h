@@ -7,8 +7,8 @@
 #include <sys/time.h>
 
 
-FTYPE RanUnif( long *s );
-void RanUnif_vector( long *s , int iFactors , int iN ,int  BLOCKSIZE, FTYPE **randZ);
+FTYPE RanUnif( FTYPE *s );
+void RanUnif_vector( FTYPE *s , int iFactors , int iN ,int  BLOCKSIZE, FTYPE **randZ);
 
 FTYPE CumNormalInv( FTYPE u );
 void CumNormalInv_vector( FTYPE* u ,FTYPE* output);
@@ -24,7 +24,7 @@ int Discount_Factors_opt(FTYPE *pdDiscountFactors, int iN, FTYPE dYears, FTYPE *
 int HJM_SimPath_Forward_Blocking_SSE(FTYPE **ppdHJMPath, int iN, int iFactors, FTYPE dYears, FTYPE *pdForward, FTYPE *pdTotalDrift,
 			    FTYPE **ppdFactors, long *lRndSeed, int BLOCKSIZE);
 int HJM_SimPath_Forward_Blocking(FTYPE **ppdHJMPath, int iN, int iFactors, FTYPE dYears, FTYPE *pdForward, FTYPE *pdTotalDrift,
-			    FTYPE **ppdFactors, long *lRndSeed, int BLOCKSIZE);
+			    FTYPE **ppdFactors, FTYPE *lRndSeed, int BLOCKSIZE);
 
 
 int Discount_Factors_Blocking(FTYPE *pdDiscountFactors, int iN, FTYPE dYears, FTYPE *pdRatePath, int BLOCKSIZE);
@@ -34,7 +34,7 @@ int Discount_Factors_Blocking_SSE(FTYPE *pdDiscountFactors, int iN, FTYPE dYears
 int HJM_SimPath_Yield(FTYPE **ppdHJMPath, int iN, int iFactors, FTYPE dYears, FTYPE *pdYield, FTYPE **ppdFactors,
                       long *lRndSeed);
 int HJM_SimPath_Forward(FTYPE **ppdHJMPath, int iN, int iFactors, FTYPE dYears, FTYPE *pdForward, FTYPE *pdTotalDrift,
-                        FTYPE **ppdFactors, long *lRndSeed);
+                        FTYPE **ppdFactors, FTYPE *lRndSeed);
 int HJM_Yield_to_Forward(FTYPE *pdForward, int iN, FTYPE *pdYield);
 int HJM_Factors(FTYPE **ppdFactors,int iN, int iFactors, FTYPE *pdVol, FTYPE **ppdFacBreak);
 int HJM_Drifts(FTYPE *pdTotalDrift, FTYPE **ppdDrifts, int iN, int iFactors, FTYPE dYears, FTYPE **ppdFactors);
@@ -81,7 +81,7 @@ int HJM_Swaption_Blocking(FTYPE *pdSwaptionPrice, //Output vector that will stor
 			      FTYPE *pdYield, 
 			      FTYPE **ppdFactors,
 			      //Simulation Parameters
-			      long *iRndSeed, 
+						FTYPE *iRndSeed,
 			      long lTrials, int blocksize, int tid);
 
 /*

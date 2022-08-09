@@ -22,7 +22,7 @@ int HJM_SimPath_Yield(FTYPE **ppdHJMPath,  //Matrix that stores generated HJM pa
                       FTYPE dYears,    //Number of years
                       FTYPE *pdYield,    //Input yield curve (at t=0) for dYears (iN time steps)
                       FTYPE **ppdFactors,  //Matrix of Factor Volatilies
-                      long *lRndSeed) {
+                      FTYPE *lRndSeed) {
 //This function returns a single generated HJM Path for the given inputs
 
     int iSuccess = 0;            //return variable
@@ -175,7 +175,7 @@ int HJM_SimPath_Forward(FTYPE **ppdHJMPath,  //Matrix that stores generated HJM 
                         FTYPE *pdForward,    //t=0 Forward curve
                         FTYPE *pdTotalDrift,  //Vector containing total drift corrections for different maturities
                         FTYPE **ppdFactors,  //Factor volatilities
-                        long *lRndSeed)      //Random number seed
+                        FTYPE *lRndSeed)      //Random number seed
 {
 //This function computes and stores an HJM Path for given inputs
 
