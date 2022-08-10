@@ -11,7 +11,7 @@
 * Barcelona Supercomputing Center (2020)
 *************************************************************************/
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -21,7 +21,7 @@
 
 // google benchmark
 #include "../../common/memory_manager.h"
-#include <memory>
+//#include <memory>
 #include <benchmark/benchmark.h>
 
 #ifdef USE_VECTOR_INTRINSIC
@@ -302,7 +302,7 @@ void getneighbors(int *se, int numOnes, double *neighbors, int radius) {
     int diameter = radius * 2 - 1;
     for (x = 0; x < diameter; x++) {
         for (y = 0; y < diameter; y++) {
-            if (se[x * diameter + y]) {
+            if (se[x * diameter + y] == 1) {
                 neighbors[neighY * 2] = (int) (y - center);
                 neighbors[neighY * 2 + 1] = (int) (x - center);
                 neighY++;
@@ -478,22 +478,19 @@ void particleFilter(int *I, int IszX, int IszY, int Nfr, double *seed, int Npart
 
     //printf("countOnes = %d \n",countOnes); // 69
 
-    double *objxy = (double *) malloc(countOnes * 2 * sizeof(double));
+    double *objxy = (double *) malloc((countOnes * 2) * sizeof(double));
     getneighbors(disk, countOnes, objxy, radius);
 
 //    long long get_neighbors = get_time();
 //    printf("TIME TO GET NEIGHBORS TOOK: %f\n", elapsed_time(start, get_neighbors));
     //initial weights are all equal (1/Nparticles)
-    std::cout << "DEBUG 0" << std::endl;
-    std::cout << Nparticles << std::endl;
 
     double * weights = (double *) malloc(sizeof(double) * Nparticles);
-    std::cout << "DEBUG 1\n\n\n" << std::endl;
     //#pragma omp parallel for shared(weights, Nparticles) private(x)
-    for (x = 0; x < Nparticles; x++) {
-        std::cout << x << std::endl;
+    for (x = 0; x < Nparticles; ++x) {
         weights[x] = 1 / ((double) (Nparticles));
     }
+//    double * weights = a;
 //    long long get_weights = get_time();
 //    printf("TIME TO GET WEIGHTSTOOK: %f\n", elapsed_time(get_neighbors, get_weights));
     //initial likelihood to 0.0
@@ -996,51 +993,78 @@ void particleFilter_vector(int * I, int IszX, int IszY, int Nfr, double * seed,d
 //    free(I1);
 //}
 
-static void BM_particlefilter(benchmark::State &state) {
-    std::cout << "BENCHMARK" << std::endl;
+int IszX, IszY, Nfr, Nparticles;
+double *seed;
+int *I;
+double* randu_vector_result;
+double* randu_vector_num;
 
-    int IszX = 128;
-int IszY = 128;
-int Nfr = 24;
-int Nparticles = 128;
-    double *seed = (double *) malloc(sizeof(double) * Nparticles);
+static void DoSetup(const benchmark::State& state) {
+
+    IszX = 128;
+    IszY = 128;
+    Nfr = 24;
+    Nparticles = 32768;
+    //establish seed
+    seed = (double *) malloc(sizeof(double) * Nparticles);
     int i;
     for (i = 0; i < Nparticles; i++) {
         seed[i] = i; //time(0)*i;
     }
     //malloc matrix
-    int *I = (int *) malloc(sizeof(int) * IszX * IszY * Nfr); // 128 * 128 * 10 = 163840 * sizeof(int)
+    I = (int *) malloc(sizeof(int) * IszX * IszY * Nfr); // 128 * 128 * 10 = 163840 * sizeof(int)
+
     //call video sequence
     videoSequence(I, IszX, IszY, Nfr, seed);
 
 #ifdef USE_VECTOR_INTRINSIC
     //    unsigned long int gvl = __builtin_epi_vsetvl(Nparticles, __epi_e64, __epi_m1);
-        double* randu_vector_result = (double*)malloc(SPECIES_64*sizeof(double));
-        double* randu_vector_num    = (double*)malloc(SPECIES_64*sizeof(double));
-#endif
-
-
-
-    for (auto _: state)
-#ifdef USE_VECTOR_INTRINSIC
-        particleFilter_vector(I, IszX, IszY, Nfr, seed,randu_vector_result,randu_vector_num, Nparticles);
-#else
-        particleFilter(I, IszX, IszY, Nfr, seed, Nparticles);
-
+        randu_vector_result = (double*)malloc(SPECIES_64*sizeof(double));
+        randu_vector_num    = (double*)malloc(SPECIES_64*sizeof(double));
 #endif
 }
 
+static void BM_particlefilter(benchmark::State &state) {
 
-//BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kMillisecond)/*->MinWarmUpTime(20)*/->Iterations(1)->Teardown(DoTeardown);
-BENCHMARK(BM_particlefilter)->Unit(benchmark::kMillisecond)/*->MinWarmUpTime(20)*/;
 
-BENCHMARK_MAIN();
-//int main(int argc, char **argv) {
-//    ::benchmark::RegisterMemoryManager(mm.get());
-//    ::benchmark::Initialize(&argc, argv);
-//    ::benchmark::RunSpecifiedBenchmarks();
-//    ::benchmark::RegisterMemoryManager(nullptr);
-//}
+
+    for (auto _: state) {
+
+#ifdef USE_VECTOR_INTRINSIC
+        //call particle filter
+   particleFilter_vector(I, IszX, IszY, Nfr, seed,randu_vector_result,randu_vector_num, Nparticles);
+#else
+        //call particle filter
+        particleFilter(I, IszX, IszY, Nfr, seed, Nparticles);
+#endif
+    }
+}
+
+
+
+static void DoTeardown(const benchmark::State& state) {
+#ifdef USE_VECTOR_INTRINSIC
+    free(randu_vector_result);
+    free(randu_vector_num);
+#endif
+
+
+    free(seed);
+    free(I);
+}
+
+
+BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kSecond)/*->MinWarmUpTime(20)*/->Iterations(1)->Teardown(DoTeardown);
+
+//BENCHMARK_MAIN();
+int main(int argc, char **argv) {
+    ::benchmark::RegisterMemoryManager(mm.get());
+    ::benchmark::Initialize(&argc, argv);
+    ::benchmark::RunSpecifiedBenchmarks();
+    ::benchmark::RegisterMemoryManager(nullptr);
+}
+
+
 
 //int main(int argc, char *argv[]) {
 //

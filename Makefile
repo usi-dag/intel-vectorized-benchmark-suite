@@ -1,6 +1,6 @@
 BASE_DIR := $(shell pwd)
-SIZE?=VECTOR_SIZE_128
-INTEL_INTRINSIC?=mavx
+SIZE?=VECTOR_SIZE_256
+INTEL_INTRINSIC?=mavx2
 
 
 APPLICATION_DIRS := _axpy _blackscholes _canneal _jacobi-2d _lavaMD _swaptions _streamcluster _somier _particlefilter _pathfinder
