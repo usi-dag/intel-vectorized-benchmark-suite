@@ -8,7 +8,7 @@
 #include <assert.h>
 #include "somier.h"
 
-void force_contribution(int n, double (*X)[n][n][n], double (*F)[n][n][n],
+void force_contribution(int n, double ****X, double ****F,
                    int i, int j, int k, int neig_i, int neig_j, int neig_k)
 {
    double dx, dy, dz, dl, spring_F, FX, FY,FZ;
@@ -31,7 +31,7 @@ void force_contribution(int n, double (*X)[n][n][n], double (*F)[n][n][n],
    F[2][i][j][k] += FZ;
 }
 
-void compute_forces(int n, double (*X)[n][n][n], double (*F)[n][n][n])
+void compute_forces(int n, double ****X, double ****F)
 {
    for (int i=1; i<n-1; i++) {
       for (int j=1; j<n-1; j++) {
@@ -51,7 +51,7 @@ void compute_forces(int n, double (*X)[n][n][n], double (*F)[n][n][n])
 
 #if 0
 //COMPARAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-void force_contribution(int n, double (*X)[n][n][n], double (*F)[n][n][n],
+void force_contribution(int n, double ****X, double ****F,
                    int i, int j, int k, int neig_i, int neig_j, int neig_k)
 {
    double dx, dy, dz, dl, spring_F, FX, FY,FZ;

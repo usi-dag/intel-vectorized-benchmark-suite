@@ -22,7 +22,7 @@
 static int count = 0;
 
 //reference scalar code
-void force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j, int neig_i, int neig_j) {
+void force_contr_prevec(int n, double ****X, double ****F, int i, int j, int neig_i, int neig_j) {
     double dx, dy, dz, dl, spring_F, FX, FY, FZ;
 
     for (int k = 1; k < n - 1; k++) {
@@ -43,9 +43,9 @@ void force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i
 
 double buffer[1024];
 
-inline void force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j, int neig_i, int neig_j);
+inline void force_contr_vec(int n, double ****X, double ****F, int i, int j, int neig_i, int neig_j);
 
-void force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j, int neig_i, int neig_j) {
+void force_contr_vec(int n, double ****X, double ****F, int i, int j, int neig_i, int neig_j) {
 //   unsigned long gvl = __builtin_epi_vsetvl(n, __epi_e64, __epi_m1);
     int limit = loop_bound(SPECIES_512, n - 2);
 
@@ -91,7 +91,7 @@ void force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, i
 }
 
 // TODO already bug in the riscv version
-void k_force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j) {
+void k_force_contr_vec(int n, double ****X, double ****F, int i, int j) {
     long gvl = __builtin_epi_vsetvl(n, __epi_e64, __epi_m1);
     int limit = loop_bound(SPECIES_512, n - 2);
 
@@ -163,7 +163,7 @@ void k_force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i,
 }
 
 
-void k_force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j) {
+void k_force_contr_prevec(int n, double ****X, double ****F, int i, int j) {
     double dx, dy, dz, dl, spring_F, FX, FY, FZ;
 
     for (int k = 1; k < n - 1; k++) {
@@ -198,7 +198,7 @@ __attribute__((noinline)) void emit_event() {
 }
 
 
-void compute_forces_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n]) {
+void compute_forces_prevec(int n, double ****X, double ****F) {
     int limit = loop_bound(SPECIES_512, n);
     for (int i = 1; i < n - 1; i++) {
         for (int j = 1; j < n - 1; j++) {

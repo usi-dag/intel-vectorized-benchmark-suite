@@ -20,7 +20,7 @@ void capture_ref_result(double *y, double* y_ref, int n)
    //printf ("\n\n");
 }
 
-void print_4D (int n, char*name, double (*y)[n][n][n])
+void print_4D (int n, char*name, double ****y)
 {
    int i,j,k, dim;
    for (dim=0; dim<3; dim++) {
@@ -36,7 +36,7 @@ void print_4D (int n, char*name, double (*y)[n][n][n])
    printf ("\n");
 }
 
-void capture_4D_ref (int n, double (*y)[n][n][n], double (*y_ref)[n][n][n])
+void capture_4D_ref (int n, double ****y, double ****y_ref)
 {
    int i,j,k, dim;
    for (dim=0; dim<3; dim++) {
@@ -50,7 +50,7 @@ void capture_4D_ref (int n, double (*y)[n][n][n], double (*y_ref)[n][n][n])
    }
 }
 
-void test_4D_result(int n, double (*y)[n][n][n], double (*y_ref)[n][n][n])
+void test_4D_result(int n, double ****y, double ****y_ref)
 {
    int nerrs=0;
    int i,j,k, dim;
@@ -74,12 +74,12 @@ void test_4D_result(int n, double (*y)[n][n][n], double (*y_ref)[n][n][n])
    if (nerrs == 0) printf ("Result ok !!!\n");
 }
 
-void clear_4D(int n, double (*X)[n][n][n])
+void clear_4D(int n, double ****X)
 {
    int i, j, k;
-   for (i = 0; i<n; i++) 
+   for (i = 0; i<n; i++)
       for (j = 0; j<n; j++)
-         for (k = 0; k<n; k++) { 
+         for (k = 0; k<n; k++) {
             X[0][i][j][k] = 0.0; X[1][i][j][k] = 0.0; X[2][i][j][k] = 0.0;
          }
 }
@@ -103,7 +103,7 @@ void print_prv_record() {
 }
 
 
-void  print_state(int n, double (*X)[n][n][n], double Xcenter[3], int nt){
+void  print_state(int n, double ****X, double Xcenter[3], int nt){
    printf ("t=%d\t", nt);
    printf ("XC= %f,%f,%f X[n/2-1] = %f,%f,%f  X[n/2] = %f,%f,%f V[n/2+1] = %f,%f,%f \n",
             Xcenter[0], Xcenter[1], Xcenter[2],

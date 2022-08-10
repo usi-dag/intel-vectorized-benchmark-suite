@@ -1,63 +1,88 @@
-CFLAGS += -march=native  -O3 -fno-tree-vectorize
-
-LDFLAGS = -lm -static
-IFLAGS = -I ./ -I ${VEHAVE_TOOLCHAIN}/include/vehave/ -I ${VEHAVE_TOOLCHAIN}/include/vehave-user/
-
-#makefile
-SIZE?=VECTOR_SIZE_256
-INTEL_INTRINSIC?=mavx2
+SIZE?=VECTOR_SIZE_512
+INTEL_INTRINSIC?=mavx512f
 CXX=g++
-CXXFLAGS= -Wall -pedantic -std=c++11 -O3
+CXXFLAGS= -Wall -pedantic  -std=c++11 -O3
 VECTORFLAGS= -D$(SIZE) -$(INTEL_INTRINSIC) -DUSE_VECTOR_INTRINSIC
 BENCHMARKFLAGS =  -isystem benchmark/include -Lbenchmark/build/src -lbenchmark -lpthread
-MEMORYFLAGS = #-DMEMORY_PROFILER
+MEMORYFLAGS = -DMEMORY_PROFILER
 BIN=bin
 
+.PHONY: main.seq.o somier.o utils.o forces.o
+
+
+LDFLAGS = -lm
+
 start:
-	mkdir $(BIN)
 	rm $(BIN)/*.exe
-	rm $(BIN)/*.dump
+	rm *.dump
 
-serial: somier_serial.exe somier_serial.dump clean_o
+serial: somier_serial.exe clean_o
+autovec: somier_autovec.exe clean_o
+explicitvec: somier_explicitvec.exe clean_o
+fullvec: somier_fullvec.exe clean_o
 
-autovec: somier_autovec.exe somier_serial.dump clean_o
+somier_serial.exe: main.seq.o somier_serial.o utils_serial.o forces_serial.o
+	$(CXX) $(CXXFLAGS)  $+ $(BENCHMARKFLAGS)  -fno-tree-vectorize $(LDFLAGS) -o  $(BIN)/$@
 
-explicitvec: somier_explicitvec.exe somier_vector.dump clean_o
+somier_autovec.exe: main.autovec.o somier_autovec.o utils_autovec.o forces_autovec.o
+	$(CXX) $(CXXFLAGS)  $+ $(BENCHMARKFLAGS)   $(LDFLAGS) -o  $(BIN)/$@
 
-fullvec: somier_fullvec.exe somier_vector.dump clean_o
+somier_explicitvec.exe: main.explicit.o somier_serial.o utils_serial.o forces_prevec_lmul1_serial.o somier_intr_lmul1_serial.o
+	$(CXX) $(CXXFLAGS) $+ $(LDFLAGS) -fno-tree-vectorize $(BENCHMARKFLAGS) -o $(BIN)/$@
 
-somier_serial.exe: main.seq.o somier.o utils.o forces.o
-	$(CXX) $(CXXFLAGS) -fno-tree-vectorize -o $@ $(BIN)/$+ $(LDFLAGS)
-
-somier_autovec.exe: main.seq.o somier.o utils.o forces.o
-	$(CXX) $(CXXFLAGS) -o $@ $(BIN)/$+ $(LDFLAGS)
-
-somier_explicitvec.exe: main.vec.o somier.o utils.o forces_prevec_lmul1.o somier_intr_lmul1.o
-	$(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) -fno-tree-vectorize -o $@ $(BIN)$+ $(LDFLAGS)
-
-somier_fullvec.exe: main.vec.o somier.o utils.o forces_prevec_lmul1.o somier_intr_lmul1.o
-	$(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS)  -o $@ $(BIN)$+ $(LDFLAGS)
+somier_fullvec.exe: main.fullvec.o somier_autovec.o utils_autovec.o forces_prevec_lmul1_autovec.o somier_intr_lmul1_autovec.o
+	$(CXX) $(CXXFLAGS) $+ $(BENCHMARKFLAGS)  $(LDFLAGS) -o $(BIN)/$@
 
 main.seq.o: main.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) $(IFLAGS) -DSEQ -c -o $@ $<
+	$(CXX) $(CXXFLAGS) $(IFLAGS) -fno-tree-vectorize   $< $(BENCHMARKFLAGS) -c  -o $@
 
-main.vec.o: main.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) $(IFLAGS) -c -o $@ $<
+main.autovec.o: main.cpp utils.h
+	$(CXX) $(CXXFLAGS) $(IFLAGS)   $< $(BENCHMARKFLAGS) -c  -o $@
 
-somier.o: omp/somier.c utils.h
-	$(CXX) $(CXXFLAGS) $(IFLAGS) -c -o $@ $<
+main.explicit.o: main.cpp utils.h
+	$(CXX) $(CXXFLAGS) $(IFLAGS) $(VECTORFLAGS) -fno-tree-vectorize -c -o $@ $(BENCHMARKFLAGS) $<
 
-somier_intr_lmul1.o: intrinsics/somier_intr_lmul1.c intrinsics/somier_v.h utils.h
-	$(CXX) $(CXXFLAGS)  $(VECTORFLAGS) $(IFLAGS) -c -o $@ $<
+main.fullvec.o: main.cpp utils.h
+	$(CXX) $(CXXFLAGS) $(IFLAGS) $(VECTORFLAGS) -c -o $@ $(BENCHMARKFLAGS) $<
 
-utils.o: utils.c utils.h
+somier_serial.o: somier.cpp utils.h
+	$(CXX) $(CXXFLAGS) -fno-tree-vectorize $(IFLAGS) -c -o $@  $<
+
+somier_autovec.o: somier.cpp utils.h
+	$(CXX) $(CXXFLAGS) $(IFLAGS) -c -o $@  $<
+
+
+
+
+somier_intr_lmul1_serial.o: intrinsics/somier_intr_lmul1.cpp intrinsics/somier_v.h utils.h
+	$(CXX) $(CXXFLAGS) $(VECTORFLAGS) -fno-tree-vectorize $(BENCHMARKFLAGS) $(IFLAGS) -c -o $@ $<
+
+somier_intr_lmul1_autovec.o: intrinsics/somier_intr_lmul1.cpp intrinsics/somier_v.h utils.h
+	$(CXX) $(CXXFLAGS) $(VECTORFLAGS) $(BENCHMARKFLAGS) $(IFLAGS) -c -o $@ $<
+
+
+
+utils_serial.o: utils.cpp utils.h
+	$(CXX) $(CXXFLAGS) -fno-tree-vectorize -c -o $@  $<
+
+utils_autovec.o: utils.cpp utils.h
+	$(CXX) $(CXXFLAGS) -c -o $@  $<
+
+
+
+forces_serial.o: forces.cpp utils.h
+	$(CXX) $(CXXFLAGS) -fno-tree-vectorize -c -o $@ $<
+
+forces_autovec.o: forces.cpp utils.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-forces.o: forces.c utils.h
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-forces_prevec_lmul1.o: intrinsics/forces_prevec_lmul1.c utils.h
-	$(CXX) $(CXXFLAGS) $(VECTORFLAGS) $(IFLAGS) -c -o $@ $<
+
+forces_prevec_lmul1_serial.o: intrinsics/forces_prevec_lmul1.cpp utils.h
+	$(CXX) $(CXXFLAGS) $(VECTORFLAGS) -fno-tree-vectorize $(BENCHMARKFLAGS) $(IFLAGS) -c -o $@ $<
+
+forces_prevec_lmul1_autovec.o: intrinsics/forces_prevec_lmul1.cpp utils.h
+	$(CXX) $(CXXFLAGS) $(VECTORFLAGS) $(BENCHMARKFLAGS) $(IFLAGS) -c -o $@ $<
 
 
 clean_o:
@@ -65,4 +90,4 @@ clean_o:
 
 clean:
 	rm -f *.o
-	rm -f *.exe
+	rm -f $(BIN)/*.exe

@@ -6,10 +6,10 @@
 #include <inttypes.h>
 #include <errno.h>
 #include <assert.h>
-#include "somier.h"
+#include "../somier.h"
 
 
-void init_X(int n, double (*X)[n][n][n]) {
+void init_X(int n, double ****X) {
     int i, j, k;
 
     Xcenter[0] = 0, Xcenter[1] = 0;
@@ -40,7 +40,7 @@ void init_X(int n, double (*X)[n][n][n]) {
 
 //make sure the boundary nodes are fixed
 
-void boundary(int n, double (*X)[n][n][n], double (*V)[n][n][n]) {
+void boundary(int n, double ****X, double ****V) {
     int i, j, k;
     i = 0;
     for (j = 0; j < n; j++) {
@@ -111,7 +111,7 @@ void boundary(int n, double (*X)[n][n][n], double (*V)[n][n][n]) {
 }
 
 
-inline void acceleration(int n, double (*A)[n][n][n], double (*F)[n][n][n], double M) {
+inline void acceleration(int n, double ****A, double ****F, double M) {
     int i, j, k;
 //#dear compiler: please fuse next two loops if you can 
     for (i = 0; i < n; i++)
@@ -125,14 +125,14 @@ inline void acceleration(int n, double (*A)[n][n][n], double (*F)[n][n][n], doub
 }
 
 
-inline void velocities(int n, double (*V)[n][n][n], double (*A)[n][n][n], double dt) {
+inline void velocities(int n, double ****V, double ****A, double dt) {
     int i, j, k;
 //#dear compiler: please fuse next two loops if you can 
     for (i = 0; i < n; i++)
 //      #pragma omp task
 //      #pragma omp unroll
         for (j = 0; j < n; j++) {
-#pragma omp simd
+//#pragma omp simd
             for (k = 0; k < n; k++) {
                 V[0][i][j][k] += A[0][i][j][k] * dt;
                 V[1][i][j][k] += A[1][i][j][k] * dt;
@@ -141,7 +141,7 @@ inline void velocities(int n, double (*V)[n][n][n], double (*A)[n][n][n], double
         }
 }
 
-void positions(int n, double (*X)[n][n][n], double (*V)[n][n][n], double dt) {
+void positions(int n, double ****X, double ****V, double dt) {
     int i, j, k;
 //#dear compiler: please fuse next two loops if you can 
     for (i = 0; i < n; i++)
@@ -153,7 +153,7 @@ void positions(int n, double (*X)[n][n][n], double (*V)[n][n][n], double dt) {
             }
 }
 
-void compute_stats(int n, double (*X)[n][n][n], double Xcenter[3]) {
+void compute_stats(int n, double ****X, double Xcenter[3]) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             for (int k = 0; k < n; k++) {
