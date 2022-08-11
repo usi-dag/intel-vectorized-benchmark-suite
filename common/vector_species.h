@@ -16,8 +16,16 @@
 #define _MMR_i64        	__m128i
 #define _MMR_i32        	__m128i
 
+#ifdef __AVX512F__
 #define _MMR_MASK_i64   	__mmask8
 #define _MMR_MASK_i32   	__mmask8
+
+#else
+#define _MMR_MASK_i64   	std::vector<bool>
+#define _MMR_MASK_i32   	std::vector<bool>
+
+#endif
+
 
 #elif defined(VECTOR_SIZE_256)
 #define SPECIES_32 8 // species for 32 bit type
@@ -30,8 +38,15 @@
 #define _MMR_i64        	__m256i
 #define _MMR_i32        	__m256i
 
+#ifdef __AVX512F__
 #define _MMR_MASK_i64   	__mmask8
 #define _MMR_MASK_i32   	__mmask8
+
+#else
+#define _MMR_MASK_i64   	std::vector<bool>
+#define _MMR_MASK_i32   	std::vector<bool>
+
+#endif
 
 #elif defined(VECTOR_SIZE_512)
 #define SPECIES_32 16 // species for 32 bit type
