@@ -176,7 +176,7 @@ FTYPE **dmatrix(long nrl, long nrh, long ncl, long nch) {
 void free_dmatrix(FTYPE **m, long nrl, long nrh, long ncl, long nch) {
     // free a FTYPE matrix allocated by dmatrix()
 
-    free((char *) (m[nrl] + ncl - 1));
+//    free((char *) (m[nrl] + ncl - 1));
     free((char *) (m + nrl - 1));
 
 } // end of free_dmatrix

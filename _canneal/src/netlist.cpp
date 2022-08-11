@@ -233,6 +233,7 @@ netlist::netlist(const std::string& filename)
 	}//while (!fin.eof())
 		cout << "netlist created. " << i-1 << " elements." << endl;		
 }
+netlist::netlist() {}
 
 //*****************************************************************************************
 // Used in the ctor.  Since an element have fanin from an element that can occur both

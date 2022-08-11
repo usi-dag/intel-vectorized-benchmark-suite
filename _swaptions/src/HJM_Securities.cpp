@@ -24,6 +24,7 @@
 
 // google benchmark
 #include "../../common/memory_manager.h"
+#include <memory>
 #include <benchmark/benchmark.h>
 
 #ifdef ENABLE_THREADS
@@ -273,7 +274,7 @@ fflush(NULL);
 #ifdef TBB_VERSION
             (parm *)memory_parm.allocate(sizeof(parm)*nSwaptions, NULL);
 #else
-            (parm *) malloc(sizeof(parm) * nSwaptions);
+    (parm *) malloc(sizeof(parm) * nSwaptions);
 #endif
 
     int k;
@@ -334,6 +335,7 @@ static void DoTeardown(const benchmark::State& state) {
 //
 
 static void BM_swaptions(benchmark::State& state) {
+//    std::cout << "BENCHMARK" << std::endl;
     for (auto _ : state) {
 #ifdef ENABLE_THREADS
 
@@ -361,16 +363,16 @@ static void BM_swaptions(benchmark::State& state) {
 #endif //ENABLE_THREADS
     }
 }
-BENCHMARK(BM_swaptions)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10)->Teardown(DoTeardown);
+BENCHMARK(BM_swaptions)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(0)->Iterations(4)->Teardown(DoTeardown);
 
 
 //BENCHMARK_MAIN();
 int main(int argc, char** argv)
 {
-//    benchmark::RegisterMemoryManager(mm.get());
+    benchmark::RegisterMemoryManager(mm.get());
     benchmark::Initialize(&argc, argv);
     benchmark::RunSpecifiedBenchmarks();
-//    benchmark::RegisterMemoryManager(nullptr);
+    benchmark::RegisterMemoryManager(nullptr);
 }
 
 

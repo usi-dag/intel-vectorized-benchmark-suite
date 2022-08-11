@@ -69,9 +69,12 @@ using namespace std;
 
 void* entry_pt(void*);
 
-//annealer_thread * a_thread;
+annealer_thread a_thread;
+annealer_thread * a_thread_ptr;
+netlist my_netlist;
 
 static void DoSetup(const benchmark::State& state) {
+
 
 #ifdef PARSEC_VERSION
     #define __PARSEC_STRING(x) #x
@@ -123,28 +126,16 @@ static void DoSetup(const benchmark::State& state) {
 
 
 //now that we've read in the commandline, run the program
-    netlist my_netlist(filename);
+     my_netlist = netlist(filename);
 
-
-    annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
-
-//#ifdef USE_RISCV_VECTOR
-//    gettimeofday(&tv2, &tz);
-//    elapsed1 = (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
-//    printf("\n\nInitialization took %8.8lf secs   \n", elapsed1 );
-//#endif
+//    annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
+    a_thread = annealer_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
+    a_thread_ptr = &a_thread;
 
 
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_roi_begin();
 #endif
-
-
-//#ifdef USE_RISCV_VECTOR
-//    struct timeval tv3, tv4;
-//    double elapsed2=0.0;
-//    gettimeofday(&tv3, &tz);
-//#endif
 
 
 }
@@ -168,84 +159,9 @@ static void DoTeardown(const benchmark::State& state) {
 
 
 static void BM_canneal(benchmark::State& state) {
-
-
-#ifdef PARSEC_VERSION
-    #define __PARSEC_STRING(x) #x
-#define __PARSEC_XSTRING(x) __PARSEC_STRING(x)
-        cout << "PARSEC Benchmark Suite Version "__PARSEC_XSTRING(PARSEC_VERSION) << endl << flush;
-#else
-    cout << "PARSEC Benchmark Suite" << endl << flush;
-#endif //PARSEC_VERSION
-#ifdef ENABLE_PARSEC_HOOKS
-    __parsec_bench_begin(__parsec_canneal);
-#endif
-
-    srandom(3);
-
-//    if(argc != 5 && argc != 6) {
-//        cout << "Usage: " << argv[0] << " NTHREADS NSWAPS TEMP NETLIST [NSTEPS]" << endl;
-//        exit(1);
-//    }
-
-//argument 1 is numthreads
-    int num_threads = 1; // atoi(argv[1]);
-    cout << "Threadcount: " << num_threads << endl;
-#ifndef ENABLE_THREADS
-    if (num_threads != 1){
-        cout << "NTHREADS must be 1 (serial version)" <<endl;
-        exit(1);
-    }
-#endif
-
-//argument 2 is the num moves / temp
-    int swaps_per_temp = 10000; // atoi(argv[2]);
-    cout << swaps_per_temp << " swaps per temperature step" << endl;
-
-//argument 3 is the start temp
-    int start_temp = 2000; // atoi(argv[3]);
-    cout << "start temperature: " << start_temp << endl;
-
-//argument 4 is the netlist filename
-//    string filename(argv[4]);
-    string filename("input/2500000.nets");
-    cout << "netlist filename: " << filename << endl;
-
-//argument 5 (optional) is the number of temperature steps before termination
-    int number_temp_steps = 300; // -1;
-//    if(argc == 6) {
-//        number_temp_steps = atoi(argv[5]);
-//        cout << "number of temperature steps: " << number_temp_steps << endl;
-//    }
-
-
-//now that we've read in the commandline, run the program
-    netlist my_netlist(filename);
-
-
-    annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
-
-//#ifdef USE_RISCV_VECTOR
-//    gettimeofday(&tv2, &tz);
-//    elapsed1 = (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
-//    printf("\n\nInitialization took %8.8lf secs   \n", elapsed1 );
-//#endif
-
-
-#ifdef ENABLE_PARSEC_HOOKS
-    __parsec_roi_begin();
-#endif
-
-
-//#ifdef USE_RISCV_VECTOR
-//    struct timeval tv3, tv4;
-//    double elapsed2=0.0;
-//    gettimeofday(&tv3, &tz);
-//#endif
-
-
-
     for (auto _ : state) {
+        std::cout << "BENCHMARK" << std::endl;
+
 #ifdef ENABLE_THREADS
         std::vector<pthread_t> threads(num_threads);
         void* thread_in = static_cast<void*>(&a_thread);
@@ -256,13 +172,14 @@ static void BM_canneal(benchmark::State& state) {
             pthread_join(threads[i], NULL);
         }
 #else
-        a_thread.Run();
+
+        a_thread_ptr->Run();
 #endif
     }
 }
 
 
-BENCHMARK(BM_canneal)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10)/*->Setup(DoSetup)*/->
+BENCHMARK(BM_canneal)->Unit(benchmark::kMillisecond)->MinWarmUpTime(0)->Iterations(10)->Setup(DoSetup)->
 
 Teardown(DoTeardown);
 

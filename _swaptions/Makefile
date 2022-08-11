@@ -17,7 +17,7 @@ serial:
 	rm src/*.o; \
 
 autovec:
-	$(CXX) $(CXXFLAGS)  src/*.cpp $(BENCHMARKFLAGS) -o $(BIN)/swaptions_autovec.exe
+	$(CXX) $(CXXFLAGS) $(MEMORYFLAGS) src/*.cpp $(BENCHMARKFLAGS) -o $(BIN)/swaptions_autovec.exe
 	rm src/*.o; \
 
 explictvec:
@@ -29,7 +29,7 @@ explictvec:
 
 fullvec:
 	for entry in src/*.cpp ; do \
-	  $(CXX) $(CXXFLAGS) -fno-tree-vectorize  $(VECTORFLAGS) -c $(BENCHMARKFLAGS) -o  $$entry.o  $$entry ; \
+	  $(CXX) $(CXXFLAGS) -fno-tree-vectorize  $(VECTORFLAGS) $(MEMORYFLAGS) -c $(BENCHMARKFLAGS) -o  $$entry.o  $$entry ; \
 	done
 	$(CXX)  $(CXXFLAGS)  $(VECTORFLAGS) $(MEMORYFLAGS) -o bin/swaptions_fullvec.exe src/*.cpp.o $(BENCHMARKFLAGS) -lm;	\
 	rm src/*.o; \

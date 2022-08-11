@@ -25,6 +25,15 @@ void print_mask32(_MMR_MASK_i32  k) {
     }
 }
 
+void print_mask64(_MMR_MASK_i32  k) {
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        std::cout << "vec[" << i << "] = " << k[i] << ", ";
+    }
+
+    std::cout << std::endl;
+}
+
 void print_vec32(_MMR_f32 k) {
 
     for (int i = 0; i < SPECIES_32; ++i) {
