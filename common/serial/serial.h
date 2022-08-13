@@ -7,8 +7,57 @@
 
 #include <cstring>
 #include <stdlib.h>
+#include <iostream>
 
 #include "../vector_species.h"
+
+void print_mask32(_MMR_MASK_i32  k) {
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+    }
+}
+
+void print_mask64(_MMR_MASK_i32  k) {
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        std::cout << "vec[" << i << "] = " << k[i] << ", ";
+    }
+
+    std::cout << std::endl;
+}
+
+void print_vec32(_MMR_f32 k) {
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+    }
+}
+
+void print_vec32i(_MMR_i32 k) {
+
+    int32_t a_[SPECIES_32];
+    memcpy(a_, &k, sizeof(k));
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        std::cout << "vec[" << i << "] = " << a_[i] << std::endl;
+    }
+
+}
+
+void print_vec64i(_MMR_i32 k) {
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+    }
+}
+
+void print_vec64(_MMR_f64 k) {
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+    }
+}
 
 inline _MMR_i64 mask_add_epi64(_MMR_i64 src, _MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
 
@@ -25,7 +74,8 @@ inline _MMR_i64 srav_epi64(_MMR_i64 a, _MMR_i64 count) {
     int64_t dst_[SPECIES_64];
 
     for (int i = 0; i < SPECIES_64; i++) {
-        if (SPECIES_64 - count[i] <= i) {
+        if (i - count[i] >= 0 && i - count[i] < SPECIES_64) {
+
             dst_[i] = a[i - count[i]];
         } else {
             dst_[i] = 0;
@@ -35,16 +85,17 @@ inline _MMR_i64 srav_epi64(_MMR_i64 a, _MMR_i64 count) {
     _MMR_i64 dst[SPECIES_64];
     memcpy(dst, dst_, sizeof(dst_));
 
-
     return *dst;
 }
 
 inline int reduce_lane_add_epi32(_MMR_i32 a) {
 
+    int32_t a_[SPECIES_32];
+    memcpy(a_, &a, sizeof(a));
 
     int result = 0;
     for (int i = 0; i < SPECIES_32; ++i) {
-        result += a[i];
+        result += a_[i];
     }
 
     return result;
@@ -52,11 +103,14 @@ inline int reduce_lane_add_epi32(_MMR_i32 a) {
 
 inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
 
+    int32_t a_[SPECIES_32];
+    memcpy(a_, &a, sizeof(a));
+
     int result = 0;
 
     for (int i = 0; i < SPECIES_32; ++i) {
         if (k[i]) {
-            result += a[i];
+            result += a_[i];
         }
     }
 
@@ -74,15 +128,15 @@ inline _MMR_i64 mask_blend_epi64 (_MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
     return a;
 }
 
-inline _MMR_f32 mask_load_ps(_MMR_f32 src, _MMR_i32 k, float const * mem_addr) {
+inline _MMR_f32 mask_load_ps(_MMR_f32 src, _MMR_MASK_i32 k, float const * mem_addr) {
 
-    int32_t dst_[SPECIES_32];
-
+    float dst_[SPECIES_32];
 
     for (int i = 0; i < SPECIES_32; ++i) {
         if (k[i]) {
-            dst_[i] = mem_addr[i];
-        } else {
+            src[i] = mem_addr[i];
+        }
+        else {
             dst_[i] = src[i];
         }
     }
@@ -91,7 +145,7 @@ inline _MMR_f32 mask_load_ps(_MMR_f32 src, _MMR_i32 k, float const * mem_addr) {
     memcpy(dst, dst_, sizeof(dst_));
 
 
-    return *dst;
+    return src;
 }
 
 
@@ -250,10 +304,14 @@ inline _MMR_MASK_i64 eq_epi64_mask(_MMR_i64 a, _MMR_i64 b) {
 
 inline _MMR_MASK_i32 eq_epi32_mask(_MMR_i32 a, _MMR_i32 b) {
     _MMR_MASK_i32 k = std::vector<bool>(SPECIES_32, 0);
+    int32_t a_[SPECIES_32];
+    int32_t b_[SPECIES_32];
+    memcpy(a_, &a, sizeof(a));
+    memcpy(b_, &b, sizeof(b));
 
 
     for (int i = 0; i < SPECIES_32; ++i) {
-        k[i] = a[i] == b[i];
+        k[i] = a_[i] == b_[i];
     }
 
     return k;

@@ -363,7 +363,7 @@ static void BM_swaptions(benchmark::State& state) {
 #endif //ENABLE_THREADS
     }
 }
-BENCHMARK(BM_swaptions)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(0)->Iterations(4)->Teardown(DoTeardown);
+BENCHMARK(BM_swaptions)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(0)->Iterations(10)->Teardown(DoTeardown);
 
 
 //BENCHMARK_MAIN();

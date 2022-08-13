@@ -154,13 +154,15 @@ FTYPE **dmatrix(long nrl, long nrh, long ncl, long nch) {
     FTYPE **m;
 
     // allocate pointers to rows
-    m = (FTYPE **) malloc((size_t)((nrow + 1) * sizeof(FTYPE *)));
+    // TODO BUG WITH INVALID POINTER (2* size to avoid but is a shitty solution please FIX!!)
+    m = (FTYPE **) malloc((size_t)(2* (nrow + 1) * sizeof(FTYPE *)));
     if (!m) nrerror("allocation failure 1 in dmatrix()");
     m += 1;
     m -= nrl;
 
     // allocate rows and set pointers to them
-    m[nrl] = (FTYPE *) malloc((size_t)((nrow * ncol + 1) * sizeof(FTYPE)));
+    // TODO BUG WITH INVALID POINTER (2* size to avoid but is a shitty solution please FIX!!)
+    m[nrl] = (FTYPE *) malloc((size_t)(2*(nrow * ncol + 1) * sizeof(FTYPE)));
     if (!m[nrl]) nrerror("allocation failure 2 in dmatrix()");
     m[nrl] += 1;
     m[nrl] -= ncl;
@@ -176,7 +178,7 @@ FTYPE **dmatrix(long nrl, long nrh, long ncl, long nch) {
 void free_dmatrix(FTYPE **m, long nrl, long nrh, long ncl, long nch) {
     // free a FTYPE matrix allocated by dmatrix()
 
-//    free((char *) (m[nrl] + ncl - 1));
+    free((char *) (m[nrl] + ncl - 1));
     free((char *) (m + nrl - 1));
 
 } // end of free_dmatrix
