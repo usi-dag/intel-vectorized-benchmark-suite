@@ -14,13 +14,11 @@ start:
 
 serial:
 	$(CXX) $(CXXFLAGS) $(MEMORYFLAGS)  -fno-tree-vectorize src/*.cpp $(BENCHMARKFLAGS) -o $(BIN)/swaptions_serial.exe
-	rm src/*.o; \
 
 autovec:
 	$(CXX) $(CXXFLAGS) $(MEMORYFLAGS) src/*.cpp $(BENCHMARKFLAGS) -o $(BIN)/swaptions_autovec.exe
-	rm src/*.o; \
 
-explictvec:
+explicitvec:
 	for entry in src/*.cpp ; do \
 	  $(CXX) $(CXXFLAGS) -fno-tree-vectorize  $(VECTORFLAGS) $(MEMORYFLAGS) -c $(BENCHMARKFLAGS) -o  $$entry.o  $$entry ; \
 	done

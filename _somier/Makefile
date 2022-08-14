@@ -1,5 +1,5 @@
-SIZE?=VECTOR_SIZE_512
-INTEL_INTRINSIC?=mavx512f
+SIZE?=VECTOR_SIZE_256
+INTEL_INTRINSIC?=mavx2
 CXX=g++
 CXXFLAGS= -Wall -pedantic  -std=c++11 -O3
 VECTORFLAGS= -D$(SIZE) -$(INTEL_INTRINSIC) -DUSE_VECTOR_INTRINSIC
@@ -14,7 +14,6 @@ LDFLAGS = -lm
 
 start:
 	rm $(BIN)/*.exe
-	rm *.dump
 
 serial: somier_serial.exe clean_o
 autovec: somier_autovec.exe clean_o
@@ -22,34 +21,34 @@ explicitvec: somier_explicitvec.exe clean_o
 fullvec: somier_fullvec.exe clean_o
 
 somier_serial.exe: main.seq.o somier_serial.o utils_serial.o forces_serial.o
-	$(CXX) $(CXXFLAGS)  $+ $(BENCHMARKFLAGS)  -fno-tree-vectorize $(LDFLAGS) -o  $(BIN)/$@
+	$(CXX) $(CXXFLAGS)  $+ $(BENCHMARKFLAGS) $(MEMORYFLAGS) -fno-tree-vectorize $(LDFLAGS) -o  $(BIN)/$@
 
 somier_autovec.exe: main.autovec.o somier_autovec.o utils_autovec.o forces_autovec.o
-	$(CXX) $(CXXFLAGS)  $+ $(BENCHMARKFLAGS)   $(LDFLAGS) -o  $(BIN)/$@
+	$(CXX) $(CXXFLAGS)  $+ $(BENCHMARKFLAGS) $(MEMORYFLAGS)  $(LDFLAGS) -o  $(BIN)/$@
 
 somier_explicitvec.exe: main.explicit.o somier_serial.o utils_serial.o forces_prevec_lmul1_serial.o somier_intr_lmul1_serial.o
-	$(CXX) $(CXXFLAGS) $+ $(LDFLAGS) -fno-tree-vectorize $(BENCHMARKFLAGS) -o $(BIN)/$@
+	$(CXX) $(CXXFLAGS) $+ $(LDFLAGS) -fno-tree-vectorize $(BENCHMARKFLAGS) $(MEMORYFLAGS) -o $(BIN)/$@
 
 somier_fullvec.exe: main.fullvec.o somier_autovec.o utils_autovec.o forces_prevec_lmul1_autovec.o somier_intr_lmul1_autovec.o
-	$(CXX) $(CXXFLAGS) $+ $(BENCHMARKFLAGS)  $(LDFLAGS) -o $(BIN)/$@
+	$(CXX) $(CXXFLAGS) $+ $(BENCHMARKFLAGS) $(MEMORYFLAGS) $(LDFLAGS) -o $(BIN)/$@
 
 main.seq.o: main.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(IFLAGS) -fno-tree-vectorize   $< $(BENCHMARKFLAGS) -c  -o $@
+	$(CXX) $(CXXFLAGS) $(IFLAGS) -fno-tree-vectorize   $< $(BENCHMARKFLAGS) $(MEMORYFLAGS) -c  -o $@
 
 main.autovec.o: main.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(IFLAGS)   $< $(BENCHMARKFLAGS) -c  -o $@
+	$(CXX) $(CXXFLAGS) $(IFLAGS)   $< $(BENCHMARKFLAGS) $(MEMORYFLAGS) -c  -o $@
 
 main.explicit.o: main.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(IFLAGS) $(VECTORFLAGS) -fno-tree-vectorize -c -o $@ $(BENCHMARKFLAGS) $<
+	$(CXX) $(CXXFLAGS) $(IFLAGS) $(VECTORFLAGS) -fno-tree-vectorize -c -o $@ $(BENCHMARKFLAGS) $(MEMORYFLAGS) $<
 
 main.fullvec.o: main.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(IFLAGS) $(VECTORFLAGS) -c -o $@ $(BENCHMARKFLAGS) $<
+	$(CXX) $(CXXFLAGS) $(IFLAGS) $(VECTORFLAGS) -c -o $@ $(BENCHMARKFLAGS) $(MEMORYFLAGS) $<
 
 somier_serial.o: somier.cpp utils.h
-	$(CXX) $(CXXFLAGS) -fno-tree-vectorize $(IFLAGS) -c -o $@  $<
+	$(CXX) $(CXXFLAGS) -fno-tree-vectorize $(MEMORYFLAGS) $(IFLAGS) -c -o $@  $<
 
 somier_autovec.o: somier.cpp utils.h
-	$(CXX) $(CXXFLAGS) $(IFLAGS) -c -o $@  $<
+	$(CXX) $(CXXFLAGS) $(IFLAGS) $(MEMORYFLAGS) -c -o $@  $<
 
 
 

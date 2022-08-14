@@ -19,7 +19,6 @@ autovec:
 explicitvec:
 	$(CXX) src/axpy_benchmark.cpp src/axpy.cpp  $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) $(MEMORYFLAGS) -fno-tree-vectorize -o $(BIN)/axpy_explicitvec.exe
 
-
 fullvec:
 	$(CXX) src/axpy_benchmark.cpp src/axpy.cpp  $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) $(MEMORYFLAGS) -o $(BIN)/axpy_fullvec.exe
 

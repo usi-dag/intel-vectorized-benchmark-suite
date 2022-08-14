@@ -11,53 +11,55 @@
 
 #include "../vector_species.h"
 
-void print_mask32(_MMR_MASK_i32  k) {
+#ifndef __AVX512F__
 
-    for (int i = 0; i < SPECIES_32; ++i) {
-        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
-    }
-}
-
-void print_mask64(_MMR_MASK_i32  k) {
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        std::cout << "vec[" << i << "] = " << k[i] << ", ";
-    }
-
-    std::cout << std::endl;
-}
-
-void print_vec32(_MMR_f32 k) {
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
-    }
-}
-
-void print_vec32i(_MMR_i32 k) {
-
-    int32_t a_[SPECIES_32];
-    memcpy(a_, &k, sizeof(k));
-
-    for (int i = 0; i < SPECIES_32; ++i) {
-        std::cout << "vec[" << i << "] = " << a_[i] << std::endl;
-    }
-
-}
-
-void print_vec64i(_MMR_i32 k) {
-
-    for (int i = 0; i < SPECIES_64; ++i) {
-        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
-    }
-}
-
-void print_vec64(_MMR_f64 k) {
-
-    for (int i = 0; i < SPECIES_64; ++i) {
-        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
-    }
-}
+//void print_mask32(_MMR_MASK_i32  k) {
+//
+//    for (int i = 0; i < SPECIES_32; ++i) {
+//        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+//    }
+//}
+//
+//void print_mask64(_MMR_MASK_i32  k) {
+//
+//    for (int i = 0; i < SPECIES_32; ++i) {
+//        std::cout << "vec[" << i << "] = " << k[i] << ", ";
+//    }
+//
+//    std::cout << std::endl;
+//}
+//
+//void print_vec32(_MMR_f32 k) {
+//
+//    for (int i = 0; i < SPECIES_32; ++i) {
+//        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+//    }
+//}
+//
+//void print_vec32i(_MMR_i32 k) {
+//
+//    int32_t a_[SPECIES_32];
+//    memcpy(a_, &k, sizeof(k));
+//
+//    for (int i = 0; i < SPECIES_32; ++i) {
+//        std::cout << "vec[" << i << "] = " << a_[i] << std::endl;
+//    }
+//
+//}
+//
+//void print_vec64i(_MMR_i32 k) {
+//
+//    for (int i = 0; i < SPECIES_64; ++i) {
+//        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+//    }
+//}
+//
+//void print_vec64(_MMR_f64 k) {
+//
+//    for (int i = 0; i < SPECIES_64; ++i) {
+//        std::cout << "vec[" << i << "] = " << k[i] << std::endl;
+//    }
+//}
 
 inline _MMR_i64 mask_add_epi64(_MMR_i64 src, _MMR_MASK_i64 k, _MMR_i64 a, _MMR_i64 b) {
 
@@ -396,4 +398,7 @@ inline _MMR_MASK_i64 le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
 
     return k;
 }
+
+#endif
+
 #endif //INTEL_VECTORIZED_BENCHMARK_SUITE_SERIAL_H

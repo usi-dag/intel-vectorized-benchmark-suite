@@ -5,7 +5,7 @@ CXX=g++
 CXXFLAGS= -Wall -pedantic -std=c++11 -O3
 VECTORFLAGS= -D$(SIZE) -$(INTEL_INTRINSIC) -DUSE_VECTOR_INTRINSIC
 BENCHMARKFLAGS =  -isystem benchmark/include -Lbenchmark/build/src -lbenchmark -lpthread
-MEMORYFLAGS = #-DMEMORY_PROFILER
+MEMORYFLAGS = -DMEMORY_PROFILER
 BIN=bin
 
 start:
@@ -16,7 +16,6 @@ serial:
 
 autovec:
 	$(CXX) src/*.cpp  $(CXXFLAGS) $(BENCHMARKFLAGS)  $(MEMORYFLAGS) -o $(BIN)/canneal_autovec.exe
-
 
 explicitvec:
 	$(CXX)  src/*.cpp  $(CXXFLAGS) $(BENCHMARKFLAGS) $(VECTORFLAGS) $(MEMORYFLAGS) -fno-tree-vectorize -o $(BIN)/canneal_explicitvec.exe

@@ -11,6 +11,7 @@
 #include <string>
 #include <climits>
 #include <benchmark/benchmark.h>
+#include "../../common/memory_manager.h"
 
 
 using namespace std;
@@ -147,7 +148,7 @@ static void BM_pathfinder(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_pathfinder)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10)->
+BENCHMARK(BM_pathfinder)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->
 
 Teardown(DoTeardown);
 
@@ -155,10 +156,10 @@ Teardown(DoTeardown);
 //BENCHMARK_MAIN();
 int main(int argc, char** argv)
 {
-//    ::benchmark::RegisterMemoryManager(mm.get());
+    ::benchmark::RegisterMemoryManager(mm.get());
     ::benchmark::Initialize(&argc, argv);
     ::benchmark::RunSpecifiedBenchmarks();
-//    ::benchmark::RegisterMemoryManager(nullptr);
+    ::benchmark::RegisterMemoryManager(nullptr);
 }
 //
 //int main(int argc, char **argv) {

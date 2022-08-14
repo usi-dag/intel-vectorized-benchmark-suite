@@ -37,6 +37,7 @@
 #include <assert.h>
 #include <deque>
 
+
 #ifdef USE_VECTOR_INTRINSIC
 #include "../../common/vector_defines.h"
 #endif

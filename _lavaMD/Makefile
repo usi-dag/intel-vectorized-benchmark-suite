@@ -16,22 +16,22 @@ start:
 	rm $(BIN)/*.*
 
 serial: main_serial.o ./kernel/kernel_cpu_serial.o
-	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_cpu.o $(BENCHMARKFLAGS) -fno-tree-vectorize -lm -o $(BIN)/lavaMD_serial.exe ; \
+	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_cpu.o $(BENCHMARKFLAGS) $(MEMORYFLAGS) -fno-tree-vectorize -lm -o $(BIN)/lavaMD_serial.exe ; \
 	rm *.o ; \
 	rm kernel/*.o ;
 
 autovec: main_autovec.o ./kernel/kernel_cpu_autovec.o
-	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_cpu.o $(BENCHMARKFLAGS)  -lm -o $(BIN)/lavaMD_autovec.exe ; \
+	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_cpu.o $(BENCHMARKFLAGS)  $(MEMORYFLAGS) -lm -o $(BIN)/lavaMD_autovec.exe ; \
 	rm *.o ; \
 	rm kernel/*.o ;
 
 explicitvec: main_vector_explicit.o ./kernel/kernel_vector_explicit.o
-	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_vector.o $(BENCHMARKFLAGS) -fno-tree-vectorize -lm -o   $(BIN)/lavaMD_explicitvec.exe ; \
+	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_vector.o $(BENCHMARKFLAGS) $(MEMORYFLAGS) -fno-tree-vectorize -lm -o   $(BIN)/lavaMD_explicitvec.exe ; \
 	rm *.o ; \
 	rm kernel/*.o ;
 
 fullvec: main_vector_full.o ./kernel/kernel_vector_full.o
-	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_vector.o $(BENCHMARKFLAGS) -lm -o   $(BIN)/lavaMD_fullvec.exe ; \
+	$(CXX) $(CXXFLAGS)  main.o ./kernel/kernel_vector.o $(BENCHMARKFLAGS)  $(MEMORYFLAGS) -lm -o   $(BIN)/lavaMD_fullvec.exe ; \
 	rm *.o ; \
 	rm kernel/*.o ;
 

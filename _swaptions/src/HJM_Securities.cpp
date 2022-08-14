@@ -363,17 +363,17 @@ static void BM_swaptions(benchmark::State& state) {
 #endif //ENABLE_THREADS
     }
 }
-BENCHMARK(BM_swaptions)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(0)->Iterations(10)->Teardown(DoTeardown);
+BENCHMARK(BM_swaptions)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Teardown(DoTeardown);
 
 
-//BENCHMARK_MAIN();
-int main(int argc, char** argv)
-{
-    benchmark::RegisterMemoryManager(mm.get());
-    benchmark::Initialize(&argc, argv);
-    benchmark::RunSpecifiedBenchmarks();
-    benchmark::RegisterMemoryManager(nullptr);
-}
+BENCHMARK_MAIN();
+//int main(int argc, char** argv)
+//{
+//    benchmark::RegisterMemoryManager(mm.get());
+//    benchmark::Initialize(&argc, argv);
+//    benchmark::RunSpecifiedBenchmarks();
+//    benchmark::RegisterMemoryManager(nullptr);
+//}
 
 
 //Please note: Whenever we type-cast to (int), we add 0.5 to ensure that the value is rounded to the correct number. 

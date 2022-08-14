@@ -2099,20 +2099,20 @@ static void BM_streamcluster(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->Iterations(10)->Setup(DoSetup)->Teardown(DoTeardown);
+BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Setup(DoSetup)->Teardown(DoTeardown);
 
 
 
-BENCHMARK_MAIN();
-//int main(int argc, char** argv)
-//{
-////    ::benchmark::RegisterMemoryManager(mm.get());
-//    ::benchmark::Initialize(&argc, argv);
-//    ::benchmark::RunSpecifiedBenchmarks();
-////    ::benchmark::RegisterMemoryManager(nullptr);
-//
-//    return 0;
-//}
+//BENCHMARK_MAIN();
+int main(int argc, char** argv)
+{
+    ::benchmark::RegisterMemoryManager(mm.get());
+    ::benchmark::Initialize(&argc, argv);
+    ::benchmark::RunSpecifiedBenchmarks();
+    ::benchmark::RegisterMemoryManager(nullptr);
+
+    return 0;
+}
 
 //int main(int argc, char **argv)
 //{

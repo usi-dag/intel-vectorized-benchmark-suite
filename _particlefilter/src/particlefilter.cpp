@@ -874,28 +874,26 @@ void particleFilter_vector(int * I, int IszX, int IszY, int Nfr, double * seed,d
             mask[mi] = 0;
         }
 
+        xMask   = _MM_VFEQ_f64(_MM_SET_f64(1), _MM_SET_f64(0));
+
         for(i = 0; i < limit; i=i+SPECIES_64){
 //            gvl     = __builtin_epi_vsetvl(Nparticles-i, __epi_e64, __epi_m1);
+
             vector_complete = 0;
-            xMask   = _MM_VFEQ_f64(_MM_SET_f64(1), _MM_SET_f64(0));
             xArray  = _MM_SET_f64(Nparticles-1);
             xU      = _MM_LOAD_f64(&u[i]);
             for(j = 0; j < Nparticles; j++){
                 xCDF = _MM_SET_f64(CDF[j]);
                 xComp = _MM_VFGE_f64(xCDF,xU);
                 xComp = _MM_VMXOR_i64(xComp,xMask);
-//                                print_mask64(xComp);
-
                 valid = _MM_VMFIRST_i64(xComp);
-//                printf("valid: %ld\n", valid);
-
                 if(valid != -1)
                 {
-                    _MMR_f64 xJ = _MM_ADD_f64_MASK(xJ, xComp, _MM_SET_f64(0), _MM_SET_f64(j));
-                    xArray = _MM_ADD_f64_MASK(xArray, _MM_VMNOT_i64(xComp), xJ, _MM_SET_f64(j));
-                    // _MM_MERGE_i64(xArray,_MM_SET_i64(j,gvl),xComp,gvl);
-                    xMask = _MM_VMOR_i64(xComp,xMask);
-                    vector_complete = _MM_VMPOPC_i64(xMask);
+//                    _MMR_f64 xJ = _MM_ADD_f64_MASK(xJ, xComp, _MM_SET_f64(0), _MM_SET_f64(j));
+//                    xArray = _MM_ADD_f64_MASK(xArray, _MM_VMNOT_i64(xComp), xJ, _MM_SET_f64(j));
+                     xArray = _MM_MERGE_f64(xComp, xArray,_MM_SET_f64(j));
+//                    xMask = _MM_VMOR_i64(xComp,xMask);
+                    vector_complete = _MM_VMPOPC_i64(_MM_VMOR_i64(xComp,xMask));
 //                    printf("complete: %ld\n", vector_complete);
                 }
                 if(vector_complete == SPECIES_64){ break; }
@@ -1008,7 +1006,7 @@ static void DoSetup(const benchmark::State& state) {
     IszX = 128;
     IszY = 128;
     Nfr = 24;
-    Nparticles = 30000;
+    Nparticles = 32768;
     //establish seed
     seed = (double *) malloc(sizeof(double) * Nparticles);
     int i;
@@ -1058,16 +1056,16 @@ static void DoTeardown(const benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kSecond)/*->MinWarmUpTime(20)*/->Iterations(1)->Teardown(DoTeardown);
+BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Teardown(DoTeardown);
 
 
-BENCHMARK_MAIN();
-//int main(int argc, char **argv) {
-//    ::benchmark::RegisterMemoryManager(mm.get());
-//    ::benchmark::Initialize(&argc, argv);
-//    ::benchmark::RunSpecifiedBenchmarks();
-//    ::benchmark::RegisterMemoryManager(nullptr);
-//}
+//BENCHMARK_MAIN();
+int main(int argc, char **argv) {
+    ::benchmark::RegisterMemoryManager(mm.get());
+    ::benchmark::Initialize(&argc, argv);
+    ::benchmark::RunSpecifiedBenchmarks();
+    ::benchmark::RegisterMemoryManager(nullptr);
+}
 
 
 

@@ -34,8 +34,6 @@
 #include <unistd.h>
 #include <vector>
 
-#include <time.h>
-#include <sys/time.h>
 
 #include <memory>
 #include <benchmark/benchmark.h>
@@ -48,7 +46,7 @@
 * Barcelona Supercomputing Center (2020)
 *************************************************************************/
 
-#ifdef USE_RISCV_VECTOR
+#ifdef USE_VECTOR_INTRINSIC
 #include "../../common/vector_defines.h"
 #endif
 
@@ -72,6 +70,7 @@ void* entry_pt(void*);
 annealer_thread a_thread;
 annealer_thread * a_thread_ptr;
 netlist my_netlist;
+netlist * my_netlist_ptr;
 
 static void DoSetup(const benchmark::State& state) {
 
@@ -127,6 +126,7 @@ static void DoSetup(const benchmark::State& state) {
 
 //now that we've read in the commandline, run the program
      my_netlist = netlist(filename);
+     my_netlist_ptr = &my_netlist;
 
 //    annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
     a_thread = annealer_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
@@ -146,13 +146,14 @@ static void DoTeardown(const benchmark::State& state) {
     __parsec_roi_end();
 #endif
 
-//    cout << "Final routing is: " << my_netlist.total_routing_cost() << endl;
+    cout << "Final routing is: " << my_netlist.total_routing_cost() << endl;
 
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_bench_end();
 #endif
 //
-//    delete a_thread;
+//    delete a_thread_ptr;
+//    delete my_netlist_ptr;
 
 }
 
@@ -160,7 +161,6 @@ static void DoTeardown(const benchmark::State& state) {
 
 static void BM_canneal(benchmark::State& state) {
     for (auto _ : state) {
-        std::cout << "BENCHMARK" << std::endl;
 
 #ifdef ENABLE_THREADS
         std::vector<pthread_t> threads(num_threads);
@@ -179,7 +179,7 @@ static void BM_canneal(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_canneal)->Unit(benchmark::kMillisecond)->MinWarmUpTime(0)->Iterations(10)->Setup(DoSetup)->
+BENCHMARK(BM_canneal)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Setup(DoSetup)->
 
 Teardown(DoTeardown);
 
