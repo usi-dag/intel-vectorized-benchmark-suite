@@ -45,6 +45,7 @@ class Rng;
 class netlist
 {
 public:
+    netlist();
 	netlist(const std::string& filename); //ctor
 	void get_random_pair(netlist_elem** a, netlist_elem** b, Rng* rng); // will return an element that we have a valid mutex on
 	void swap_locations(netlist_elem* elem_a, netlist_elem* elem_b);

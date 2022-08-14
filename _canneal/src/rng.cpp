@@ -31,6 +31,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+
 //global seed used for rng initialization
 unsigned int Rng::seed = 0;
 #ifdef ENABLE_THREADS  

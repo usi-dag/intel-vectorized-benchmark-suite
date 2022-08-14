@@ -1,6 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /*************************************************************************
 * RISC-V Vectorized Version
@@ -38,14 +35,14 @@ extern "C" {
 //	KERNEL_CPU FUNCTION HEADER
 //======================================================================================================================================================150
 
-#include "kernel_vector.h"                // (in the current directory)
+#include "kernel_vector.hpp"                // (in the current directory)
 
 //========================================================================================================================================================================================================200
 //	PLASMAKERNEL_GPU
 //========================================================================================================================================================================================================200
 
-void kernel_cpu(par_str par,
-                dim_str dim,
+void kernel_cpu(par_str * par,
+                dim_str * dim,
                 box_str *box,
                 FOUR_VECTOR *rv,
                 fp *qv,
@@ -55,16 +52,6 @@ void kernel_cpu(par_str par,
 //	Variables
 //======================================================================================================================================================150
 
-// timer
-    long long time0;
-
-    time0 = get_time();
-
-// timer
-    long long time1;
-    long long time2;
-    long long time3;
-    long long time4;
 
 // parameters
     fp alpha;
@@ -92,7 +79,6 @@ void kernel_cpu(par_str par,
     fp fxij, fyij, fzij;
     THREE_VECTOR d;
 
-    time1 = get_time();
 
 //======================================================================================================================================================150
 //	MCPU SETUP
@@ -100,28 +86,21 @@ void kernel_cpu(par_str par,
 
 //omp_set_num_threads(dim.cores_arg);
 
-    time2 = get_time();
 
 //======================================================================================================================================================150
 //	INPUTS
 //======================================================================================================================================================150
 
-    alpha = par.alpha;
+    alpha = par->alpha;
     a2 = 2.0 * alpha * alpha;
 
-    time3 = get_time();
 
 //======================================================================================================================================================150
 //	PROCESS INTERACTIONS
 //======================================================================================================================================================150
 
-//#pragma omp	parallel for \
-	//			private(i, j, k) \
-	//			private(first_i, rA, fA) \
-	//			private(pointer, first_j, rB, qB) \
-	//			private(r2, u2, fs, vij, fxij, fyij, fzij, d)
 
-    for (l = 0; l < dim.number_boxes; l = l + 1) {
+    for (l = 0; l < dim->number_boxes; l = l + 1) {
 
         //------------------------------------------------------------------------------------------100
         //	home box - box parameters
@@ -231,8 +210,8 @@ void kernel_cpu(par_str par,
                     //r2 = rA[i].v + rB[j].v - DOT(rA[i],rB[j]);
                     xr2 = _MM_ADD_f32(xrA_v, xrB_v);
                     xDOT = _MM_MUL_f32(xrA_x, xrB_x);
-                    xDOT = _MM_MACC_f32(xrA_y, xrB_y, xDOT);
-                    xDOT = _MM_MACC_f32(xrA_z, xrB_z, xDOT);
+                    xDOT = _MM_MADD_f32(xrA_y, xrB_y, xDOT);
+                    xDOT = _MM_MADD_f32(xrA_z, xrB_z, xDOT);
                     xr2 = _MM_SUB_f32(xr2, xDOT);
                     //u2 = a2*r2;
                     xu2 = _MM_MUL_f32(xa2, xr2);
@@ -260,10 +239,10 @@ void kernel_cpu(par_str par,
                     //fA[i].z +=  qB[j]*fzij;
 //					gvl = __builtin_epi_vsetvl(NUMBER_PAR_PER_BOX, __epi_e32, __epi_m1);
                     xqB = _MM_LOAD_f32(&qB[j]);
-                    xfA_v = _MM_MACC_f32(xqB, xvij, xfA_v);
-                    xfA_x = _MM_MACC_f32(xqB, xfxij, xfA_x);
-                    xfA_y = _MM_MACC_f32(xqB, xfyij, xfA_y);
-                    xfA_z = _MM_MACC_f32(xqB, xfzij, xfA_z);
+                    xfA_v = _MM_MADD_f32(xqB, xvij, xfA_v);
+                    xfA_x = _MM_MADD_f32(xqB, xfxij, xfA_x);
+                    xfA_y = _MM_MADD_f32(xqB, xfyij, xfA_y);
+                    xfA_z = _MM_MADD_f32(xqB, xfzij, xfA_z);
                 } // for j
 
                 for (; j < NUMBER_PAR_PER_BOX; j++) {
@@ -313,7 +292,6 @@ void kernel_cpu(par_str par,
 
     } // for l
 //    FENCE();
-    time4 = get_time();
 
 
 
@@ -336,7 +314,3 @@ void kernel_cpu(par_str par,
 //    printf("%.12f s\n", (float) (time4 - time0) / 1000000);
 
 } // main
-
-#ifdef __cplusplus
-}
-#endif

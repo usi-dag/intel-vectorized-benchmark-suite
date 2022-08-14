@@ -272,12 +272,7 @@ static void BM_jacobi2d(benchmark::State &state) {
 }
 
 
-BENCHMARK(BM_jacobi2d)
-->
-Setup(DoSetup)
-->
-Unit(benchmark::kMillisecond)
-->MinWarmUpTime(20)->Iterations(10)->
+BENCHMARK(BM_jacobi2d)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->
 Teardown(DoTeardown);
 
 

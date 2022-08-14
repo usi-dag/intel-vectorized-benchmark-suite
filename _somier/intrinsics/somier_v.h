@@ -1,6 +1,4 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 
 #define print_register(VR, GVL, NAME) do { \
   double tmp[256]; \
@@ -18,7 +16,5 @@ extern "C" {
             printf ("\n"); \
 }while(0)
 
-#ifdef __cplusplus
-}
-#endif
+
 

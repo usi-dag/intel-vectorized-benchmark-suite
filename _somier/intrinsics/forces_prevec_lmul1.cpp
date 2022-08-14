@@ -16,13 +16,13 @@
 #include "somier_v.h"
 
 #ifdef USE_VECTOR_INTRINSIC
-#include "../common/vector_defines.h"
+#include "../../common/vector_defines.h"
 #endif
 
 static int count = 0;
 
 //reference scalar code
-void force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j, int neig_i, int neig_j) {
+void force_contr_prevec(int n, double ****X, double ****F, int i, int j, int neig_i, int neig_j) {
     double dx, dy, dz, dl, spring_F, FX, FY, FZ;
 
     for (int k = 1; k < n - 1; k++) {
@@ -43,9 +43,9 @@ void force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i
 
 double buffer[1024];
 
-inline void force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j, int neig_i, int neig_j);
+inline void force_contr_vec(int n, double ****X, double ****F, int i, int j, int neig_i, int neig_j);
 
-void force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j, int neig_i, int neig_j) {
+void force_contr_vec(int n, double ****X, double ****F, int i, int j, int neig_i, int neig_j) {
 //   unsigned long gvl = __builtin_epi_vsetvl(n, __epi_e64, __epi_m1);
 
     int limit = loop_bound(SPECIES_64, n - 2);
@@ -91,7 +91,7 @@ void force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, i
     }
 }
 
-void k_force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j) {
+void k_force_contr_vec(int n, double ****X, double ****F, int i, int j) {
 //   long gvl = __builtin_epi_vsetvl(n, __epi_e64, __epi_m1);
 
     int limit = loop_bound(SPECIES_64, n - 2);
@@ -164,7 +164,7 @@ void k_force_contr_vec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i,
 }
 
 
-void k_force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int i, int j) {
+void k_force_contr_prevec(int n, double ****X, double ****F, int i, int j) {
     double dx, dy, dz, dl, spring_F, FX, FY, FZ;
 
     for (int k = 1; k < n - 1; k++) {
@@ -198,7 +198,7 @@ void k_force_contr_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n], int
 //    __asm__("vadd.vi v0,v0,0");
 //}
 
-void force_contribution(int n, double (*X)[n][n][n], double (*F)[n][n][n],
+void force_contribution(int n, double ****X, double ****F,
                         int i, int j, int k, int neig_i, int neig_j, int neig_k)
 {
     double dx, dy, dz, dl, spring_F, FX, FY,FZ;
@@ -222,7 +222,7 @@ void force_contribution(int n, double (*X)[n][n][n], double (*F)[n][n][n],
 }
 
 
-void compute_forces_prevec(int n, double (*X)[n][n][n], double (*F)[n][n][n]) {
+void compute_forces_prevec(int n, double ****X, double ****F) {
 
     int limit = loop_bound(SPECIES_64, n);
 

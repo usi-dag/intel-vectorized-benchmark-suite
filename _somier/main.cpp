@@ -14,31 +14,49 @@
 #include "utils.h"
 #include "somier.h"
 
-#include "timer.h"
 
 // google benchmark
 #include <memory>
 #include <benchmark/benchmark.h>
 #include "../common/memory_manager.h"
 
-//#include "../common/riscv_util.h"
 
-double Xcenter[3];
 
-double dt=0.001;   // 0.1;
-double spring_K=10.0;
-double M=1.0;
-int err;
 
 int nt;
 int ntsteps = 10;
 int N = 128;
 
-double X [N][N][N];
-double V [N][N][N];
-double  A [N][N][N];
-double  F [N][N][N];
-double  F_ref [N][N][N];
+double ****X;
+double ****V;
+double ****A;
+double ****F;
+double ****F_ref;
+
+void allocate_4D (int N, double ****X) {
+    for (int i = 0; i < 3; ++i) {
+        X[i] = new double **[N];
+        for (int j = 0; j < N; ++j) {
+            X[i][j] = new double *[N];
+            for (int k = 0; k < N; ++k) {
+                X[i][j][k] = new double[N];
+            }
+        }
+    }
+}
+
+void deallocate_4D (int N, double ****X) {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < N; ++j) {
+            for (int k = 0; k < N; ++k) {
+                delete [] X[i][j][k];
+            }
+            delete [] X[i][j];
+        }
+        delete [] X[i];
+    }
+    delete [] X;
+}
 
 
 static void DoSetup(const benchmark::State& state) {
@@ -47,14 +65,23 @@ static void DoSetup(const benchmark::State& state) {
 
     printf ("Problem size = %d, steps = %d\n", N, ntsteps);
 
+    X     = new double***[3];
+    V     = new double***[3];
+    A     = new double***[3];
+    F     = new double***[3];
+    F_ref = new double***[3];
 
 
-    X      = malloc(3*sizeof (*X));
-    V      = malloc(3*sizeof (*V));
-    A      = malloc(3*sizeof (*A));
-    F      = malloc(3*sizeof (*F));
-    F_ref  = malloc (3*sizeof (*F_ref));
-
+//    X      = malloc(3*sizeof (*X));
+//    V      = malloc(3*sizeof (*V));
+//    A      = malloc(3*sizeof (*A));
+//    F      = malloc(3*sizeof (*F));
+//    F_ref  = malloc (3*sizeof (*F_ref));
+    allocate_4D(N, X    );
+    allocate_4D(N, V    );
+    allocate_4D(N, A    );
+    allocate_4D(N, F    );
+    allocate_4D(N, F_ref);
     clear_4D(N, F);
     clear_4D(N, A);
     clear_4D(N, V);
@@ -70,7 +97,11 @@ static void DoSetup(const benchmark::State& state) {
 }
 
 static void DoTeardown(const benchmark::State& state) {
-
+    deallocate_4D(N, X    );
+    deallocate_4D(N, V    );
+    deallocate_4D(N, A    );
+    deallocate_4D(N, F    );
+    deallocate_4D(N, F_ref);
 }
 
 
@@ -86,21 +117,28 @@ static void BM_somier(benchmark::State& state) {
 
 //      boundary(N, X, V);
 //      printf ("\nCorrected Positions\n"); print_4D(N, "X", X); printf ("\n");
+            double Xcenter[3];
+
+            double dt=0.001;   // 0.1;
+//            double spring_K=10.0;
+            double M=1.0;
+//            int err;
+
             Xcenter[0] = 0, Xcenter[1] = 0;
             Xcenter[2] = 0;   //reset aggregate stats
             clear_4D(N, F);
 
-#ifdef SEQ
-            compute_forces(N, X, F);
-            acceleration(N, A, F, M);
-            velocities(N, V, A, dt);
-            positions(N, X, V, dt);
-#else
+#ifdef USE_VECTOR_INTRINSIC
             compute_forces_prevec(N, X, F); // printf ("Computed forces\n"); print_4D(N, "F", F); printf ("\n");
             accel_intr(N, A, F, M);       // printf ("Computed Accelerations\n"); print_4D(N, "A", A); printf ("\n");
             vel_intr(N, V, A, dt);        // printf ("Computed Velocities\n"); print_4D(N, "V", V); printf ("\n");
 //      vel_intr  (N, X, V, dt);        // printf ("Computed Positions\n"); print_4D(N, "X", X); printf ("\n");
             pos_intr(N, X, V, dt);        // printf ("Computed Positions\n"); print_4D(N, "X", X); printf ("\n");
+#else
+            compute_forces(N, X, F);
+            acceleration(N, A, F, M);
+            velocities(N, V, A, dt);
+            positions(N, X, V, dt);
 #endif
 
             compute_stats(N, X, Xcenter);
@@ -110,7 +148,7 @@ static void BM_somier(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_somier)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10)->
+BENCHMARK(BM_somier)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->
 
 Teardown(DoTeardown);
 

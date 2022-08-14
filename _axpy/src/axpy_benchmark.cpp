@@ -17,7 +17,7 @@
 //#endif
 
 double a=1.0;
-long n = 1024*319999; // TODO how to pass value  n = 1024*atol(argv[1]);
+long n = 1024*70000; // TODO how to pass value  n = 1024*atol(argv[1]);
 
 double *dx     = (double*)malloc(n*sizeof(double));
 double *dy     = (double*)malloc(n*sizeof(double));
@@ -42,7 +42,7 @@ static void BM_axpy(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kMillisecond)->MinWarmUpTime(20)->Iterations(10);
+BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10);
 
 
 //BENCHMARK_MAIN();

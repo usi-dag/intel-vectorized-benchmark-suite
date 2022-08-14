@@ -15,12 +15,12 @@
 #include "../somier.h"
 
 #ifdef USE_VECTOR_INTRINSIC
-#include "../common/vector_defines.h"
+#include "../../common/vector_defines.h"
 #endif
 
 static int count2=0;
 
-void accel_intr(int n, double (*A)[n][n][n], double (*F)[n][n][n], double M)
+void accel_intr(int n, double ****A, double ****F, double M)
 {
    int i, j, k;
    int limit = loop_bound(SPECIES_64, n);
@@ -59,7 +59,7 @@ void accel_intr(int n, double (*A)[n][n][n], double (*F)[n][n][n], double M)
 //#undef COLAPSED
 //#define COLAPSED
 
-void vel_intr(int n, double (*V)[n][n][n], double (*A)[n][n][n], double dt) {
+void vel_intr(int n, double ****V, double ****A, double dt) {
     int i, j, k;
     int limit = loop_bound(SPECIES_64, n);
     _MMR_f64 vV0, vV1, vV2, vA0, vA1, vA2;
@@ -95,7 +95,7 @@ void vel_intr(int n, double (*V)[n][n][n], double (*A)[n][n][n], double dt) {
     }
 }
 
-void pos_intr(int n, double (*X)[n][n][n], double (*V)[n][n][n], double dt)
+void pos_intr(int n, double ****X, double ****V, double dt)
 {
    int i, j, k;
     int limit = loop_bound(SPECIES_64, n);

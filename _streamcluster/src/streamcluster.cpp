@@ -1881,15 +1881,11 @@ void outcenterIDs( Points* centers, long* centerIDs, char* outfile ) {
   for( int i = 0; i < centers->num; i++ ) {
     if( is_a_median[i] ) {
       fprintf(fp, "%ld\n", centerIDs[i]);
-      printf("%ld\n", centerIDs[i]);
       fprintf(fp, "%lf\n", centers->p[i].weight);
-      printf("%lf\n", centers->p[i].weight);
       for( int k = 0; k < centers->dim; k++ ) {
         fprintf(fp, "%lf ", centers->p[i].coord[k]);
-        printf( "%lf ", centers->p[i].coord[k]);
       }
         fprintf(fp,"\n\n");
-        printf("\n\n");
     }
   }
   fclose(fp);
@@ -1949,7 +1945,7 @@ void streamCluster( PStream* stream,
   while(1) {
 
     size_t numRead  = stream->read(block, dim, chunksize ); 
-    fprintf(stderr,"read %ld points\n",numRead);
+//    fprintf(stderr,"read %ld points\n",numRead);
 
     if( stream->ferror() || (numRead < (unsigned int)chunksize && !stream->feof()) ) {
       fprintf(stderr, "error reading data!\n");
@@ -2019,8 +2015,7 @@ void streamCluster( PStream* stream,
   outcenterIDs( &centers, centerIDs, outfile);
 }
 
-
-PStream* stream_global;
+PStream* stream;
 char *outfilename = new char[MAXNAMESIZE];
 char *infilename = new char[MAXNAMESIZE];
 long kmin, kmax, n, chunksize, clustersize;
@@ -2028,7 +2023,9 @@ int dim;
 
 
 static void DoSetup(const benchmark::State& state) {
-    fprintf(stderr, "ENTER DO_SETUP\n");
+    std::cout << "ENTER SETUP" << std::endl;
+
+
 #ifdef PARSEC_VERSION
     #define __PARSEC_STRING(x) #x
 #define __PARSEC_XSTRING(x) __PARSEC_STRING(x)
@@ -2041,57 +2038,35 @@ static void DoSetup(const benchmark::State& state) {
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_bench_begin(__parsec_streamcluster);
 #endif
-//
-//    if (argc<10) {
-//        fprintf(stderr,"usage: %s k1 k2 d n chunksize clustersize infile outfile nproc\n",
-//                argv[0]);
-//        fprintf(stderr,"  k1:          Min. number of centers allowed\n");
-//        fprintf(stderr,"  k2:          Max. number of centers allowed\n");
-//        fprintf(stderr,"  d:           Dimension of each data point\n");
-//        fprintf(stderr,"  n:           Number of data points\n");
-//        fprintf(stderr,"  chunksize:   Number of data points to handle per step\n");
-//        fprintf(stderr,"  clustersize: Maximum number of intermediate centers\n");
-//        fprintf(stderr,"  infile:      Input file (if n<=0)\n");
-//        fprintf(stderr,"  outfile:     Output file\n");
-//        fprintf(stderr,"  nproc:       Number of threads to use\n");
-//        fprintf(stderr,"\n");
-//        fprintf(stderr, "if n > 0, points will be randomly generated instead of reading from infile.\n");
-//        exit(1);
-//    }
 
-// sim large : 10 20 128 4096 4096 1000 none output_vec
+//sim large : 10 20 128 4096 4096 1000 none output_vec
 
     kmin = 3;// atoi(argv[1]); // 10
-    kmax = 10;// atoi(argv[2]); // 20
-    dim = 128; //atoi(argv[3]); // 128
-    n = 0; // atoi(argv[4]); // 4096
-    chunksize = 128; // atoi(argv[5]); //4096
+    kmax = 10;//atoi(argv[2]); // 20
+    dim = 128;//atoi(argv[3]); // 128
+    n = 0;//atoi(argv[4]); // 4096
+    chunksize = 128;// atoi(argv[5]); //4096
     clustersize = 10; // atoi(argv[6]); //1000
-//    strcpy(infilename, argv[7]); //none
-//    strcpy(outfilename, argv[8]); //output_vec
-    strcpy(infilename, "input/streamcluster_128_128.input");
+    strcpy(infilename,  "input/streamcluster_128_128.input"); //none
     strcpy(outfilename, "output/streamcluster_128_128.output"); //output_vec
-
     nproc = 1; // atoi(argv[9]); //1
+
+
 
 #ifdef TBB_VERSION
     fprintf(stderr,"TBB version. Number of divisions: %d\n",NUM_DIVISIONS);
   tbb::task_scheduler_init init(nproc);
 #endif
 
-    srand48(SEED);
-
-    if( n > 0 ) {
-        stream_global = new SimStream(n);
-    }
-    else {
-        stream_global = new FileStream(infilename);
-    }
 
 
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_roi_begin();
 #endif
+
+
+//#endif
+
 }
 
 static void DoTeardown(const benchmark::State& state) {
@@ -2099,7 +2074,7 @@ static void DoTeardown(const benchmark::State& state) {
     __parsec_roi_end();
 #endif
 
-    delete stream_global;
+    delete stream;
 
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_bench_end();
@@ -2110,23 +2085,31 @@ static void DoTeardown(const benchmark::State& state) {
 
 static void BM_streamcluster(benchmark::State& state) {
     for (auto _ : state) {
-        streamCluster(stream_global, kmin, kmax, dim, chunksize, clustersize, outfilename );
+        srand48(SEED);
+
+        if( n > 0 ) {
+            stream = new SimStream(n);
+        }
+        else {
+            stream = new FileStream(infilename);
+        }
+        streamCluster(stream, kmin, kmax, dim, chunksize, clustersize, outfilename );
     }
 
 }
 
 
-BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->Iterations(1)->Setup(DoSetup)->Teardown(DoTeardown);
+BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Setup(DoSetup)->Teardown(DoTeardown);
 
 
 
 //BENCHMARK_MAIN();
 int main(int argc, char** argv)
 {
-//    ::benchmark::RegisterMemoryManager(mm.get());
+    ::benchmark::RegisterMemoryManager(mm.get());
     ::benchmark::Initialize(&argc, argv);
     ::benchmark::RunSpecifiedBenchmarks();
-//    ::benchmark::RegisterMemoryManager(nullptr);
+    ::benchmark::RegisterMemoryManager(nullptr);
 
     return 0;
 }
@@ -2201,32 +2184,10 @@ int main(int argc, char** argv)
 //#endif
 //
 //
-////#ifdef USE_VECTOR_INTRINSIC
-//    struct timeval tv1, tv2;
-//    struct timezone tz;
-//    double elapsed=0.0;
-//    gettimeofday(&tv1, &tz);
-//
-//    // Start instruction and cycles count of the region of interest
-//    unsigned long cycles1, cycles2, instr2, instr1;
-//    instr1 = get_inst_count();
-//    cycles1 = get_cycles_count();
 ////#endif
 //
 //  streamCluster(stream, kmin, kmax, dim, chunksize, clustersize, outfilename );
 //
-////#ifdef USE_VECTOR_INTRINSIC
-//    // End instruction and cycles count of the region of interest
-//    instr2 = get_inst_count();
-//    cycles2 = get_cycles_count();
-//    // Instruction and cycles count of the region of interest
-//    printf("-CSR   NUMBER OF EXEC CYCLES :%lu\n", cycles2 - cycles1);
-//    printf("-CSR   NUMBER OF INSTRUCTIONS EXECUTED :%lu\n", instr2 - instr1);
-//
-//    gettimeofday(&tv2, &tz);
-//    elapsed = (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
-//    printf("\n\nstreamCluster Kernel took %8.8lf secs   \n", elapsed );
-////#endif
 //
 //#ifdef ENABLE_PARSEC_HOOKS
 //  __parsec_roi_end();

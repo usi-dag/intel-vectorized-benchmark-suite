@@ -37,6 +37,7 @@
 #include "location_t.h"
 #include "netlist_elem.h"
 
+
 using namespace std;
 
 /*************************************************************************
@@ -240,15 +241,15 @@ routing_cost_t netlist_elem::swap_cost_vector(location_t* old_loc, location_t* n
     }
 
 
-    mask_fanin = _MM_VFEQ_f32(_MM_LOAD_f32((const int *)&index_fanin[0]), _MM_LOAD_f32((const int *)&index_zeros[0]));
-    mask_fanout = _MM_VFEQ_f32(_MM_LOAD_f32((const int *)&index_fanout[0]), _MM_LOAD_f32((const int *)&index_zeros[0]));
+    mask_fanin = _MM_VFEQ_f32(_MM_LOAD_f32((const float *)&index_fanin[0]), _MM_LOAD_f32((const float *)&index_zeros[0]));
+    mask_fanout = _MM_VFEQ_f32(_MM_LOAD_f32((const float *)&index_fanout[0]), _MM_LOAD_f32((const float *)&index_zeros[0]));
 
 
     int i;
 
     for (i = 0; i < limit_fanin; i += SPECIES_32) {
-        _MMR_i32 fanin_loc_xv = _MM_LOAD_i32((const long *)&(fanin_locs_x[i]));
-        _MMR_i32 fanin_loc_yv = _MM_LOAD_i32((const long *)&(fanin_locs_y[i]));
+        _MMR_i32 fanin_loc_xv = _MM_LOAD_i32((_MMR_i32 *)&(fanin_locs_x[i]));
+        _MMR_i32 fanin_loc_yv = _MM_LOAD_i32((_MMR_i32 *)&(fanin_locs_y[i]));
 
         no_swap_vector = _MM_ADD_i32(no_swap_vector, _MM_ABS_i32(_MM_SUB_i32(old_loc_x, fanin_loc_xv)));
         no_swap_vector = _MM_ADD_i32(no_swap_vector, _MM_ABS_i32(_MM_SUB_i32(old_loc_y, fanin_loc_yv)));
@@ -276,8 +277,8 @@ routing_cost_t netlist_elem::swap_cost_vector(location_t* old_loc, location_t* n
     yes_swap_vector = _MM_SET_i32(0);
 
     for (i = 0; i < limit_fanout; i += SPECIES_32) {
-        _MMR_i32 fanout_loc_xv = _MM_LOAD_i32((const long *)&(fanout_locs_x[i]));
-        _MMR_i32 fanout_loc_yv = _MM_LOAD_i32((const long *)&(fanout_locs_y[i]));
+        _MMR_i32 fanout_loc_xv = _MM_LOAD_i32((_MMR_i32 *)&(fanout_locs_x[i]));
+        _MMR_i32 fanout_loc_yv = _MM_LOAD_i32((_MMR_i32 *)&(fanout_locs_y[i]));
 
         no_swap_vector = _MM_ADD_i32(no_swap_vector, _MM_ABS_i32(_MM_SUB_i32(old_loc_x, fanout_loc_xv)));
         no_swap_vector = _MM_ADD_i32(no_swap_vector, _MM_ABS_i32(_MM_SUB_i32(old_loc_y, fanout_loc_yv)));
