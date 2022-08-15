@@ -25,3 +25,7 @@ axpy blackscholes canneal jacobi-2d lavaMD particlefilter pathfinder somier swap
 	./$(BIN)/$@_autovec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/autovec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/autovec.out; \
 	./$(BIN)/$@_explicitvec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/explicitvec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/explicitvec.out; \
 	./$(BIN)/$@_fullvec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/fullvec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/fullvec.out;
+
+
+clean:
+	for dir in $(APPLICATION_DIRS) ; do cd $$dir ; make clean ; cd .. ; done
