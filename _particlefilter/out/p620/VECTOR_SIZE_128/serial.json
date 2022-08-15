@@ -1,53 +1,53 @@
 {
   "context": {
-    "date": "2022-08-14T21:08:08+00:00",
-    "host_name": "p620",
+    "date": "2022-08-15T20:36:00+02:00",
+    "host_name": "omini",
     "executable": "./bin/particlefilter_serial.exe",
-    "num_cpus": 16,
-    "mhz_per_cpu": 1200,
-    "cpu_scaling_enabled": false,
+    "num_cpus": 12,
+    "mhz_per_cpu": 4650,
+    "cpu_scaling_enabled": true,
     "caches": [
       {
         "type": "Data",
         "level": 1,
         "size": 32768,
-        "num_sharing": 1
+        "num_sharing": 2
       },
       {
         "type": "Instruction",
         "level": 1,
         "size": 32768,
-        "num_sharing": 1
+        "num_sharing": 2
       },
       {
         "type": "Unified",
         "level": 2,
-        "size": 262144,
-        "num_sharing": 1
+        "size": 524288,
+        "num_sharing": 2
       },
       {
         "type": "Unified",
         "level": 3,
-        "size": 20971520,
-        "num_sharing": 8
+        "size": 33554432,
+        "num_sharing": 12
       }
     ],
-    "load_avg": [1,1,0.85],
+    "load_avg": [0.16,0.12,0.1],
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "name": "BM_particlefilter/iterations:10",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_particlefilter/iterations:10",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.0085811717994511e+01,
-      "cpu_time": 1.0085289202000000e+01,
+      "real_time": 2.9757576725998662e+00,
+      "cpu_time": 2.9753731098000000e+00,
       "time_unit": "s",
       "allocs_per_iter": 1.1300000000000001e+01,
       "max_bytes_used": 114833352

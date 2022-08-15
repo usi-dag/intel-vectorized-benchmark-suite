@@ -42,7 +42,7 @@ static void BM_axpy(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10);
+BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20);
 
 
 //BENCHMARK_MAIN();

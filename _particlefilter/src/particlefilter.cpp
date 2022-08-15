@@ -1055,9 +1055,12 @@ static void DoTeardown(const benchmark::State& state) {
     free(I);
 }
 
+#ifdef SINGLE_ITERATION
+BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(0)->Iterations(1)->Teardown(DoTeardown);
 
-BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Teardown(DoTeardown);
-
+#else
+BENCHMARK(BM_particlefilter)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(0)->Iterations(10)->Teardown(DoTeardown);
+#endif
 
 //BENCHMARK_MAIN();
 int main(int argc, char **argv) {

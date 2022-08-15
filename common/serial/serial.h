@@ -405,19 +405,19 @@ inline int true_count_int64(_MMR_MASK_i64 k) {
 
 #ifdef __AVX512F__
 
-void print_mask64(_MMR_MASK_i64  k) {
-
-    for (int i = 0; i < SPECIES_64; ++i) {
-        std::cout << "vec[" << i << "] = " << k[i] << ", ";
-    }
-
-    std::cout << std::endl;
+inline _MMR_i64 cvt_mask(_MMR_MASK_i64 k) {
+        _MMR_i64 a = _mm512_set1_epi64(0);
+        _MMR_i64 b = _mm512_set1_epi64(1);
+        return _mm512_mask_blend_epi64(k, a, b);
 }
+
 
 inline int first_true_int64(_MMR_MASK_i64 k) {
 
+    _MMR_i64 k_ = cvt_mask(k);
+
     for (int i = 0; i < SPECIES_64; i++) {
-        if (k[i]) {
+        if (k_[i]) {
             return i;
         }
     }
@@ -428,8 +428,11 @@ inline int first_true_int64(_MMR_MASK_i64 k) {
 inline int true_count_int64(_MMR_MASK_i64 k) {
     int res = 0;
 
+    _MMR_i64 k_ = cvt_mask(k);
+
+
     for (int i = 0; i < SPECIES_64; i++) {
-        if (k[i]) res++;
+        if (k_[i]) res++;
     }
 
     return res;
