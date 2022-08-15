@@ -1,0 +1,56 @@
+{
+  "context": {
+    "date": "2022-08-14T20:48:44+00:00",
+    "host_name": "tower",
+    "executable": "./bin/jacobi-2d_fullvec.exe",
+    "num_cpus": 18,
+    "mhz_per_cpu": 2469,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 1048576,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 25952256,
+        "num_sharing": 18
+      }
+    ],
+    "load_avg": [1,0.94,0.6],
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_jacobi2d/min_warmup_time:20.000/iterations:10",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_jacobi2d/min_warmup_time:20.000/iterations:10",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 10,
+      "real_time": 4.9164261171594266e+00,
+      "cpu_time": 4.9161913948000002e+00,
+      "time_unit": "s",
+      "allocs_per_iter": 2.0002000000000000e+03,
+      "max_bytes_used": 1600160000
+    }
+  ]
+}
