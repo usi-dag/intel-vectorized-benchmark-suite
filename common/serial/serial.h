@@ -426,16 +426,7 @@ inline int first_true_int64(_MMR_MASK_i64 k) {
 }
 
 inline int true_count_int64(_MMR_MASK_i64 k) {
-    int res = 0;
-
-    _MMR_i64 k_ = cvt_mask(k);
-
-
-    for (int i = 0; i < SPECIES_64; i++) {
-        if (k_[i]) res++;
-    }
-
-    return res;
+    return _mm512_reduce_add_epi64(cvt_mask(k));
 }
 
 #endif
