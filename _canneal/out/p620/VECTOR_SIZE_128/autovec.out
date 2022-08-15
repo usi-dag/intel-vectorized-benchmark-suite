@@ -1,0 +1,14 @@
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+Final routing is: 9.77239e+09
+------------------------------------------------------------------------------------------
+Benchmark                                                Time             CPU   Iterations
+------------------------------------------------------------------------------------------
+BM_canneal/min_warmup_time:20.000/iterations:10       3.44 s          3.44 s            10

@@ -1,0 +1,54 @@
+{
+  "context": {
+    "date": "2022-08-15T10:09:38+00:00",
+    "host_name": "p620",
+    "executable": "./bin/swaptions_serial.exe",
+    "num_cpus": 16,
+    "mhz_per_cpu": 1200,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 262144,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 20971520,
+        "num_sharing": 8
+      }
+    ],
+    "load_avg": [1.04,1.01,1],
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_swaptions/min_warmup_time:20.000/iterations:10",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_swaptions/min_warmup_time:20.000/iterations:10",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 10,
+      "real_time": 2.8558313287794590e+00,
+      "cpu_time": 2.8556076951000002e+00,
+      "time_unit": "s"
+    }
+  ]
+}
