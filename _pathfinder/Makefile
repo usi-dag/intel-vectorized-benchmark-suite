@@ -9,6 +9,7 @@ MEMORYFLAGS = -DMEMORY_PROFILER
 BIN=bin
 
 start:
+	mkdir $(BIN)
 	rm bin/*.*
 
 serial:

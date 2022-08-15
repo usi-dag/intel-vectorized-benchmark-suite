@@ -13,6 +13,7 @@ BIN=bin
 
 
 start:
+	mkdir $(BIN)
 	rm $(BIN)/*.*
 
 serial: main_serial.o ./kernel/kernel_cpu_serial.o

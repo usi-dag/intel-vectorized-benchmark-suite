@@ -13,6 +13,7 @@ BIN=bin
 LDFLAGS = -lm
 
 start:
+	mkdir $(BIN)
 	rm $(BIN)/*.exe
 
 serial: somier_serial.exe clean_o
