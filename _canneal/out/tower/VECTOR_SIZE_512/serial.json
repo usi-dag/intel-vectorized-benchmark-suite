@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:39:13+00:00",
+    "date": "2022-08-15T19:15:29+00:00",
     "host_name": "tower",
     "executable": "./bin/canneal_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2601,
+    "mhz_per_cpu": 3000,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [0.92,0.54,0.23],
+    "load_avg": [0.87,0.36,0.33],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.6974350919947030e+00,
-      "cpu_time": 3.6972154579999996e+00,
+      "real_time": 3.6811486845836043e+00,
+      "cpu_time": 3.6809660344999999e+00,
       "time_unit": "s"
     }
   ]

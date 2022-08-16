@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:52:57+00:00",
+    "date": "2022-08-15T20:45:31+00:00",
     "host_name": "tower",
     "executable": "./bin/jacobi-2d_fullvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1223,
+    "mhz_per_cpu": 1363,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.1467695605009798e+00,
-      "cpu_time": 6.1465007392999995e+00,
+      "real_time": 4.2744908686727285e+00,
+      "cpu_time": 4.2740932882000005e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

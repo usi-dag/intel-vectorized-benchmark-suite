@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:04:46+00:00",
+    "date": "2022-08-15T19:46:33+00:00",
     "host_name": "tower",
     "executable": "./bin/pathfinder_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2508,
+    "mhz_per_cpu": 1329,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1.04,1.05,0.93],
+    "load_avg": [1,1.01,0.97],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 7.1741757936775681e+00,
-      "cpu_time": 7.1738793581999998e+00,
+      "real_time": 7.1741355068981649e+00,
+      "cpu_time": 7.1738616347000006e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

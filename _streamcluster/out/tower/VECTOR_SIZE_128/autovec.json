@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T22:17:17+00:00",
+    "date": "2022-08-15T21:14:51+00:00",
     "host_name": "tower",
     "executable": "./bin/streamcluster_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1228,
+    "mhz_per_cpu": 1903,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.9724735934287310e-01,
-      "cpu_time": 1.9723910810000000e-01,
+      "real_time": 1.9736013356596233e-01,
+      "cpu_time": 1.9735073230000000e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:38:04+00:00",
+    "date": "2022-08-15T19:14:19+00:00",
     "host_name": "tower",
     "executable": "./bin/blackscholes_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2479,
+    "mhz_per_cpu": 1500,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [0.74,0.41,0.16],
+    "load_avg": [0.57,0.19,0.27],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.5780160104855896e+00,
-      "cpu_time": 1.5779529097000000e+00,
+      "real_time": 1.5759106343612075e+00,
+      "cpu_time": 1.5758503283000000e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

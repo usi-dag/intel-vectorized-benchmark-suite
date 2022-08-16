@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:12:31+00:00",
+    "date": "2022-08-15T19:54:12+00:00",
     "host_name": "tower",
     "executable": "./bin/blackscholes_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2672,
+    "mhz_per_cpu": 3002,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.01,0.99],
+    "load_avg": [1,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.5700410932302475e+00,
-      "cpu_time": 1.5699901153000000e+00,
+      "real_time": 1.5699787544086576e+00,
+      "cpu_time": 1.5699241160999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

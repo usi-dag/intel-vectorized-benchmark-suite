@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:02:21+00:00",
+    "date": "2022-08-15T19:44:09+00:00",
     "host_name": "tower",
     "executable": "./bin/pathfinder_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1232,
+    "mhz_per_cpu": 1861,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.05,0.91],
+    "load_avg": [1.04,1.03,0.95],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 7.1773755962029098e+00,
-      "cpu_time": 7.1770959839000001e+00,
+      "real_time": 7.1739927483722568e+00,
+      "cpu_time": 7.1737246191999997e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T22:12:23+00:00",
+    "date": "2022-08-15T21:10:59+00:00",
     "host_name": "tower",
     "executable": "./bin/pathfinder_fullvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2747,
+    "mhz_per_cpu": 1905,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1.08,1.03,1.01],
+    "load_avg": [1,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,11 +46,11 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 4.5169832443818452e+00,
-      "cpu_time": 4.5167607785000001e+00,
+      "real_time": 2.0043174631893637e+00,
+      "cpu_time": 2.0041965090000002e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.9990100000000000e+05,
-      "max_bytes_used": 85183000
+      "max_bytes_used": 325135000
     }
   ]
 }

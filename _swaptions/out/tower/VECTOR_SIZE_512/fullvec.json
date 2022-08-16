@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:11:45+00:00",
+    "date": "2022-08-15T19:53:32+00:00",
     "host_name": "tower",
     "executable": "./bin/swaptions_fullvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2889,
+    "mhz_per_cpu": 2470,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.01,0.98],
+    "load_avg": [1,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 8.2175089083611963e-01,
-      "cpu_time": 8.2169732250000005e-01,
+      "real_time": 8.2836888805031772e-01,
+      "cpu_time": 8.2832034160000012e-01,
       "time_unit": "s"
     }
   ]

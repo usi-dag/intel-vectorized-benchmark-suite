@@ -5,4 +5,4 @@ Set initial speed
 -----------------------------------------------------------------------------------------
 Benchmark                                               Time             CPU   Iterations
 -----------------------------------------------------------------------------------------
-BM_somier/min_warmup_time:20.000/iterations:10       2.12 s          2.12 s            10
+BM_somier/min_warmup_time:20.000/iterations:10       2.12 s          2.11 s            10

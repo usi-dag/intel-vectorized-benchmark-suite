@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:51:39+00:00",
+    "date": "2022-08-15T19:26:48+00:00",
     "host_name": "tower",
     "executable": "./bin/lavaMD_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1918,
+    "mhz_per_cpu": 2473,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1.03,0.99,0.68],
+    "load_avg": [1,0.97,0.72],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.7459843302145601e+00,
-      "cpu_time": 3.7458977302000003e+00,
+      "real_time": 3.7586384829133750e+00,
+      "cpu_time": 3.7585195960999997e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072

@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:41:19+00:00",
+    "date": "2022-08-15T19:17:34+00:00",
     "host_name": "tower",
     "executable": "./bin/canneal_explicitvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1851,
+    "mhz_per_cpu": 1573,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [0.99,0.7,0.33],
+    "load_avg": [0.99,0.58,0.42],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.4377642752602697e+00,
-      "cpu_time": 2.4376340884999999e+00,
+      "real_time": 2.4146925471723080e+00,
+      "cpu_time": 2.4145814941999997e+00,
       "time_unit": "s"
     }
   ]

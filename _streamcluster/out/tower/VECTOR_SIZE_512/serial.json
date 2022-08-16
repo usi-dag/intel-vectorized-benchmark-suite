@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:11:59+00:00",
+    "date": "2022-08-15T19:53:46+00:00",
     "host_name": "tower",
     "executable": "./bin/streamcluster_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2483,
+    "mhz_per_cpu": 1921,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.01,0.99],
+    "load_avg": [1,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.1125047504901887e-01,
-      "cpu_time": 2.1124120330000001e-01,
+      "real_time": 2.1117467377334834e-01,
+      "cpu_time": 2.1116538949999999e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

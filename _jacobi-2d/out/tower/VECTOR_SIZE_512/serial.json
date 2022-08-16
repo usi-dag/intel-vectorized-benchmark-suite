@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:43:11+00:00",
+    "date": "2022-08-15T19:19:24+00:00",
     "host_name": "tower",
     "executable": "./bin/jacobi-2d_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1893,
+    "mhz_per_cpu": 1884,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,0.8,0.41],
+    "load_avg": [1.02,0.73,0.49],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.8367867631837722e+00,
-      "cpu_time": 6.8364441291000002e+00,
+      "real_time": 5.2301160776987672e+00,
+      "cpu_time": 5.2298979819000007e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

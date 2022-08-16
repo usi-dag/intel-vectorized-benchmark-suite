@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:47:08+00:00",
+    "date": "2022-08-15T19:22:39+00:00",
     "host_name": "tower",
     "executable": "./bin/jacobi-2d_explicitvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2622,
+    "mhz_per_cpu": 1453,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,0.92,0.56],
+    "load_avg": [1.1,0.92,0.62],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 4.7263978941366078e+00,
-      "cpu_time": 4.7261535955999996e+00,
+      "real_time": 4.2722471263259649e+00,
+      "cpu_time": 4.2720632200999997e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

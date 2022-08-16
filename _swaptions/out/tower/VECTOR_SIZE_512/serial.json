@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:10:53+00:00",
+    "date": "2022-08-15T19:52:41+00:00",
     "host_name": "tower",
     "executable": "./bin/swaptions_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1750,
+    "mhz_per_cpu": 1862,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.02,0.98],
+    "load_avg": [1,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.0868851715698837e+00,
-      "cpu_time": 2.0867485641999997e+00,
+      "real_time": 2.0367965424433350e+00,
+      "cpu_time": 2.0366855255000003e+00,
       "time_unit": "s"
     }
   ]

@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:14:51+00:00",
+    "date": "2022-08-15T19:56:55+00:00",
     "host_name": "tower",
     "executable": "./bin/canneal_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2155,
+    "mhz_per_cpu": 2649,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1.04,1.01,1],
+    "load_avg": [1,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.6946238888427616e+00,
-      "cpu_time": 3.6944403248000000e+00,
+      "real_time": 3.7001890176907182e+00,
+      "cpu_time": 3.7000097584999998e+00,
       "time_unit": "s"
     }
   ]

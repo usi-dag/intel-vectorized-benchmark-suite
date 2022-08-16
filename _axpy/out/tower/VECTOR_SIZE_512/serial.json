@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:37:17+00:00",
+    "date": "2022-08-15T19:13:35+00:00",
     "host_name": "tower",
     "executable": "./bin/axpy_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1219,
+    "mhz_per_cpu": 2786,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,22 +32,22 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [0.45,0.31,0.12],
+    "load_avg": [0.08,0.05,0.23],
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "BM_axpy/min_warmup_time:20.000/iterations:10",
+      "name": "BM_axpy/min_warmup_time:20.000",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_axpy/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_axpy/min_warmup_time:20.000",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 10,
-      "real_time": 1.1517764721065760e-01,
-      "cpu_time": 1.1517367490000001e-01,
+      "iterations": 6,
+      "real_time": 1.1819575230280559e-01,
+      "cpu_time": 1.1819210316666669e-01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

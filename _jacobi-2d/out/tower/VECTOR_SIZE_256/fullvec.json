@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:21:25+00:00",
+    "date": "2022-08-15T20:05:20+00:00",
     "host_name": "tower",
     "executable": "./bin/jacobi-2d_fullvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2936,
+    "mhz_per_cpu": 3000,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [1.06,1.03,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 4.9865801172330979e+00,
-      "cpu_time": 4.9863584316999994e+00,
+      "real_time": 4.7317925591021774e+00,
+      "cpu_time": 4.7315749446000002e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

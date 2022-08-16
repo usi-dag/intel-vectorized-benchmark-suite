@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:23:11+00:00",
+    "date": "2022-08-15T20:06:59+00:00",
     "host_name": "tower",
     "executable": "./bin/lavaMD_serial.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1319,
+    "mhz_per_cpu": 2904,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [1.01,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.7430745789781215e+00,
-      "cpu_time": 3.7429557858000004e+00,
+      "real_time": 3.7621443070471288e+00,
+      "cpu_time": 3.7620249919000002e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072

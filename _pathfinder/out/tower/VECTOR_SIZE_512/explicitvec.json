@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:07:10+00:00",
+    "date": "2022-08-15T19:48:57+00:00",
     "host_name": "tower",
     "executable": "./bin/pathfinder_explicitvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2890,
+    "mhz_per_cpu": 1895,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1.07,1.05,0.96],
+    "load_avg": [1.03,1.03,0.99],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.8908236458897592e+00,
-      "cpu_time": 1.8907231288999999e+00,
+      "real_time": 1.9188032813370228e+00,
+      "cpu_time": 1.9187086787000003e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.9990100000000000e+05,
       "max_bytes_used": 325135000

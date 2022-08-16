@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T21:11:36+00:00",
+    "date": "2022-08-15T19:53:23+00:00",
     "host_name": "tower",
     "executable": "./bin/swaptions_explicitvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2604,
+    "mhz_per_cpu": 1306,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.02,0.98],
+    "load_avg": [1,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 8.2296830564737322e-01,
-      "cpu_time": 8.2291486370000000e-01,
+      "real_time": 8.2840010244399309e-01,
+      "cpu_time": 8.2834613540000002e-01,
       "time_unit": "s"
     }
   ]

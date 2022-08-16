@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T20:42:14+00:00",
+    "date": "2022-08-15T19:18:28+00:00",
     "host_name": "tower",
     "executable": "./bin/canneal_fullvec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1264,
+    "mhz_per_cpu": 1320,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,0.75,0.37],
+    "load_avg": [1.06,0.67,0.46],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.3352851951494813e+00,
-      "cpu_time": 2.3351689323000002e+00,
+      "real_time": 2.2050858158618212e+00,
+      "cpu_time": 2.2050019388999997e+00,
       "time_unit": "s"
     }
   ]

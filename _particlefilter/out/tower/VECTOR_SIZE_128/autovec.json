@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-14T22:01:45+00:00",
+    "date": "2022-08-15T20:54:18+00:00",
     "host_name": "tower",
     "executable": "./bin/particlefilter_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 2188,
+    "mhz_per_cpu": 1587,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,22 +32,22 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1.01,1],
+    "load_avg": [1,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "name": "BM_particlefilter/iterations:10",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_particlefilter/iterations:10",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 8.6176389543339607e+00,
-      "cpu_time": 8.6173450840000001e+00,
+      "real_time": 8.6178326800465577e+00,
+      "cpu_time": 8.6173669152999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 1.1300000000000001e+01,
       "max_bytes_used": 114833352
