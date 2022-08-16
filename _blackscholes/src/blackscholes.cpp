@@ -822,7 +822,7 @@ BENCHMARK(BM_blackscholes)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpT
 
 Repetitions(10)->ReportAggregatesOnly(false)->
 
-DisplayAggregatesOnly(false);
+DisplayAggregatesOnly(false)->
 
 Teardown(DoTeardown);
 

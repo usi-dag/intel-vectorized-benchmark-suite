@@ -413,9 +413,9 @@ inline int true_count_int64(_MMR_MASK_i64 k) {
 inline int first_true_int64(_MMR_MASK_i64 k) {
 
     for (int i = 0; i < SPECIES_64; i++) {
-        if (k[i]) {
-            return i;
-        }
+//        if (k[i]) {
+//            return i;
+//        }
     }
 
     return -1;
@@ -424,9 +424,9 @@ inline int first_true_int64(_MMR_MASK_i64 k) {
 inline int true_count_int64(_MMR_MASK_i64 k) {
     int res = 0;
 
-    for (int i = 0; i < SPECIES_64; i++) {
-        if (k[i]) res++;
-    }
+//    for (int i = 0; i < SPECIES_64; i++) {
+//        if (k[i]) res++;
+//    }
 
     return res;
 }
