@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T11:22:07+00:00",
+    "date": "2022-08-15T21:17:41+00:00",
     "host_name": "miniserver",
     "executable": "./bin/pathfinder_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.00684,1.00439,1],
+    "load_avg": [1,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.0394206376001240e+01,
-      "cpu_time": 1.0389467302300002e+01,
+      "real_time": 1.0394275828031823e+01,
+      "cpu_time": 1.0389589380800000e+01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

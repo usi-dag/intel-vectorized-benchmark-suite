@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:44:58+00:00",
+    "date": "2022-08-15T20:23:42+00:00",
     "host_name": "miniserver",
     "executable": "./bin/somier_explicitvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [1.04297,1.01318,1.00195],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.3586831941735000e+00,
-      "cpu_time": 1.3578143535000000e+00,
+      "real_time": 1.3512157491873951e+00,
+      "cpu_time": 1.3504030388999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

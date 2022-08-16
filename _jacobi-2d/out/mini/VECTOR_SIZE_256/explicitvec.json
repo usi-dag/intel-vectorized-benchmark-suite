@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T06:00:56+00:00",
+    "date": "2022-08-15T20:39:42+00:00",
     "host_name": "miniserver",
     "executable": "./bin/jacobi-2d_explicitvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.18701,1.1123,1.13184],
+    "load_avg": [1,1.05664,1.10107],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.0707104728091510e+00,
-      "cpu_time": 6.0664993262999998e+00,
+      "real_time": 6.0648913691285999e+00,
+      "cpu_time": 6.0609815532999995e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:51:50+00:00",
+    "date": "2022-08-15T20:30:37+00:00",
     "host_name": "miniserver",
     "executable": "./bin/blackscholes_explicitvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.24023,1.46289,1.24072],
+    "load_avg": [1.21777,1.4292,1.2207],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.5117727319709957e+00,
-      "cpu_time": 1.5114429506000000e+00,
+      "real_time": 1.5230493756011128e+00,
+      "cpu_time": 1.5227077045999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

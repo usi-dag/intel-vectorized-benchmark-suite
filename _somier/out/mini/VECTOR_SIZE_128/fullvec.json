@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:45:26+00:00",
+    "date": "2022-08-15T20:24:09+00:00",
     "host_name": "miniserver",
     "executable": "./bin/somier_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [1.0249,1.01025,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.3598047014791519e+00,
-      "cpu_time": 1.3590104734000001e+00,
+      "real_time": 1.3495258947834372e+00,
+      "cpu_time": 1.3486845874000000e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

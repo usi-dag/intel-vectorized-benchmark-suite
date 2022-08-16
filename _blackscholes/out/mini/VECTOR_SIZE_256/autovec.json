@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:51:16+00:00",
+    "date": "2022-08-15T20:30:03+00:00",
     "host_name": "miniserver",
     "executable": "./bin/blackscholes_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.43359,1.52246,1.25098],
+    "load_avg": [1.39258,1.48438,1.23096],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.6544056533370166e+00,
-      "cpu_time": 1.6540716677999998e+00,
+      "real_time": 1.6546042948029935e+00,
+      "cpu_time": 1.6542949769999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

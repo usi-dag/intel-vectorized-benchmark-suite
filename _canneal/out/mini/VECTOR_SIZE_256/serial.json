@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:53:08+00:00",
+    "date": "2022-08-15T20:31:55+00:00",
     "host_name": "miniserver",
     "executable": "./bin/canneal_serial.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.06152,1.35059,1.21729],
+    "load_avg": [1.05566,1.32471,1.19727],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.9047089886851607e+00,
-      "cpu_time": 2.9041132533000003e+00,
+      "real_time": 2.9117526923306287e+00,
+      "cpu_time": 2.9112266026999998e+00,
       "time_unit": "s"
     }
   ]

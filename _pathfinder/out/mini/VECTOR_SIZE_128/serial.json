@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:33:55+00:00",
+    "date": "2022-08-15T20:12:39+00:00",
     "host_name": "miniserver",
     "executable": "./bin/pathfinder_serial.exe",
     "num_cpus": 4,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.0396745680691675e+01,
-      "cpu_time": 1.0392071304199998e+01,
+      "real_time": 1.0393092294083909e+01,
+      "cpu_time": 1.0388371064499999e+01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

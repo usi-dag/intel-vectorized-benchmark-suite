@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:47:05+00:00",
+    "date": "2022-08-15T20:25:54+00:00",
     "host_name": "miniserver",
     "executable": "./bin/swaptions_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.79639,1.21826,1.0752],
+    "load_avg": [2.04785,1.26221,1.08789],
     "library_build_type": "release"
   },
   "benchmarks": [

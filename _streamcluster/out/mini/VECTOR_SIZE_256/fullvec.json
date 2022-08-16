@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T11:34:06+00:00",
+    "date": "2022-08-15T21:29:45+00:00",
     "host_name": "miniserver",
     "executable": "./bin/streamcluster_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.99023,1.59668,1.24854],
+    "load_avg": [1.85693,1.5708,1.24121],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 7.9155254876241088e-02,
-      "cpu_time": 7.8500019900000009e-02,
+      "real_time": 7.8601213172078133e-02,
+      "cpu_time": 7.8574425900000008e-02,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

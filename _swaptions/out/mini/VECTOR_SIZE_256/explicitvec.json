@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T11:31:57+00:00",
+    "date": "2022-08-15T21:27:35+00:00",
     "host_name": "miniserver",
     "executable": "./bin/swaptions_explicitvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.94922,1.34961,1.125],
+    "load_avg": [1.8916,1.34424,1.125],
     "library_build_type": "release"
   },
   "benchmarks": [

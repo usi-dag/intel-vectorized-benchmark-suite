@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T06:03:00+00:00",
+    "date": "2022-08-15T20:41:46+00:00",
     "host_name": "miniserver",
     "executable": "./bin/jacobi-2d_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.02051,1.06934,1.10742],
+    "load_avg": [1,1.03223,1.0835],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.0675735156051811e+00,
-      "cpu_time": 6.0636622504000002e+00,
+      "real_time": 6.0711914048995821e+00,
+      "cpu_time": 6.0672825662000003e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

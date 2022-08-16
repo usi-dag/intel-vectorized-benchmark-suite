@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T06:07:41+00:00",
+    "date": "2022-08-15T20:46:27+00:00",
     "host_name": "miniserver",
     "executable": "./bin/lavaMD_explicitvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.05127,1.03467,1.07764],
+    "load_avg": [1.00879,1.01904,1.06201],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.6831095669884235e+00,
-      "cpu_time": 1.6828887979999998e+00,
+      "real_time": 1.7146144659258424e+00,
+      "cpu_time": 1.7143593699999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072

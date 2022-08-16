@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T21:03:04+00:00",
+    "date": "2022-08-15T19:30:43+00:00",
     "host_name": "miniserver",
     "executable": "./bin/lavaMD_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,0.992676,0.74707],
+    "load_avg": [1,0.980469,0.685547],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 4.1269171529915187e+00,
-      "cpu_time": 4.1264260564000006e+00,
+      "real_time": 4.1371956477873031e+00,
+      "cpu_time": 4.1367378894000009e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072

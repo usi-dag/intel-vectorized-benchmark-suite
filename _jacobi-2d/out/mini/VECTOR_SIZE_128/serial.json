@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T20:53:27+00:00",
+    "date": "2022-08-15T19:21:09+00:00",
     "host_name": "miniserver",
     "executable": "./bin/jacobi-2d_serial.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,0.870117,0.492188],
+    "load_avg": [1,0.757324,0.373047],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.0490962221752849e+00,
-      "cpu_time": 6.0449371966999994e+00,
+      "real_time": 6.0212648161221294e+00,
+      "cpu_time": 6.0170442069999996e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

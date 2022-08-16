@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T20:46:53+00:00",
+    "date": "2022-08-15T19:14:37+00:00",
     "host_name": "miniserver",
     "executable": "./bin/blackscholes_serial.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [0.788574,0.475098,0.200195],
+    "load_avg": [0.28418,0.0654297,0.0214844],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.6485592318698763e+00,
-      "cpu_time": 1.6482277582000002e+00,
+      "real_time": 1.6469436321873219e+00,
+      "cpu_time": 1.6466069009999997e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

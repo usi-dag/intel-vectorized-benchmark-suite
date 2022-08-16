@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:43:29+00:00",
+    "date": "2022-08-15T20:22:12+00:00",
     "host_name": "miniserver",
     "executable": "./bin/somier_serial.exe",
     "num_cpus": 4,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.2235764957964421e+00,
-      "cpu_time": 2.2224733720000001e+00,
+      "real_time": 2.2224276320077481e+00,
+      "cpu_time": 2.2214334247999998e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

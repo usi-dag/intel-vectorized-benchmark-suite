@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:44:13+00:00",
+    "date": "2022-08-15T20:22:57+00:00",
     "host_name": "miniserver",
     "executable": "./bin/somier_autovec.exe",
     "num_cpus": 4,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.2393238650169223e+00,
-      "cpu_time": 2.2381846346000001e+00,
+      "real_time": 2.2212095180992035e+00,
+      "cpu_time": 2.2202002861999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

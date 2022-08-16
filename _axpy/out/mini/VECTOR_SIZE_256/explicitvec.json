@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:50:31+00:00",
+    "date": "2022-08-15T20:29:20+00:00",
     "host_name": "miniserver",
     "executable": "./bin/axpy_explicitvec.exe",
     "num_cpus": 4,
@@ -32,22 +32,22 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.92334,1.61035,1.26416],
+    "load_avg": [1.76807,1.55566,1.24268],
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "BM_axpy/min_warmup_time:20.000/iterations:10",
+      "name": "BM_axpy/min_warmup_time:20.000",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_axpy/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_axpy/min_warmup_time:20.000",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 10,
-      "real_time": 1.5359916249290109e-01,
-      "cpu_time": 1.5346506599999998e-01,
+      "iterations": 5,
+      "real_time": 1.5378566216677428e-01,
+      "cpu_time": 1.5368844120000000e-01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

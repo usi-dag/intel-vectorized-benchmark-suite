@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T06:14:42+00:00",
+    "date": "2022-08-15T20:53:33+00:00",
     "host_name": "miniserver",
     "executable": "./bin/particlefilter_explicitvec.exe",
     "num_cpus": 4,
@@ -32,25 +32,25 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.05127,1.01416,1.04248],
+    "load_avg": [1.06689,1.01562,1.02637],
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "name": "BM_particlefilter/iterations:1",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_particlefilter/iterations:1",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 10,
-      "real_time": 3.0285983710698781e+02,
-      "cpu_time": 3.0282256812470001e+02,
+      "iterations": 1,
+      "real_time": 3.1088344774907455e+02,
+      "cpu_time": 3.1084577730699999e+02,
       "time_unit": "s",
-      "allocs_per_iter": 3.5500000000000000e+01,
-      "max_bytes_used": 117462216
+      "allocs_per_iter": 4.0000000000000000e+01,
+      "max_bytes_used": 14813364
     }
   ]
 }

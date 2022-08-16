@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:55:47+00:00",
+    "date": "2022-08-15T20:34:35+00:00",
     "host_name": "miniserver",
     "executable": "./bin/canneal_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.00146,1.19922,1.17383],
+    "load_avg": [1.00098,1.18408,1.16064],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.0985483855940403e+00,
-      "cpu_time": 3.0979779600999997e+00,
+      "real_time": 3.0622735411860047e+00,
+      "cpu_time": 3.0616843809000001e+00,
       "time_unit": "s"
     }
   ]

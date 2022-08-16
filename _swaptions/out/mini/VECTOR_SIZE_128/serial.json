@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:46:12+00:00",
+    "date": "2022-08-15T20:24:55+00:00",
     "host_name": "miniserver",
     "executable": "./bin/swaptions_serial.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [0.936523,0.990234,0.995117],
     "library_build_type": "release"
   },
   "benchmarks": [

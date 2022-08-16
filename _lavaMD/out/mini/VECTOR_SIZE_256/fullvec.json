@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T06:08:15+00:00",
+    "date": "2022-08-15T20:47:02+00:00",
     "host_name": "miniserver",
     "executable": "./bin/lavaMD_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.02734,1.02832,1.07422],
+    "load_avg": [1.00391,1.01562,1.05859],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.7012806331273169e+00,
-      "cpu_time": 1.7010391816999999e+00,
+      "real_time": 1.6833435366861522e+00,
+      "cpu_time": 1.6831301380999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072

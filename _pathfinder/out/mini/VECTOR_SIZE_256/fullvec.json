@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T11:26:24+00:00",
+    "date": "2022-08-15T21:21:58+00:00",
     "host_name": "miniserver",
     "executable": "./bin/pathfinder_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.06152,1.01514,1.00391],
+    "load_avg": [1.00049,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.3918408099096267e+00,
-      "cpu_time": 2.3902406791000002e+00,
+      "real_time": 2.3908558323979379e+00,
+      "cpu_time": 2.3894462732999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.9990100000000000e+05,
       "max_bytes_used": 165167000

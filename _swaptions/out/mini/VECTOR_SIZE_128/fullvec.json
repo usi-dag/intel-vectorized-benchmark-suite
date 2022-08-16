@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:48:57+00:00",
+    "date": "2022-08-15T20:27:50+00:00",
     "host_name": "miniserver",
     "executable": "./bin/swaptions_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [2.05518,1.47803,1.18896],
+    "load_avg": [2.04102,1.48145,1.18896],
     "library_build_type": "release"
   },
   "benchmarks": [

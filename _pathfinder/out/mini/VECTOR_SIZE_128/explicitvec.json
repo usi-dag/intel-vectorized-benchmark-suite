@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:40:53+00:00",
+    "date": "2022-08-15T20:19:36+00:00",
     "host_name": "miniserver",
     "executable": "./bin/pathfinder_explicitvec.exe",
     "num_cpus": 4,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.6714243719354274e+00,
-      "cpu_time": 3.6690919739999996e+00,
+      "real_time": 3.6677418570965528e+00,
+      "cpu_time": 3.6656597459000002e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.9990100000000000e+05,
       "max_bytes_used": 85183000

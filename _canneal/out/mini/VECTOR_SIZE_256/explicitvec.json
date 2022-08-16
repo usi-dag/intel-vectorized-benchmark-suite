@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:54:51+00:00",
+    "date": "2022-08-15T20:33:38+00:00",
     "host_name": "miniserver",
     "executable": "./bin/canneal_explicitvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.00879,1.24707,1.18799],
+    "load_avg": [1.00781,1.22803,1.17236],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.1138824608176945e+00,
-      "cpu_time": 3.1133160336999999e+00,
+      "real_time": 3.1059100620914251e+00,
+      "cpu_time": 3.1053655731999998e+00,
       "time_unit": "s"
     }
   ]

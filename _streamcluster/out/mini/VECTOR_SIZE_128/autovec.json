@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:50:09+00:00",
+    "date": "2022-08-15T20:29:01+00:00",
     "host_name": "miniserver",
     "executable": "./bin/streamcluster_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [2.29004,1.65381,1.27002],
+    "load_avg": [2.07422,1.59521,1.24854],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.5620050239376723e-01,
-      "cpu_time": 1.5608946129999998e-01,
+      "real_time": 1.5532691520638764e-01,
+      "cpu_time": 1.5530248080000000e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

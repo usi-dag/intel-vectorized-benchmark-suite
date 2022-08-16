@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:53:59+00:00",
+    "date": "2022-08-15T20:32:47+00:00",
     "host_name": "miniserver",
     "executable": "./bin/canneal_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.0249,1.29443,1.20264],
+    "load_avg": [1.02246,1.27246,1.18262],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.9214143946766855e+00,
-      "cpu_time": 2.9206735509000006e+00,
+      "real_time": 2.9244459641166030e+00,
+      "cpu_time": 2.9238404763000001e+00,
       "time_unit": "s"
     }
   ]

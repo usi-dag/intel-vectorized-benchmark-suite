@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T20:46:38+00:00",
+    "date": "2022-08-15T19:14:26+00:00",
     "host_name": "miniserver",
     "executable": "./bin/axpy_autovec.exe",
     "num_cpus": 4,
@@ -32,22 +32,22 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [0.728027,0.447266,0.187012],
+    "load_avg": [0.153809,0.0332031,0.0107422],
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "BM_axpy/min_warmup_time:20.000/iterations:10",
+      "name": "BM_axpy/min_warmup_time:20.000",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_axpy/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_axpy/min_warmup_time:20.000",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 10,
-      "real_time": 1.5235743378289043e-01,
-      "cpu_time": 1.5225841290000000e-01,
+      "iterations": 5,
+      "real_time": 1.5320392074063421e-01,
+      "cpu_time": 1.5310121979999999e-01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

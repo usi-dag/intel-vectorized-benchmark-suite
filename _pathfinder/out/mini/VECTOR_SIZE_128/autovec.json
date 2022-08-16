@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:37:24+00:00",
+    "date": "2022-08-15T20:16:08+00:00",
     "host_name": "miniserver",
     "executable": "./bin/pathfinder_autovec.exe",
     "num_cpus": 4,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.0394616551930085e+01,
-      "cpu_time": 1.0390027965800000e+01,
+      "real_time": 1.0396060554217547e+01,
+      "cpu_time": 1.0391370320100000e+01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

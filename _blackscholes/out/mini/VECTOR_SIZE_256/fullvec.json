@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:52:21+00:00",
+    "date": "2022-08-15T20:31:08+00:00",
     "host_name": "miniserver",
     "executable": "./bin/blackscholes_fullvec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1.14404,1.41748,1.23193],
+    "load_avg": [1.13086,1.38672,1.21191],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.5373197639826686e+00,
-      "cpu_time": 1.5369944456000000e+00,
+      "real_time": 1.5241721579339356e+00,
+      "cpu_time": 1.5238049417000001e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

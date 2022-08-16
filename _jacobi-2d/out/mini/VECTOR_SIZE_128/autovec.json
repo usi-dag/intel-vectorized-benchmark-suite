@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T20:55:31+00:00",
+    "date": "2022-08-15T19:23:13+00:00",
     "host_name": "miniserver",
     "executable": "./bin/jacobi-2d_autovec.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,0.919434,0.5625],
+    "load_avg": [1,0.845215,0.458008],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.0697481280192731e+00,
-      "cpu_time": 6.0655319503999996e+00,
+      "real_time": 6.0531161676160989e+00,
+      "cpu_time": 6.0489195715999999e+00,
       "time_unit": "s",
       "allocs_per_iter": 2.0002000000000000e+03,
       "max_bytes_used": 1600160000

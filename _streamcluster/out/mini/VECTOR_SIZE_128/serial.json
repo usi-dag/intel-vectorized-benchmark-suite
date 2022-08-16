@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T05:50:06+00:00",
+    "date": "2022-08-15T20:28:58+00:00",
     "host_name": "miniserver",
     "executable": "./bin/streamcluster_serial.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [2.40283,1.66504,1.27148],
+    "load_avg": [2.16797,1.60547,1.25],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.6857290910556913e-01,
-      "cpu_time": 1.6592780090000001e-01,
+      "real_time": 1.6947170780040324e-01,
+      "cpu_time": 1.6593735240000002e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

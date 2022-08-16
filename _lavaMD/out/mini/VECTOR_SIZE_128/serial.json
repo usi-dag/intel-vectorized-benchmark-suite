@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T21:01:48+00:00",
+    "date": "2022-08-15T19:29:27+00:00",
     "host_name": "miniserver",
     "executable": "./bin/lavaMD_serial.exe",
     "num_cpus": 4,
@@ -32,7 +32,7 @@
         "num_sharing": 4
       }
     ],
-    "load_avg": [1,0.985352,0.724121],
+    "load_avg": [1,0.973145,0.65625],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 4.0965727075934408e+00,
-      "cpu_time": 4.0960335662000009e+00,
+      "real_time": 4.1073255051858721e+00,
+      "cpu_time": 4.1068798925000003e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072
