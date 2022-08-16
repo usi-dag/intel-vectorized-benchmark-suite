@@ -2099,7 +2099,9 @@ static void BM_streamcluster(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Setup(DoSetup)->Teardown(DoTeardown);
+BENCHMARK(BM_streamcluster)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Repetitions(10)->ReportAggregatesOnly(false)->
+
+DisplayAggregatesOnly(false)->Setup(DoSetup)->Teardown(DoTeardown);
 
 
 

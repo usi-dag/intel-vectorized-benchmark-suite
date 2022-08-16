@@ -42,14 +42,21 @@ static void BM_axpy(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20);
+BENCHMARK(BM_axpy)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->
+
+Repetitions(10)->ReportAggregatesOnly(false)->
+
+DisplayAggregatesOnly(false);
 
 
-//BENCHMARK_MAIN();
+BENCHMARK_MAIN();
 int main(int argc, char** argv)
 {
     ::benchmark::RegisterMemoryManager(mm.get());
     ::benchmark::Initialize(&argc, argv);
+    if (::benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
     ::benchmark::RunSpecifiedBenchmarks();
     ::benchmark::RegisterMemoryManager(nullptr);
+    ::benchmark::Shutdown();
+    return 1;
 }

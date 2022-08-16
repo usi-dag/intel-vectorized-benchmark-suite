@@ -298,7 +298,9 @@ static void BM_lavaMD(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_lavaMD)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->
+BENCHMARK(BM_lavaMD)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Repetitions(10)->ReportAggregatesOnly(false)->
+
+DisplayAggregatesOnly(false)->
 
 Teardown(DoTeardown);
 

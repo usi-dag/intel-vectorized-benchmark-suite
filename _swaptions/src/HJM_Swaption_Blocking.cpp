@@ -80,7 +80,6 @@ int HJM_Swaption_Blocking(FTYPE *pdSwaptionPrice, //Output vector that will stor
     FTYPE *pdTotalDrift;
 
     // *******************************
-    // ppdHJMPath = dmatrix(0,iN-1,0,iN-1);
     ppdHJMPath = dmatrix(0, iN - 1, 0, iN * BLOCKSIZE - 1);    // **** per Trial data **** //
     pdForward = dvector(0, iN - 1);
     ppdDrifts = dmatrix(0, iFactors - 1, 0, iN - 2);
@@ -276,6 +275,17 @@ int HJM_Swaption_Blocking(FTYPE *pdSwaptionPrice, //Output vector that will stor
     pdSwaptionPrice[1] = dSimSwaptionStdError;
 
     iSuccess = 1;
+
+    free_dmatrix(ppdHJMPath, 0, iN - 1, 0, iN * BLOCKSIZE - 1);    // **** per Trial data **** //
+    free_dvector(pdForward, 0, iN - 1);
+    free_dmatrix(ppdDrifts, 0, iFactors - 1, 0, iN - 2);
+    free_dvector(pdTotalDrift, 0, iN - 2);
+
+     free_dvector(pdPayoffDiscountFactors, 0, iN * BLOCKSIZE - 1);
+     free_dvector(pdDiscountingRatePath, 0, iN * BLOCKSIZE - 1);
+     free_dvector(pdSwapRatePath, 0, iSwapVectorLength * BLOCKSIZE - 1);
+     free_dvector(pdSwapDiscountFactors, 0, iSwapVectorLength * BLOCKSIZE - 1);
+     free_dvector(pdSwapPayoffs, 0, iSwapVectorLength - 1);
     return iSuccess;
 }
 

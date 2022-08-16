@@ -1,8 +1,8 @@
 #makefile
 SIZE?=VECTOR_SIZE_256
-INTEL_INTRINSIC?=mavx256
+INTEL_INTRINSIC?=mavx2
 CXX=g++
-CXXFLAGS= -Wall -pedantic -std=c++11 -O3
+CXXFLAGS= -Wall -pedantic -std=c++11 -O3 -g
 VECTORFLAGS= -D$(SIZE) -$(INTEL_INTRINSIC) -DUSE_VECTOR_INTRINSIC
 BENCHMARKFLAGS =  -isystem benchmark/include -Lbenchmark/build/src -lbenchmark -lpthread
 MEMORYFLAGS = -DMEMORY_PROFILER

@@ -148,7 +148,9 @@ static void BM_pathfinder(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_pathfinder)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->
+BENCHMARK(BM_pathfinder)->Setup(DoSetup)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Repetitions(10)->ReportAggregatesOnly(false)->
+
+DisplayAggregatesOnly(false)->
 
 Teardown(DoTeardown);
 

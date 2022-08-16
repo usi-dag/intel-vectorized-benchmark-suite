@@ -179,7 +179,11 @@ static void BM_canneal(benchmark::State& state) {
 }
 
 
-BENCHMARK(BM_canneal)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->Iterations(10)->Setup(DoSetup)->
+BENCHMARK(BM_canneal)->Unit(benchmark::kSecond)->MinWarmUpTime(20)->
+
+Repetitions(10)->ReportAggregatesOnly(false)->
+
+DisplayAggregatesOnly(false)->Setup(DoSetup)->
 
 Teardown(DoTeardown);
 
