@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:08:29+00:00",
+    "date": "2022-08-15T21:09:11+00:00",
     "host_name": "p620",
     "executable": "./bin/somier_fullvec.exe",
     "num_cpus": 16,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.9146372117102146e+00,
-      "cpu_time": 1.9145263259000000e+00,
+      "real_time": 1.9169609624892474e+00,
+      "cpu_time": 1.9167933770000001e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:07:51+00:00",
+    "date": "2022-08-15T21:08:32+00:00",
     "host_name": "p620",
     "executable": "./bin/somier_explicitvec.exe",
     "num_cpus": 16,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.9131368547677994e+00,
-      "cpu_time": 1.9129373588000000e+00,
+      "real_time": 1.9135805957019330e+00,
+      "cpu_time": 1.9134426469999997e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

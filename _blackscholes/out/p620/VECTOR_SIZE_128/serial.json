@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T20:45:10+00:00",
+    "date": "2022-08-15T19:15:48+00:00",
     "host_name": "p620",
     "executable": "./bin/blackscholes_serial.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [0.46,0.36,0.18],
+    "load_avg": [0.46,0.12,0.04],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.4325381387025118e+00,
-      "cpu_time": 2.4324261554000000e+00,
+      "real_time": 2.4320629717782141e+00,
+      "cpu_time": 2.4319809126000003e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 16777728

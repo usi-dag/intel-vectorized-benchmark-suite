@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T04:00:28+00:00",
+    "date": "2022-08-15T20:21:33+00:00",
     "host_name": "p620",
     "executable": "./bin/particlefilter_fullvec.exe",
     "num_cpus": 16,
@@ -37,20 +37,20 @@
   },
   "benchmarks": [
     {
-      "name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "name": "BM_particlefilter/iterations:1",
       "family_index": 0,
       "per_family_instance_index": 0,
-      "run_name": "BM_particlefilter/min_warmup_time:20.000/iterations:10",
+      "run_name": "BM_particlefilter/iterations:1",
       "run_type": "iteration",
       "repetitions": 1,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 10,
-      "real_time": 7.0453718540389093e+02,
-      "cpu_time": 7.0450705922780003e+02,
+      "iterations": 1,
+      "real_time": 7.1642353570275009e+02,
+      "cpu_time": 7.1639040375299999e+02,
       "time_unit": "s",
-      "allocs_per_iter": 3.5500000000000000e+01,
-      "max_bytes_used": 117458504
+      "allocs_per_iter": 4.0000000000000000e+01,
+      "max_bytes_used": 14812964
     }
   ]
 }

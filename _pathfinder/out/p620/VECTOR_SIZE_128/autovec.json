@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T09:58:02+00:00",
+    "date": "2022-08-15T20:58:43+00:00",
     "host_name": "p620",
     "executable": "./bin/pathfinder_autovec.exe",
     "num_cpus": 16,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.2375008735992015e+01,
-      "cpu_time": 1.2373854391100000e+01,
+      "real_time": 1.2375297416374087e+01,
+      "cpu_time": 1.2374166946799999e+01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

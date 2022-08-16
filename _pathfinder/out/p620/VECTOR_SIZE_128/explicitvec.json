@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:02:10+00:00",
+    "date": "2022-08-15T21:02:51+00:00",
     "host_name": "p620",
     "executable": "./bin/pathfinder_explicitvec.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [1.02,1.02,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 5.1974795455113050e+00,
-      "cpu_time": 5.1971611594000002e+00,
+      "real_time": 5.1987695584073661e+00,
+      "cpu_time": 5.1981978831999998e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.9990100000000000e+05,
       "max_bytes_used": 85183000

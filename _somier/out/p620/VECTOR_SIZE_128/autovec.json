@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:06:51+00:00",
+    "date": "2022-08-15T21:07:32+00:00",
     "host_name": "p620",
     "executable": "./bin/somier_autovec.exe",
     "num_cpus": 16,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.9594592515379192e+00,
-      "cpu_time": 2.9592862939000000e+00,
+      "real_time": 2.9633587189018726e+00,
+      "cpu_time": 2.9632115528999998e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:11:03+00:00",
+    "date": "2022-08-15T21:11:44+00:00",
     "host_name": "p620",
     "executable": "./bin/swaptions_fullvec.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1.01,1,1],
+    "load_avg": [1,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.5084602743387223e+00,
-      "cpu_time": 2.5082896924000000e+00,
+      "real_time": 2.5072454549372196e+00,
+      "cpu_time": 2.5070296015999998e+00,
       "time_unit": "s"
     }
   ]

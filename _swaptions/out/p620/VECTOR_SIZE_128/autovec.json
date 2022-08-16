@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:10:08+00:00",
+    "date": "2022-08-15T21:10:49+00:00",
     "host_name": "p620",
     "executable": "./bin/swaptions_autovec.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1.02,1.01,1],
+    "load_avg": [1,1,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.8595630684867501e+00,
-      "cpu_time": 2.8593881981000000e+00,
+      "real_time": 2.8517159383744000e+00,
+      "cpu_time": 2.8514526955999999e+00,
       "time_unit": "s"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:11:48+00:00",
+    "date": "2022-08-15T21:12:29+00:00",
     "host_name": "p620",
     "executable": "./bin/streamcluster_fullvec.exe",
     "num_cpus": 16,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.1890754383057356e-01,
-      "cpu_time": 1.1890226310000000e-01,
+      "real_time": 1.1893675439059734e-01,
+      "cpu_time": 1.1893150349999999e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

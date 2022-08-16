@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T21:01:55+00:00",
+    "date": "2022-08-15T19:32:31+00:00",
     "host_name": "p620",
     "executable": "./bin/lavaMD_serial.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1,1,0.75],
+    "load_avg": [1.05,1,0.71],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 6.6421824276447294e+00,
-      "cpu_time": 6.6418923432000003e+00,
+      "real_time": 6.5776100626215337e+00,
+      "cpu_time": 6.5773480821000003e+00,
       "time_unit": "s",
       "allocs_per_iter": 4.0000000000000002e-01,
       "max_bytes_used": 5473072

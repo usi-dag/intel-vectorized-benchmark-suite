@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T09:53:53+00:00",
+    "date": "2022-08-15T20:54:35+00:00",
     "host_name": "p620",
     "executable": "./bin/pathfinder_serial.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1.03,1.02,1],
+    "load_avg": [1.01,1.01,1],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.2372970964759588e+01,
-      "cpu_time": 1.2372144868900001e+01,
+      "real_time": 1.2375664115883410e+01,
+      "cpu_time": 1.2374668838000000e+01,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0

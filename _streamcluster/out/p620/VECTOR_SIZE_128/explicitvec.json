@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T10:11:45+00:00",
+    "date": "2022-08-15T21:12:27+00:00",
     "host_name": "p620",
     "executable": "./bin/streamcluster_explicitvec.exe",
     "num_cpus": 16,
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 1.2023240067064762e-01,
-      "cpu_time": 1.2022982300000000e-01,
+      "real_time": 1.2025400660932065e-01,
+      "cpu_time": 1.2024882760000002e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

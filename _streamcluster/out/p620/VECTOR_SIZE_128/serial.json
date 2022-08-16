@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-15T10:11:37+00:00",
+    "date": "2022-08-15T21:12:18+00:00",
     "host_name": "p620",
     "executable": "./bin/streamcluster_serial.exe",
     "num_cpus": 16,
-    "mhz_per_cpu": 1570,
+    "mhz_per_cpu": 1200,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.1894663330167533e-01,
-      "cpu_time": 2.1893814899999997e-01,
+      "real_time": 2.1893915515393020e-01,
+      "cpu_time": 2.1892791250000002e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 11045090

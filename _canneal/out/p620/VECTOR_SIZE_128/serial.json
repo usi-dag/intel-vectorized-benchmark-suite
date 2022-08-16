@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-14T20:49:19+00:00",
+    "date": "2022-08-15T19:19:56+00:00",
     "host_name": "p620",
     "executable": "./bin/canneal_serial.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [0.99,0.73,0.38],
+    "load_avg": [0.99,0.62,0.27],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 3.4225638542324304e+00,
-      "cpu_time": 3.4221691763999997e+00,
+      "real_time": 3.4279613053426146e+00,
+      "cpu_time": 3.4275607242000001e+00,
       "time_unit": "s"
     }
   ]
