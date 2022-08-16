@@ -1,4 +1,5 @@
 import math
+from json import JSONDecodeError
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,8 +7,9 @@ import json
 
 plt_colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 bar_colors = [plt_colors[3], plt_colors[0], plt_colors[2]]
-benchmarks = ['axpy', 'blackscholes', 'canneal', 'jacobi-2d', 'lavaMD', 'particlefilter', 'pathfinder', 'somier', 'streamcluster',
-              # 'swaptions'
+benchmarks = ['axpy', 'blackscholes', 'canneal', 'jacobi-2d', 'lavaMD', 'particlefilter', 'pathfinder', 'somier',
+              'streamcluster',
+              'swaptions'
               ]
 machines = {
     'p620': [{'size': 128, 'avx': 'AVX'}],
@@ -42,9 +44,9 @@ def plot(autovec_speedup, explicit_speedup, fullvec_speedup, machine_name, confi
 
     plt.axhline(y=1, color='grey', alpha=0.5, zorder=0, linestyle='-')
 
-    ax.bar_label(rects1, padding=3, rotation=90)
-    ax.bar_label(rects2, padding=3, rotation=90)
-    ax.bar_label(rects3, padding=3, rotation=90)
+    ax.bar_label(rects1, padding=3, rotation=90, fmt="%.2f")
+    ax.bar_label(rects2, padding=3, rotation=90, fmt="%.2f")
+    ax.bar_label(rects3, padding=3, rotation=90,  fmt="%.2f")
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -54,23 +56,25 @@ def plot(autovec_speedup, explicit_speedup, fullvec_speedup, machine_name, confi
     fig.tight_layout()
 
     # plt.ylim((0, math.ceil(18)))
-
+    plt.savefig(f'./out/{machine_name}_{configuration["avx"]}_{configuration["size"]}.png')
     plt.show()
 
 
 def load(dir):
     res = []
     for type in benchmark_types:
-        with open(f'../{dir}/{type}.json') as f:
-            print(f'../{dir}/{type}.json')
-            data = json.load(f)
-            res.append(data['benchmarks'][0]['cpu_time'])
+        try:
+            with open(f'../{dir}/{type}.json') as f:
+                print(f'../{dir}/{type}.json')
 
+                data = json.load(f)
+                res.append(data['benchmarks'][0]['cpu_time'])
+        except (RuntimeError, JSONDecodeError, FileNotFoundError):
+            res.append(0)
     return res
 
 
 def main():
-    # TODO read json data
     serial = []
     autovec = []
     explicitvec = []
@@ -90,6 +94,7 @@ def main():
             explicitvec = np.divide(serial, explicitvec)
             fullvec = np.divide(serial, fullvec)
 
+
             plot(autovec, explicitvec, fullvec, machine, configuration)
 
             serial = []
@@ -102,5 +107,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
