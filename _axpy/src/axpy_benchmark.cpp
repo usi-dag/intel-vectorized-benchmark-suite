@@ -49,7 +49,7 @@ Repetitions(10)->ReportAggregatesOnly(false)->
 DisplayAggregatesOnly(false);
 
 
-BENCHMARK_MAIN();
+//BENCHMARK_MAIN();
 int main(int argc, char** argv)
 {
     ::benchmark::RegisterMemoryManager(mm.get());
