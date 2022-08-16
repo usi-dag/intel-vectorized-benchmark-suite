@@ -9,7 +9,7 @@ ITERATION?= MULTIPLE_ITERATION
 
 APPLICATION_DIRS := _axpy _blackscholes _canneal _jacobi-2d _lavaMD _swaptions _streamcluster _somier _particlefilter _pathfinder
 
-install: axpy blackscholes canneal jacobi-2d lavaMD particlefilter pathfinder somier swaptions streamcluster
+install: axpy blackscholes canneal jacobi-2d lavaMD particlefilter pathfinder somier  streamcluster swaptions
 
 axpy blackscholes canneal jacobi-2d lavaMD  pathfinder somier swaptions streamcluster:
 	echo Compiling $@ with following options: vector size $(SIZE) and vector architecture $(INTEL_INTRINSIC)
