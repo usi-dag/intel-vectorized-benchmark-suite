@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T21:11:19+00:00",
+    "date": "2022-08-16T09:03:22+00:00",
     "host_name": "p620",
     "executable": "./bin/swaptions_explicitvec.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [0.83,0.33,0.13],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.5085236007347702e+00,
-      "cpu_time": 2.5083092006999999e+00,
+      "real_time": 2.5063060157001020e+00,
+      "cpu_time": 2.5060185258000001e+00,
       "time_unit": "s"
     }
   ]

@@ -2,4 +2,4 @@ PARSEC Benchmark Suite
 --------------------------------------------------------------------------------------------
 Benchmark                                                  Time             CPU   Iterations
 --------------------------------------------------------------------------------------------
-BM_swaptions/min_warmup_time:20.000/iterations:10       2.85 s          2.85 s            10
+BM_swaptions/min_warmup_time:20.000/iterations:10       2.86 s          2.86 s            10

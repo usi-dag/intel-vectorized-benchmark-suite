@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2022-08-15T21:10:20+00:00",
+    "date": "2022-08-16T09:02:24+00:00",
     "host_name": "p620",
     "executable": "./bin/swaptions_serial.exe",
     "num_cpus": 16,
@@ -32,7 +32,7 @@
         "num_sharing": 8
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [0.54,0.18,0.06],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,8 +46,8 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 10,
-      "real_time": 2.8512538176029922e+00,
-      "cpu_time": 2.8509927858999999e+00,
+      "real_time": 2.8509029570966957e+00,
+      "cpu_time": 2.8507466115000000e+00,
       "time_unit": "s"
     }
   ]
