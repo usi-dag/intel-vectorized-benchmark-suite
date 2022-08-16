@@ -200,7 +200,8 @@ netlist::netlist(const std::string& filename)
 		std::string name;
 		fin >> name;
 		netlist_elem* present_elem = create_elem_if_necessary(name); // the element that we are presently working on
-		//use create if necessary because it might have been created as a previous elements fanin
+
+      //use create if necessary because it might have been created as a previous elements fanin
 
 		//set the basic info for the element
 		present_elem->item_name = name; //its name
@@ -213,8 +214,10 @@ netlist::netlist(const std::string& filename)
 			if (fanin_name == "END"){
 				break; //last element in fanin
 			} //otherwise, make present elem the fanout of fanin_elem, and vice versa
-			netlist_elem* fanin_elem = create_elem_if_necessary(fanin_name);
-			present_elem->fanin.push_back(fanin_elem);
+
+        netlist_elem* fanin_elem = create_elem_if_necessary(fanin_name);
+
+        present_elem->fanin.push_back(fanin_elem);
 			fanin_elem->fanout.push_back(present_elem);
 #ifdef USE_VECTOR_INTRINSIC
       unsigned long * fanin_location_x = (unsigned long *)&fanin_elem->present_loc.Get()->x;
@@ -232,8 +235,18 @@ netlist::netlist(const std::string& filename)
 		}//while (fin >> fanin_name)
 
 	}//while (!fin.eof())
-		cout << "netlist created. " << i-1 << " elements." << endl;		
+		cout << "netlist created. " << i-1 << " elements." << endl;
+    fin.close();
 }
+
+netlist::~netlist() {
+    _elements.clear();
+    _locations.clear();
+    _elem_names.clear();
+    unused_elem = 0;
+
+}
+
 netlist::netlist() {}
 
 //*****************************************************************************************
@@ -242,7 +255,7 @@ netlist::netlist() {}
 //*****************************************************************************************
 netlist_elem* netlist::create_elem_if_necessary(std::string& name)
 {
-	static unsigned unused_elem = 0;//the first unused element
+	//the first unused element
 	netlist_elem* rval;
 	//check whether we already have a netlist element with that name
 	std::map<std::string, netlist_elem*>::iterator iter = _elem_names.find(name);

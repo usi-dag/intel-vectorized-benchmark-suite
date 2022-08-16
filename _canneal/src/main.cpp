@@ -67,9 +67,9 @@ using namespace std;
 
 void* entry_pt(void*);
 
-annealer_thread a_thread;
+//annealer_thread a_thread;
 annealer_thread * a_thread_ptr;
-netlist my_netlist;
+//netlist my_netlist;
 netlist * my_netlist_ptr;
 
 static void DoSetup(const benchmark::State& state) {
@@ -114,6 +114,8 @@ static void DoSetup(const benchmark::State& state) {
 //argument 4 is the netlist filename
 //    string filename(argv[4]);
     string filename("input/2500000.nets");
+//    string filename("input/10.nets");
+
     cout << "netlist filename: " << filename << endl;
 
 //argument 5 (optional) is the number of temperature steps before termination
@@ -125,12 +127,12 @@ static void DoSetup(const benchmark::State& state) {
 
 
 //now that we've read in the commandline, run the program
-     my_netlist = netlist(filename);
-     my_netlist_ptr = &my_netlist;
+//     my_netlist = netlist(filename);
+     my_netlist_ptr = new netlist(filename);
 
 //    annealer_thread a_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
-    a_thread = annealer_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
-    a_thread_ptr = &a_thread;
+//    a_thread = annealer_thread(&my_netlist,num_threads,swaps_per_temp,start_temp,number_temp_steps);
+    a_thread_ptr = new annealer_thread(my_netlist_ptr,num_threads,swaps_per_temp,start_temp,number_temp_steps);
 
 
 #ifdef ENABLE_PARSEC_HOOKS
@@ -146,20 +148,22 @@ static void DoTeardown(const benchmark::State& state) {
     __parsec_roi_end();
 #endif
 
-    cout << "Final routing is: " << my_netlist.total_routing_cost() << endl;
+    cout << "Final routing is: " << my_netlist_ptr->total_routing_cost() << endl;
 
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_bench_end();
 #endif
 //
-//    delete a_thread_ptr;
-//    delete my_netlist_ptr;
+    delete a_thread_ptr;
+    delete my_netlist_ptr;
 
 }
 
 
 
 static void BM_canneal(benchmark::State& state) {
+
+    std::cout << "BENCHMARK" << std::endl;
     for (auto _ : state) {
 
 #ifdef ENABLE_THREADS
@@ -189,14 +193,14 @@ Teardown(DoTeardown);
 
 
 
-BENCHMARK_MAIN();
-//int main(int argc, char** argv)
-//{
-//    ::benchmark::RegisterMemoryManager(mm.get());
-//    ::benchmark::Initialize(&argc, argv);
-//    ::benchmark::RunSpecifiedBenchmarks();
-//    ::benchmark::RegisterMemoryManager(nullptr);
-//}
+//BENCHMARK_MAIN();
+int main(int argc, char** argv)
+{
+    ::benchmark::RegisterMemoryManager(mm.get());
+    ::benchmark::Initialize(&argc, argv);
+    ::benchmark::RunSpecifiedBenchmarks();
+    ::benchmark::RegisterMemoryManager(nullptr);
+}
 
 
 
