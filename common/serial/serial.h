@@ -380,6 +380,27 @@ inline _MMR_MASK_i64 le_pd_mask(_MMR_f64 a, _MMR_f64 b) {
     return k;
 }
 
+inline int first_true_int64(_MMR_MASK_i64 k) {
+
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k[i]) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+inline int true_count_int64(_MMR_MASK_i64 k) {
+    int res = 0;
+
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k[i]) res++;
+    }
+
+    return res;
+}
+
 
 
 #endif
@@ -409,13 +430,23 @@ inline int first_true_int64(_MMR_MASK_i64 k) {
 inline int true_count_int64(_MMR_MASK_i64 k) {
     return _mm512_reduce_add_epi64(cvt_mask(k));
 }
-#else
+#elif defined(VECTOR_SIZE_256)
+
+inline _MMR_i64 cvt_mask(_MMR_MASK_i64 k) {
+        _MMR_i64 a = _mm256_set1_epi64x(0);
+        _MMR_i64 b = _mm256_set1_epi64x(1);
+        return _mm256_mask_blend_epi64(k, a, b);
+}
+
+
 inline int first_true_int64(_MMR_MASK_i64 k) {
 
+    _MMR_i64 k_ = cvt_mask(k);
+
     for (int i = 0; i < SPECIES_64; i++) {
-//        if (k[i]) {
-//            return i;
-//        }
+        if (k_[i]) {
+            return i;
+        }
     }
 
     return -1;
@@ -423,10 +454,46 @@ inline int first_true_int64(_MMR_MASK_i64 k) {
 
 inline int true_count_int64(_MMR_MASK_i64 k) {
     int res = 0;
+    _MMR_i64 k_ = cvt_mask(k);
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k_[i]) {
+            res++;
+        }
+    }
 
-//    for (int i = 0; i < SPECIES_64; i++) {
-//        if (k[i]) res++;
-//    }
+    return res;
+}
+
+#elif defined(VECTOR_SIZE_128)
+
+inline _MMR_i64 cvt_mask(_MMR_MASK_i64 k) {
+        _MMR_i64 a = _mm_set1_epi64x(0);
+        _MMR_i64 b = _mm_set1_epi64x(1);
+        return _mm_mask_blend_epi64(k, a, b);
+}
+
+
+inline int first_true_int64(_MMR_MASK_i64 k) {
+
+    _MMR_i64 k_ = cvt_mask(k);
+
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k_[i]) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+inline int true_count_int64(_MMR_MASK_i64 k) {
+    int res = 0;
+    _MMR_i64 k_ = cvt_mask(k);
+    for (int i = 0; i < SPECIES_64; i++) {
+        if (k_[i]) {
+            res++;
+        }
+    }
 
     return res;
 }
