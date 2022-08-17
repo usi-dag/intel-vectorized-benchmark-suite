@@ -1,38 +1,38 @@
 {
   "context": {
-    "date": "2022-08-17T15:20:38+02:00",
-    "host_name": "omini",
+    "date": "2022-08-17T14:22:59+00:00",
+    "host_name": "tower",
     "executable": "./bin/streamcluster_autovec.exe",
-    "num_cpus": 12,
-    "mhz_per_cpu": 4650,
-    "cpu_scaling_enabled": true,
+    "num_cpus": 18,
+    "mhz_per_cpu": 1989,
+    "cpu_scaling_enabled": false,
     "caches": [
       {
         "type": "Data",
         "level": 1,
         "size": 32768,
-        "num_sharing": 2
+        "num_sharing": 1
       },
       {
         "type": "Instruction",
         "level": 1,
         "size": 32768,
-        "num_sharing": 2
+        "num_sharing": 1
       },
       {
         "type": "Unified",
         "level": 2,
-        "size": 524288,
-        "num_sharing": 2
+        "size": 1048576,
+        "num_sharing": 1
       },
       {
         "type": "Unified",
         "level": 3,
-        "size": 33554432,
-        "num_sharing": 12
+        "size": 25952256,
+        "num_sharing": 18
       }
     ],
-    "load_avg": [1.3,1.57,1.44],
+    "load_avg": [0.67,0.41,0.17],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -45,9 +45,9 @@
       "repetitions": 10,
       "repetition_index": 0,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.1773238999858222e-02,
-      "cpu_time": 8.1773581250000005e-02,
+      "iterations": 4,
+      "real_time": 1.9778609741479158e-01,
+      "cpu_time": 1.9777580975000000e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 0,
@@ -63,9 +63,9 @@
       "repetitions": 10,
       "repetition_index": 1,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.2206805999931021e-02,
-      "cpu_time": 8.2204948999999999e-02,
+      "iterations": 4,
+      "real_time": 1.9793919334188104e-01,
+      "cpu_time": 1.9792853249999998e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 4211838038184060274,
@@ -81,9 +81,9 @@
       "repetitions": 10,
       "repetition_index": 2,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.3121162125053161e-02,
-      "cpu_time": 8.3120802375000025e-02,
+      "iterations": 4,
+      "real_time": 1.9769492140039802e-01,
+      "cpu_time": 1.9769311249999999e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 0,
@@ -99,9 +99,9 @@
       "repetitions": 10,
       "repetition_index": 3,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.2036423125146030e-02,
-      "cpu_time": 8.2033801500000059e-02,
+      "iterations": 4,
+      "real_time": 1.9776397291570902e-01,
+      "cpu_time": 1.9776155775000004e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
       "max_bytes_used": 4294967297,
@@ -117,12 +117,12 @@
       "repetitions": 10,
       "repetition_index": 4,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.2153766625197022e-02,
-      "cpu_time": 8.2151576624999945e-02,
+      "iterations": 4,
+      "real_time": 1.9764962187036872e-01,
+      "cpu_time": 1.9764773700000005e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
-      "max_bytes_used": 8836072
+      "max_bytes_used": 4418036
     },
     {
       "name": "BM_streamcluster/min_warmup_time:20.000/repeats:10",
@@ -133,12 +133,12 @@
       "repetitions": 10,
       "repetition_index": 5,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.1034138374889153e-02,
-      "cpu_time": 8.1031059374999992e-02,
+      "iterations": 4,
+      "real_time": 1.9779794989153743e-01,
+      "cpu_time": 1.9778854099999998e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
-      "max_bytes_used": 8836072
+      "max_bytes_used": 4418036
     },
     {
       "name": "BM_streamcluster/min_warmup_time:20.000/repeats:10",
@@ -149,12 +149,12 @@
       "repetitions": 10,
       "repetition_index": 6,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.1894841000121232e-02,
-      "cpu_time": 8.1892205000000051e-02,
+      "iterations": 4,
+      "real_time": 1.9779067998751998e-01,
+      "cpu_time": 1.9779025324999999e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
-      "max_bytes_used": 8836072
+      "max_bytes_used": 4418036
     },
     {
       "name": "BM_streamcluster/min_warmup_time:20.000/repeats:10",
@@ -165,12 +165,12 @@
       "repetitions": 10,
       "repetition_index": 7,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.1479644999944867e-02,
-      "cpu_time": 8.1481119750000053e-02,
+      "iterations": 4,
+      "real_time": 1.9781802920624614e-01,
+      "cpu_time": 1.9781591374999996e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
-      "max_bytes_used": 8836072
+      "max_bytes_used": 4418036
     },
     {
       "name": "BM_streamcluster/min_warmup_time:20.000/repeats:10",
@@ -181,12 +181,12 @@
       "repetitions": 10,
       "repetition_index": 8,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.2365684750129731e-02,
-      "cpu_time": 8.2365940499999901e-02,
+      "iterations": 4,
+      "real_time": 1.9769703038036823e-01,
+      "cpu_time": 1.9769506700000017e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
-      "max_bytes_used": 8836072
+      "max_bytes_used": 4418036
     },
     {
       "name": "BM_streamcluster/min_warmup_time:20.000/repeats:10",
@@ -197,12 +197,12 @@
       "repetitions": 10,
       "repetition_index": 9,
       "threads": 1,
-      "iterations": 8,
-      "real_time": 8.1057631000021502e-02,
-      "cpu_time": 8.1059095625000133e-02,
+      "iterations": 4,
+      "real_time": 1.9786480162292719e-01,
+      "cpu_time": 1.9785350400000024e-01,
       "time_unit": "s",
       "allocs_per_iter": 7.9920000000000000e+03,
-      "max_bytes_used": 8836072
+      "max_bytes_used": 4418036
     },
     {
       "name": "BM_streamcluster/min_warmup_time:20.000/repeats:10_mean",
@@ -215,8 +215,8 @@
       "aggregate_name": "mean",
       "aggregate_unit": "time",
       "iterations": 10,
-      "real_time": 8.1912333700029205e-02,
-      "cpu_time": 8.1911413100000025e-02,
+      "real_time": 1.9778022980317475e-01,
+      "cpu_time": 1.9777500285000005e-01,
       "time_unit": "s"
     },
     {
@@ -230,8 +230,8 @@
       "aggregate_name": "median",
       "aggregate_unit": "time",
       "iterations": 10,
-      "real_time": 8.1965632062633631e-02,
-      "cpu_time": 8.1963003250000055e-02,
+      "real_time": 1.9778838870115578e-01,
+      "cpu_time": 1.9778217537499998e-01,
       "time_unit": "s"
     },
     {
@@ -245,8 +245,8 @@
       "aggregate_name": "stddev",
       "aggregate_unit": "time",
       "iterations": 10,
-      "real_time": 6.2679182170404402e-04,
-      "cpu_time": 6.2663342429150669e-04,
+      "real_time": 8.5524926190668691e-05,
+      "cpu_time": 8.2527523895242094e-05,
       "time_unit": "s"
     },
     {
@@ -260,8 +260,8 @@
       "aggregate_name": "cv",
       "aggregate_unit": "percentage",
       "iterations": 10,
-      "real_time": 7.6519834485416520e-03,
-      "cpu_time": 7.6501356841017125e-03,
+      "real_time": 4.3242404094575410e-04,
+      "cpu_time": 4.1727985188216155e-04,
       "time_unit": "s"
     }
   ]
