@@ -1,0 +1,57 @@
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+Problem size = 128, steps = 10
+Set initial speed
+---------------------------------------------------------------------------------------------
+Benchmark                                                   Time             CPU   Iterations
+---------------------------------------------------------------------------------------------
+BM_somier/min_warmup_time:20.000/repeats:10             0.987 s         0.987 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.988 s         0.988 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.988 s         0.988 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.986 s         0.986 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.986 s         0.986 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.990 s         0.990 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.987 s         0.987 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.988 s         0.988 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.987 s         0.987 s             1
+BM_somier/min_warmup_time:20.000/repeats:10             0.985 s         0.985 s             1
+BM_somier/min_warmup_time:20.000/repeats:10_mean        0.987 s         0.987 s            10
+BM_somier/min_warmup_time:20.000/repeats:10_median      0.987 s         0.987 s            10
+BM_somier/min_warmup_time:20.000/repeats:10_stddev      0.001 s         0.001 s            10
+BM_somier/min_warmup_time:20.000/repeats:10_cv           0.13 %          0.13 %            10

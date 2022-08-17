@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------------------------------
+Benchmark                                                         Time             CPU   Iterations
+---------------------------------------------------------------------------------------------------
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.579 s         0.579 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.585 s         0.585 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.584 s         0.584 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.586 s         0.586 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.589 s         0.589 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.581 s         0.581 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.581 s         0.581 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.581 s         0.581 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.581 s         0.581 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.581 s         0.581 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10_mean        0.583 s         0.583 s            10
+BM_blackscholes/min_warmup_time:20.000/repeats:10_median      0.581 s         0.581 s            10
+BM_blackscholes/min_warmup_time:20.000/repeats:10_stddev      0.003 s         0.003 s            10
+BM_blackscholes/min_warmup_time:20.000/repeats:10_cv           0.52 %          0.52 %            10

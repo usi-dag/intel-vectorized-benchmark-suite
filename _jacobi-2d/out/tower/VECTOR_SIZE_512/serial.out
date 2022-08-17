@@ -1,0 +1,17 @@
+-----------------------------------------------------------------------------------------------
+Benchmark                                                     Time             CPU   Iterations
+-----------------------------------------------------------------------------------------------
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.19 s          5.19 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.19 s          5.19 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.19 s          5.19 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.24 s          5.24 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.28 s          5.28 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.29 s          5.29 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.29 s          5.29 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.29 s          5.29 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.29 s          5.29 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10              5.31 s          5.31 s             1
+BM_jacobi2d/min_warmup_time:20.000/repeats:10_mean         5.26 s          5.26 s            10
+BM_jacobi2d/min_warmup_time:20.000/repeats:10_median       5.28 s          5.28 s            10
+BM_jacobi2d/min_warmup_time:20.000/repeats:10_stddev      0.048 s         0.048 s            10
+BM_jacobi2d/min_warmup_time:20.000/repeats:10_cv           0.91 %          0.91 %            10

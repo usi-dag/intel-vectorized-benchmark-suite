@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------------------
+Benchmark                                                 Time             CPU   Iterations
+-------------------------------------------------------------------------------------------
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10             0.141 s         0.141 s             5
+BM_axpy/min_warmup_time:20.000/repeats:10_mean        0.141 s         0.141 s            10
+BM_axpy/min_warmup_time:20.000/repeats:10_median      0.141 s         0.141 s            10
+BM_axpy/min_warmup_time:20.000/repeats:10_stddev      0.000 s         0.000 s            10
+BM_axpy/min_warmup_time:20.000/repeats:10_cv           0.04 %          0.04 %            10

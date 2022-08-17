@@ -1,0 +1,237 @@
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24984e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24732e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24496e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24601e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24861e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24595e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24825e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24626e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24702e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.2493e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24722e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24968e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.2485e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.248e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.25053e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.24834e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.25038e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.25068e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.2488e+10
+PARSEC Benchmark Suite
+Threadcount: 1
+10000 swaps per temperature step
+start temperature: 2000
+netlist filename: input/2500000.nets
+locs created
+locs assigned
+netlist created. 2500000 elements.
+anneealer thread constructor
+BENCHMARK
+Final routing is: 1.25124e+10
+----------------------------------------------------------------------------------------------
+Benchmark                                                    Time             CPU   Iterations
+----------------------------------------------------------------------------------------------
+BM_canneal/min_warmup_time:20.000/repeats:10              2.28 s          2.28 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.28 s          2.28 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.28 s          2.28 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.27 s          2.27 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.27 s          2.27 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.28 s          2.28 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.27 s          2.27 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.27 s          2.27 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.25 s          2.25 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10              2.25 s          2.25 s             1
+BM_canneal/min_warmup_time:20.000/repeats:10_mean         2.27 s          2.27 s            10
+BM_canneal/min_warmup_time:20.000/repeats:10_median       2.27 s          2.27 s            10
+BM_canneal/min_warmup_time:20.000/repeats:10_stddev      0.012 s         0.012 s            10
+BM_canneal/min_warmup_time:20.000/repeats:10_cv           0.54 %          0.54 %            10
