@@ -220,17 +220,23 @@ inline _MMR_f32 _mm256_abs_ps(_MMR_f32 vec) {
 #define _MM_MERGE_f64  		mask_blend_pd
 #define _MM_MERGE_f32 		mask_blend_ps
 #endif
-#ifdef __AVX512F__
-#define _MM_REDSUM_f64  	 _mm256_reduce_pd
-#else
+//#ifdef __AVX512F__
+//#define _MM_REDSUM_f64  	reduce_pd_intrinsic
+//inline double reduce_pd_intrinsic(_MMR_f64 a) {
+//    return _mm256_reduce_pd(a, 0);
+//}
+//#else
 #define _MM_REDSUM_f64  	reduce_pd // _mm256_reduce_add_pd // __builtin_epi_vfredsum_1xf64
-#endif
+//#endif
 
-#ifdef __AVX512F__
-#define _MM_REDSUM_f32  	 _mm256_reduce_ps
-#else
+//#ifdef __AVX512F__
+//#define _MM_REDSUM_f32  reduce_ps_intrinsic
+//inline double reduce_ps_intrinsic(_MMR_f64 a) {
+//    return _mm256_reduce_ps(a, 0);
+//}
+//#else
 #define _MM_REDSUM_f32  	reduce_ps // _mm256_reduce_add_ps // __builtin_epi_vfredsum_2xf32
-#endif
+//#endif
 
 
 // #define _MM_REDSUM_f64_MASK __builtin_epi_vfredsum_1xf64_mask

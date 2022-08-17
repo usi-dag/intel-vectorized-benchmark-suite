@@ -464,6 +464,26 @@ inline int true_count_int64(_MMR_MASK_i64 k) {
     return res;
 }
 
+inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
+
+    int32_t a_[SPECIES_32];
+    memcpy(a_, &a, sizeof(a));
+    _MMR_i64 k_ = cvt_mask(k);
+
+
+    int result = 0;
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        if (k_[i]) {
+            result += a_[i];
+        }
+    }
+
+    return result;
+}
+
+
+
 #elif defined(VECTOR_SIZE_128)
 
 inline _MMR_i64 cvt_mask(_MMR_MASK_i64 k) {
@@ -498,7 +518,44 @@ inline int true_count_int64(_MMR_MASK_i64 k) {
     return res;
 }
 
+inline int mask_reduce_lane_add_epi32(_MMR_MASK_i32 k, _MMR_i32 a) {
+
+    int32_t a_[SPECIES_32];
+    memcpy(a_, &a, sizeof(a));
+    _MMR_i64 k_ = cvt_mask(k);
+
+
+    int result = 0;
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        if (k_[i]) {
+            result += a_[i];
+        }
+    }
+
+    return result;
+}
+
 #endif
+
+inline float reduce_ps(_MMR_f32 a) {
+    float result = 0;
+
+    for (int i = 0; i < SPECIES_32; ++i) {
+        result += a[i];
+    }
+    return result;
+}
+
+inline double reduce_pd(_MMR_f64 a) {
+    int result = 0;
+
+    for (int i = 0; i < SPECIES_64; ++i) {
+        result += a[i];
+    }
+
+    return result;
+}
 #endif
 
 

@@ -1,8 +1,0 @@
-Problem size = 128, steps = 10
-Set initial speed
-Problem size = 128, steps = 10
-Set initial speed
------------------------------------------------------------------------------------------
-Benchmark                                               Time             CPU   Iterations
------------------------------------------------------------------------------------------
-BM_somier/min_warmup_time:20.000/iterations:10       2.11 s          2.11 s            10

@@ -198,8 +198,11 @@ int main(int argc, char** argv)
 {
     ::benchmark::RegisterMemoryManager(mm.get());
     ::benchmark::Initialize(&argc, argv);
+    if (::benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
     ::benchmark::RunSpecifiedBenchmarks();
     ::benchmark::RegisterMemoryManager(nullptr);
+    ::benchmark::Shutdown();
+    return 1;
 }
 
 

@@ -1,6 +1,0 @@
-ENTER VIDEOSEQUENCE
-ENTER VIDEOSEQUENCE
--------------------------------------------------------------------------
-Benchmark                               Time             CPU   Iterations
--------------------------------------------------------------------------
-BM_particlefilter/iterations:1        507 s           507 s             1

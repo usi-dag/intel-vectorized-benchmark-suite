@@ -6,7 +6,6 @@ OUT=out
 MACHINE?=LOCAL
 ITERATION?= MULTIPLE_ITERATION
 
-
 APPLICATION_DIRS := _axpy _blackscholes _canneal _jacobi-2d _lavaMD _swaptions _streamcluster _somier _particlefilter _pathfinder
 
 install: axpy blackscholes canneal jacobi-2d lavaMD particlefilter pathfinder somier  streamcluster swaptions
@@ -45,3 +44,6 @@ particlefilter:
 
 clean:
 	for dir in $(APPLICATION_DIRS) ; do cd $$dir ; make clean ; cd .. ; done
+
+clean_output:
+	for dir in $(APPLICATION_DIRS) ; do cd $$dir ; rm -r out ; cd .. ; done
