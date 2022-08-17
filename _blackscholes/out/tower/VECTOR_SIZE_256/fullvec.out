@@ -1,4 +1,17 @@
------------------------------------------------------------------------------------------------
-Benchmark                                                     Time             CPU   Iterations
------------------------------------------------------------------------------------------------
-BM_blackscholes/min_warmup_time:20.000/iterations:10      0.569 s         0.569 s            10
+---------------------------------------------------------------------------------------------------
+Benchmark                                                         Time             CPU   Iterations
+---------------------------------------------------------------------------------------------------
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.565 s         0.565 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.567 s         0.566 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.566 s         0.566 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.567 s         0.567 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.568 s         0.568 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.565 s         0.565 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.565 s         0.565 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.565 s         0.564 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.565 s         0.565 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10             0.565 s         0.565 s             1
+BM_blackscholes/min_warmup_time:20.000/repeats:10_mean        0.566 s         0.566 s            10
+BM_blackscholes/min_warmup_time:20.000/repeats:10_median      0.565 s         0.565 s            10
+BM_blackscholes/min_warmup_time:20.000/repeats:10_stddev      0.001 s         0.001 s            10
+BM_blackscholes/min_warmup_time:20.000/repeats:10_cv           0.24 %          0.24 %            10

@@ -1,6 +1,37 @@
 ENTER VIDEOSEQUENCE
 ENTER VIDEOSEQUENCE
---------------------------------------------------------------------------
-Benchmark                                Time             CPU   Iterations
---------------------------------------------------------------------------
-BM_particlefilter/iterations:10       6.97 s          6.97 s            10
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+BM_particlefilter/repeats:10              6.89 s          6.89 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10              13.7 s          13.7 s             1
+BM_particlefilter/repeats:10_mean         13.0 s          13.0 s            10
+BM_particlefilter/repeats:10_median       13.7 s          13.7 s            10
+BM_particlefilter/repeats:10_stddev       2.14 s          2.14 s            10
+BM_particlefilter/repeats:10_cv          16.49 %         16.49 %            10
