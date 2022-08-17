@@ -1,6 +1,6 @@
 BASE_DIR := $(shell pwd)
 SIZE?=VECTOR_SIZE_256
-INTEL_INTRINSIC?=mavx2
+INTEL_INTRINSIC?="mavx512f -mavx512vl -mavx512dq"
 BIN=bin
 OUT=out
 MACHINE?=LOCAL
@@ -17,10 +17,10 @@ axpy blackscholes canneal jacobi-2d lavaMD  pathfinder somier swaptions streamcl
 	mkdir $(OUT)/$(MACHINE); \
 	mkdir $(OUT)/$(MACHINE)/$(SIZE); \
 	make start;			\
-	make serial SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC); 		\
-	make autovec SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC); \
-	make explicitvec SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC); \
-	make fullvec SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC); \
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) serial; 		\
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) autovec; \
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) explicitvec; \
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) fullvec; \
 	./$(BIN)/$@_serial.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/serial.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/serial.out; \
 	./$(BIN)/$@_autovec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/autovec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/autovec.out; \
 	./$(BIN)/$@_explicitvec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/explicitvec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/explicitvec.out; \
@@ -33,10 +33,10 @@ particlefilter:
 	mkdir $(OUT)/$(MACHINE); \
 	mkdir $(OUT)/$(MACHINE)/$(SIZE); \
 	make start;			\
-	make serial SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC); 		\
-	make autovec SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC); \
-	make explicitvec SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) ITERATION=$(ITERATION); \
-	make fullvec SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) ITERATION=$(ITERATION); \
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) serial; 		\
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) autovec; \
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) ITERATION=$(ITERATION) explicitvec; \
+	make  SIZE=$(SIZE) INTEL_INTRINSIC=$(INTEL_INTRINSIC) ITERATION=$(ITERATION) fullvec; \
 	./$(BIN)/$@_serial.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/serial.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/serial.out; \
 	./$(BIN)/$@_autovec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/autovec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/autovec.out; \
 	./$(BIN)/$@_explicitvec.exe --benchmark_out=$(OUT)/$(MACHINE)/$(SIZE)/explicitvec.json --benchmark_out_format=json | tee $(OUT)/$(MACHINE)/$(SIZE)/explicitvec.out; \
