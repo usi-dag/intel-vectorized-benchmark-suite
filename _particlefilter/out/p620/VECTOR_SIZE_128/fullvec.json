@@ -1,0 +1,150 @@
+{
+  "context": {
+    "date": "2022-08-17T12:17:52+00:00",
+    "host_name": "p620",
+    "executable": "./bin/particlefilter_fullvec.exe",
+    "num_cpus": 16,
+    "mhz_per_cpu": 1200,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 262144,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 20971520,
+        "num_sharing": 8
+      }
+    ],
+    "load_avg": [1.03,1.02,1],
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_particlefilter/repeats:3",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "iteration",
+      "repetitions": 3,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 7.1517097746953368e+02,
+      "cpu_time": 7.1513878609599999e+02,
+      "time_unit": "s",
+      "allocs_per_iter": 4.0000000000000000e+01,
+      "max_bytes_used": 93824992673808,
+      "total_allocated_bytes": 4120853274116502321,
+      "net_heap_growth": 3126968434214648117
+    },
+    {
+      "name": "BM_particlefilter/repeats:3",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "iteration",
+      "repetitions": 3,
+      "repetition_index": 1,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 1.3961777252666652e+03,
+      "cpu_time": 1.3961150001410003e+03,
+      "time_unit": "s",
+      "allocs_per_iter": 4.0000000000000000e+01,
+      "max_bytes_used": 14812964
+    },
+    {
+      "name": "BM_particlefilter/repeats:3",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "iteration",
+      "repetitions": 3,
+      "repetition_index": 2,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 1.4534447030927986e+03,
+      "cpu_time": 1.4533780466540002e+03,
+      "time_unit": "s",
+      "allocs_per_iter": 4.0000000000000000e+01,
+      "max_bytes_used": 14812964
+    },
+    {
+      "name": "BM_particlefilter/repeats:3_mean",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "aggregate",
+      "repetitions": 3,
+      "threads": 1,
+      "aggregate_name": "mean",
+      "aggregate_unit": "time",
+      "iterations": 3,
+      "real_time": 1.1882644686096658e+03,
+      "cpu_time": 1.1882106109636668e+03,
+      "time_unit": "s"
+    },
+    {
+      "name": "BM_particlefilter/repeats:3_median",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "aggregate",
+      "repetitions": 3,
+      "threads": 1,
+      "aggregate_name": "median",
+      "aggregate_unit": "time",
+      "iterations": 3,
+      "real_time": 1.3961777252666652e+03,
+      "cpu_time": 1.3961150001410003e+03,
+      "time_unit": "s"
+    },
+    {
+      "name": "BM_particlefilter/repeats:3_stddev",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "aggregate",
+      "repetitions": 3,
+      "threads": 1,
+      "aggregate_name": "stddev",
+      "aggregate_unit": "time",
+      "iterations": 3,
+      "real_time": 4.1071031787222455e+02,
+      "cpu_time": 4.1069146294597618e+02,
+      "time_unit": "s"
+    },
+    {
+      "name": "BM_particlefilter/repeats:3_cv",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_particlefilter/repeats:3",
+      "run_type": "aggregate",
+      "repetitions": 3,
+      "threads": 1,
+      "aggregate_name": "cv",
+      "aggregate_unit": "percentage",
+      "iterations": 3,
+      "real_time": 3.4563881082195280e-01,
+      "cpu_time": 3.4563860914597938e-01,
+      "time_unit": "s"
+    }
+  ]
+}

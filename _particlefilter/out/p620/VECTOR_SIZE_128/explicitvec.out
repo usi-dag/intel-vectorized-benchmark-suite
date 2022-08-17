@@ -1,0 +1,16 @@
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+ENTER VIDEOSEQUENCE
+-----------------------------------------------------------------------------
+Benchmark                                   Time             CPU   Iterations
+-----------------------------------------------------------------------------
+BM_particlefilter/repeats:3               831 s           831 s             1
+BM_particlefilter/repeats:3              1628 s          1628 s             1
+BM_particlefilter/repeats:3              1673 s          1673 s             1
+BM_particlefilter/repeats:3_mean         1377 s          1377 s             3
+BM_particlefilter/repeats:3_median       1628 s          1628 s             3
+BM_particlefilter/repeats:3_stddev        474 s           474 s             3
+BM_particlefilter/repeats:3_cv          34.40 %         34.40 %             3
