@@ -21,17 +21,17 @@ cols: 5000 rows: 5000
 -------------------------------------------------------------------------------------------------
 Benchmark                                                       Time             CPU   Iterations
 -------------------------------------------------------------------------------------------------
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.37 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.36 s          4.36 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.37 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.39 s          4.39 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.37 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.37 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.37 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.37 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.37 s          4.36 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10              4.36 s          4.36 s             1
-BM_pathfinder/min_warmup_time:20.000/repeats:10_mean         4.37 s          4.37 s            10
-BM_pathfinder/min_warmup_time:20.000/repeats:10_median       4.37 s          4.37 s            10
-BM_pathfinder/min_warmup_time:20.000/repeats:10_stddev      0.009 s         0.009 s            10
-BM_pathfinder/min_warmup_time:20.000/repeats:10_cv           0.20 %          0.20 %            10
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.45 s          4.45 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.44 s          4.44 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.44 s          4.44 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10              4.44 s          4.44 s             1
+BM_pathfinder/min_warmup_time:20.000/repeats:10_mean         4.45 s          4.45 s            10
+BM_pathfinder/min_warmup_time:20.000/repeats:10_median       4.45 s          4.45 s            10
+BM_pathfinder/min_warmup_time:20.000/repeats:10_stddev      0.003 s         0.003 s            10
+BM_pathfinder/min_warmup_time:20.000/repeats:10_cv           0.06 %          0.06 %            10

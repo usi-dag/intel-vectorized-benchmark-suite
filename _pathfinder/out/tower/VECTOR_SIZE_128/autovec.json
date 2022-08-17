@@ -1,10 +1,10 @@
 {
   "context": {
-    "date": "2022-08-17T12:47:10+00:00",
+    "date": "2022-08-17T13:21:23+00:00",
     "host_name": "tower",
     "executable": "./bin/pathfinder_autovec.exe",
     "num_cpus": 18,
-    "mhz_per_cpu": 1570,
+    "mhz_per_cpu": 2259,
     "cpu_scaling_enabled": false,
     "caches": [
       {
@@ -32,7 +32,7 @@
         "num_sharing": 18
       }
     ],
-    "load_avg": [1,1,1],
+    "load_avg": [0.94,0.43,0.37],
     "library_build_type": "release"
   },
   "benchmarks": [
@@ -46,13 +46,13 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1415493730455637e+00,
-      "cpu_time": 7.1412364630000003e+00,
+      "real_time": 7.1432422567158937e+00,
+      "cpu_time": 7.1429698830000001e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
-      "max_bytes_used": 94133267685392,
-      "total_allocated_bytes": 3473179335508308529,
-      "net_heap_growth": 3126961798338588720
+      "max_bytes_used": 93868315713552,
+      "total_allocated_bytes": 3473181551761963314,
+      "net_heap_growth": 3126959599315333168
     },
     {
       "name": "BM_pathfinder/min_warmup_time:20.000/repeats:10",
@@ -64,8 +64,8 @@
       "repetition_index": 1,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1412522364407778e+00,
-      "cpu_time": 7.1409261699999984e+00,
+      "real_time": 7.1437405720353127e+00,
+      "cpu_time": 7.1435153300000014e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 3472326097238648173,
@@ -82,8 +82,8 @@
       "repetition_index": 2,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1414261851459742e+00,
-      "cpu_time": 7.1411359330000010e+00,
+      "real_time": 7.1436180882155895e+00,
+      "cpu_time": 7.1433550569999973e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -98,8 +98,8 @@
       "repetition_index": 3,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1415137182921171e+00,
-      "cpu_time": 7.1411779410000022e+00,
+      "real_time": 7.1434068363159895e+00,
+      "cpu_time": 7.1431607629999974e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -114,8 +114,8 @@
       "repetition_index": 4,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1415313128381968e+00,
-      "cpu_time": 7.1411558339999957e+00,
+      "real_time": 7.1436376441270113e+00,
+      "cpu_time": 7.1434150240000065e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -130,8 +130,8 @@
       "repetition_index": 5,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1411287039518356e+00,
-      "cpu_time": 7.1408363270000024e+00,
+      "real_time": 7.1440537255257368e+00,
+      "cpu_time": 7.1437607330000077e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -146,8 +146,8 @@
       "repetition_index": 6,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1425085254013538e+00,
-      "cpu_time": 7.1421651400000030e+00,
+      "real_time": 7.1437843237072229e+00,
+      "cpu_time": 7.1435590180000048e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -162,8 +162,8 @@
       "repetition_index": 7,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1424889396876097e+00,
-      "cpu_time": 7.1421411219999982e+00,
+      "real_time": 7.1440770048648119e+00,
+      "cpu_time": 7.1437825969999977e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -178,8 +178,8 @@
       "repetition_index": 8,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1426074113696814e+00,
-      "cpu_time": 7.1422956600000020e+00,
+      "real_time": 7.1434090640395880e+00,
+      "cpu_time": 7.1431023540000069e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -194,8 +194,8 @@
       "repetition_index": 9,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.1425524000078440e+00,
-      "cpu_time": 7.1422086489999970e+00,
+      "real_time": 7.1438839025795460e+00,
+      "cpu_time": 7.1436262400000032e+00,
       "time_unit": "s",
       "allocs_per_iter": 0.0000000000000000e+00,
       "max_bytes_used": 0
@@ -211,8 +211,8 @@
       "aggregate_name": "mean",
       "aggregate_unit": "time",
       "iterations": 10,
-      "real_time": 7.1418558806180954e+00,
-      "cpu_time": 7.1415279239000000e+00,
+      "real_time": 7.1436853418126702e+00,
+      "cpu_time": 7.1434246999000024e+00,
       "time_unit": "s"
     },
     {
@@ -226,8 +226,8 @@
       "aggregate_name": "median",
       "aggregate_unit": "time",
       "iterations": 10,
-      "real_time": 7.1415403429418802e+00,
-      "cpu_time": 7.1412072020000013e+00,
+      "real_time": 7.1436891080811620e+00,
+      "cpu_time": 7.1434651770000048e+00,
       "time_unit": "s"
     },
     {
@@ -241,8 +241,8 @@
       "aggregate_name": "stddev",
       "aggregate_unit": "time",
       "iterations": 10,
-      "real_time": 6.0284725610491093e-04,
-      "cpu_time": 5.9393423728282724e-04,
+      "real_time": 2.7856735195114701e-04,
+      "cpu_time": 2.7753956293910385e-04,
       "time_unit": "s"
     },
     {
@@ -256,8 +256,8 @@
       "aggregate_name": "cv",
       "aggregate_unit": "percentage",
       "iterations": 10,
-      "real_time": 8.4410448233903200e-05,
-      "cpu_time": 8.3166269685112251e-05,
+      "real_time": 3.8994907897281782e-05,
+      "cpu_time": 3.8852451673913352e-05,
       "time_unit": "s"
     }
   ]
