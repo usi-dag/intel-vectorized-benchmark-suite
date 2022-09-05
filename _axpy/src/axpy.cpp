@@ -55,3 +55,5 @@ void init_vector(double *pv, long n, double value)
         pv[i] = value;
     }
 }
+
+int main(void){}
