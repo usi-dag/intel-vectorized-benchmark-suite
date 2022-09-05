@@ -39,7 +39,7 @@ To run a IVBench benchmark, execute the following java command:
 ```shell
 $ make SIZE=<preferred-size> INTEL_INTRINSIC=<vector-flags> <benchmark>
 ```
-where <benchmarks> is the benchmark name that you wish to run, <preferred-size> is the size of the vector and <vector-flags>
+where `<benchmarks>` is the benchmark name that you wish to run, `<preferred-size>` is the size of the vector and `<vector-flags>`
 are the flags to enable the intel vector intrinsic.
 
 Available configurations:
